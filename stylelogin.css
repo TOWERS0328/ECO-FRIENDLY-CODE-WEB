@@ -1,0 +1,134 @@
+/* --- Fondo con imagen --- */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-image: url(Img/danny-greenberg-gyynSFSX6Ww-unsplash.jpg); /* Imagen de fondo */
+  background-size: cover;      /* Que siempre cubra la pantalla */
+  background-position: center; /* Centrada */
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+
+/* --- Contenedor transparente (overlay) --- */
+.overlay {
+  background: rgba(0, 0, 0, 0.6); /* Fondo oscuro translúcido */
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* --- Encabezado --- */
+.header h1 {
+  font-size: 48px;
+  margin: 0;
+  font-weight: bold;
+}
+
+.header .green {
+  color: #00ff55; /* Verde eco */
+}
+
+.header h2 {
+  margin: 10px 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* --- Caja del login --- */
+.login-box h3 {
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #ddd;
+}
+
+/* --- Labels e inputs --- */
+label {
+  display: block;
+  text-align: left;
+  margin: 10px 0 5px;
+  font-weight: bold;
+  color: #fff;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  outline: none;
+  background: transparent;
+  color: white;
+  font-size: 14px;
+}
+
+/* --- Botón --- */
+.btn {
+  width: 100%;
+  padding: 12px;
+  margin: 15px 0;
+  border: none;
+  border-radius: 6px;
+  background-color: #00ff55;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background-color: #00cc44;
+  color: white;
+}
+
+/* --- Texto pequeño abajo --- */
+.text-small {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #ddd;
+}
+
+.text-small a {
+  color: #00ff55;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.text-small a:hover {
+  text-decoration: underline;
+}
+
+/* --- 📱 RESPONSIVO --- */
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 36px;
+  }
+  .header h2 {
+    font-size: 16px;
+  }
+  .btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 28px;
+  }
+  .overlay {
+    padding: 20px;
+  }
+  input {
+    font-size: 12px;
+  }
+}

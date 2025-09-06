@@ -1,0 +1,77 @@
+/* --- Reset básico --- */
+body, h2, form, label, input, select, button {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* --- Fondo con imagen --- */
+body.bg-login {
+  background: url(Img/danny-greenberg-gyynSFSX6Ww-unsplash.jpg) no-repeat center center/cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- Caja del formulario --- */
+.form-box {
+  background: rgba(0, 0, 0, 0.65); /* Fondo semi-transparente */
+  padding: 30px;
+  border-radius: 12px;
+  width: 350px;
+  color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+/* --- Título --- */
+.form-box h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #00ff55;
+}
+
+/* --- Formulario --- */
+form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+/* --- Labels --- */
+label {
+  margin-top: 12px;
+  font-weight: bold;
+  color: #ddd;
+}
+
+/* --- Inputs y Select --- */
+input, select {
+  margin-top: 5px;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  outline: none;
+  font-size: 14px;
+}
+
+/* --- Botón --- */
+.btn {
+  margin-top: 20px;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  background: #00ff55;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn:hover {
+  background: #00cc44;
+}

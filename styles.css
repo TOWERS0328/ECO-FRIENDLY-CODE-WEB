@@ -1,0 +1,84 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+  body {
+      margin: 0;
+      padding: 0;
+      background-image: url(Img/javier-miranda-NOBHX-kLLvc-unsplash.jpg); /* Cambia "fondo.png" por el nombre de tu archivo */
+      background-size: cover; /* Ajusta la imagen para cubrir toda la pantalla */
+      background-position: center; /* Centra la imagen */
+      background-repeat: no-repeat; /* Evita que se repita */
+      font-family: Arial, sans-serif;
+      color: white; /* Para que el texto sea visible */
+    }
+
+/* Header */
+header {
+  padding: 20px;
+}
+
+.logo h1 {
+  font-size: 40px;
+  font-weight: bold;
+  color: #00ff40;
+  line-height: 1.1;
+}
+
+.logo p {
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+}
+
+/* Hero section */
+.hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-text {
+  font-size: 60px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+
+/* Botón principal */
+.btn {
+  background-color: #00ff40;
+  border: none;
+  padding: 12px 40px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background-color: #00cc33;
+}
+
+/* Texto de registro */
+.signup {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.signup a {
+  color: #00ff40;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.signup a:hover {
+  text-decoration: underline;
+}
