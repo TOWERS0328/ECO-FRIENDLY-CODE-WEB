@@ -1,0 +1,102 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-image: url("Img/pramod-kumar-sharma-fVmLFpysIPM-unsplash.jpg");
+  background-size: cover;        /* que siempre cubra */
+  background-position: center;   /* centrada */
+  background-repeat: no-repeat;  /* no se repite */
+  min-height: 100vh;             /* asegura que cubra toda la pantalla */
+  color: white;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 50px;
+  min-height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* oscurece para mejor contraste */
+}
+
+.info-box {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 30px;
+  border-radius: 15px;
+  width: 400px;
+}
+
+.info-box .title {
+  color: #00ff00; /* Verde fosforescente */
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+input, select {
+  padding: 10px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #45a049;
+}
+
+.points-box {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 30px;
+  border-radius: 15px;
+  width: 400px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.points-box label {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.points-box input {
+  margin-top: 5px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+.points-box .subtitle {
+  margin-top: 25px;
+  font-size: 22px;        /* más grande */
+  font-weight: bold;      /* más fuerte */
+  font-family: 'Georgia', 'Times New Roman', serif; /* otra letra elegante */
+  color: #00ff2f;         /* color amarillo para resaltar */
+  text-align: center;     /* centrado debajo del input */
+  text-transform: uppercase; /* todo en mayúsculas */
+  letter-spacing: 1px;    /* un poco de espacio entre letras */
+}
+
