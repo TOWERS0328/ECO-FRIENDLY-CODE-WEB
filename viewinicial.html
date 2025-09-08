@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eco Friendly Code</title>
+  <link rel="stylesheet" href="styleviewinicial.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Texto lado izquierdo -->
+    <div class="left">
+      <h1 class="main-title"><span class="eco">ECO</span> <span class="friendly">FRIENDLY</span></h1>
+      <h3 class="subtitle">CODE</h3>
+    </div>
+
+    <!-- Perfil lado derecho dentro del recuadro -->
+    <div class="form-box">
+      <div class="profile-img">
+        <img id="avatar" src="Img/9434619.jpg" alt="Profile Picture">
+      </div>
+
+      <!-- Botón para cambiar imagen -->
+      <label for="fileInput" class="upload-btn">Cambiar Imagen</label>
+      <input type="file" id="fileInput" accept="image/*" style="display: none;">
+
+      <h3 class="username">Name</h3>
+      <button class="btn">Profile</button>
+      
+      <button class="btn">Recycle</button>
+      <button class="btn">Redeem Points</button>
+    </div>
+  </div>
+
+  <script>
+    const fileInput = document.getElementById("fileInput");
+    const avatar = document.getElementById("avatar");
+
+    fileInput.addEventListener("change", (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          avatar.src = e.target.result; // reemplaza la imagen del avatar
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+</body>
+</html>
