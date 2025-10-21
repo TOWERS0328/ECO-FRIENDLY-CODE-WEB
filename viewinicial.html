@@ -1,38 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Eco Friendly Code</title>
+  <title>Eco Friendly Code - Perfil</title>
   <link rel="stylesheet" href="styleviewinicial.css">
 </head>
 <body>
-  <div class="container">
-    <!-- Texto lado izquierdo -->
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">
+      <h1><span>ECO</span> FRIENDLY</h1>
+      <p>CODE</p>
+    </div>
+   
+  </header>
+
+  <!-- Contenido principal -->
+  <main class="profile-container">
     <div class="left">
       <h1 class="main-title"><span class="eco">ECO</span> <span class="friendly">FRIENDLY</span></h1>
       <h3 class="subtitle">CODE</h3>
+      
     </div>
 
-    <!-- Perfil lado derecho dentro del recuadro -->
     <div class="form-box">
       <div class="profile-img">
         <img id="avatar" src="Img/9434619.jpg" alt="Profile Picture">
       </div>
 
-      <!-- Botón para cambiar imagen -->
       <label for="fileInput" class="upload-btn">Cambiar Imagen</label>
-      <input type="file" id="fileInput" accept="image/*" style="display: none;">
+      <input type="file" id="fileInput" accept="image/*" style="display:none;">
 
-      <h3 class="username">Name</h3>
-      <button class="btn">Profile</button>
-      
-      <button class="btn">Recycle</button>
-      <button class="btn">Redeem Points</button>
+      <!-- Aquí se llenará el nombre del usuario cuando inicie sesión -->
+      <h3 class="username" id="username"></h3>
+
+      <div class="btn-group">
+        <a href="information.html" class="btn">Perfil</a>
+        <button class="btn">Reciclar</button>
+        <button class="btn">Canjear Puntos</button>
+      </div>
     </div>
-  </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Eco Friendly Code. Todos los derechos reservados.</p>
+  </footer>
 
   <script>
+    // Permitir cambiar la imagen del perfil
     const fileInput = document.getElementById("fileInput");
     const avatar = document.getElementById("avatar");
 
@@ -41,11 +58,14 @@
       if (file) {
         const reader = new FileReader();
         reader.onload = (e) => {
-          avatar.src = e.target.result; // reemplaza la imagen del avatar
+          avatar.src = e.target.result;
         };
         reader.readAsDataURL(file);
       }
     });
+
+    // Ejemplo: cuando el usuario inicie sesión, puedes hacer algo como:
+    // document.getElementById("username").textContent = nombreUsuario;
   </script>
 </body>
 </html>
