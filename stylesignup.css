@@ -1,77 +1,172 @@
-/* --- Reset básico --- */
-body, h2, form, label, input, select, button {
+/* Reset */
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
 }
 
-/* --- Fondo con imagen --- */
-body.bg-login {
-  background: url(Img/danny-greenberg-gyynSFSX6Ww-unsplash.jpg) no-repeat center center/cover;
-  height: 100vh;
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #fff;
+  color: #333;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.logo h1 {
+  color: #00b050;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.logo span {
+  color: #333;
+}
+
+.logo p {
+  font-size: 14px;
+  color: #555;
+  font-weight: bold;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+nav a:hover, nav a.active {
+  color: #00b050;
+}
+
+/* Contenedor principal */
+.signup-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 80vh;
+  background-color: #f8f8f8;
+  padding: 20px;
 }
 
-/* --- Caja del formulario --- */
+/* Caja del formulario */
 .form-box {
-  background: rgba(0, 0, 0, 0.65); /* Fondo semi-transparente */
-  padding: 30px;
-  border-radius: 12px;
-  width: 350px;
-  color: #fff;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  background-color: white;
+  padding: 40px 50px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 500px;
   text-align: center;
+  animation: fadeIn 0.8s ease-in-out;
 }
 
-/* --- Título --- */
 .form-box h2 {
-  margin-bottom: 20px;
-  font-size: 22px;
-  font-weight: bold;
-  color: #00ff55;
+  color: #00b050;
+  margin-bottom: 10px;
 }
 
-/* --- Formulario --- */
-form {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
+.subtitle {
+  font-size: 15px;
+  color: #666;
+  margin-bottom: 25px;
 }
 
-/* --- Labels --- */
+/* Labels e inputs */
 label {
-  margin-top: 12px;
+  display: block;
+  text-align: left;
   font-weight: bold;
-  color: #ddd;
+  margin-bottom: 5px;
+  color: #333;
 }
 
-/* --- Inputs y Select --- */
 input, select {
-  margin-top: 5px;
+  width: 100%;
   padding: 10px;
-  border: none;
-  border-radius: 6px;
+  margin-bottom: 18px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
   outline: none;
   font-size: 14px;
+  transition: border 0.3s;
 }
 
-/* --- Botón --- */
+input:focus, select:focus {
+  border-color: #00b050;
+}
+
+/* Botón */
 .btn {
-  margin-top: 20px;
+  width: 100%;
+  background-color: #00b050;
+  color: white;
   padding: 12px;
   border: none;
-  border-radius: 6px;
-  background: #00ff55;
-  color: black;
-  font-size: 16px;
+  border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: 0.3s;
+  margin-top: 5px;
 }
 
 .btn:hover {
-  background: #00cc44;
+  background-color: #00913d;
+}
+
+/* Texto inferior */
+.text-small {
+  font-size: 14px;
+  color: #555;
+  margin-top: 20px;
+}
+
+.text-small a {
+  color: #00b050;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.text-small a:hover {
+  text-decoration: underline;
+}
+
+/* Footer */
+footer {
+  background-color: #f8f8f8;
+  text-align: center;
+  padding: 15px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Animación */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+  .form-box {
+    padding: 25px;
+  }
+  .form-box h2 {
+    font-size: 22px;
+  }
 }

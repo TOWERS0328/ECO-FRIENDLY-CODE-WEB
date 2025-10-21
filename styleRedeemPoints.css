@@ -1,0 +1,135 @@
+body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+      background: url(Img/marija-zaric-BHr_7Np-tDQ-unsplash.jpg) no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    header {
+      display: flex;
+    
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background: rgba(0,0,0,0.5);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      color: #00ff44;
+    }
+
+    header h1 span {
+      display: block;
+    }
+
+    header .title {
+      font-size: 2rem;
+      position: center;
+      font-weight: bold;
+      color: #00ff44;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      padding: 40px 60px;
+    }
+
+    /* izquierda */
+    .left {
+      width: 60%;
+    }
+
+    .left h2 {
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 8px;
+      padding: 8px;
+      margin-bottom: 20px;
+    }
+
+    .search-box input {
+      border: none;
+      outline: none;
+      width: 100%;
+      padding: 8px;
+      font-size: 1rem;
+    }
+
+    .search-box i {
+      color: gray;
+      margin-left: 8px;
+    }
+
+    .list {
+      background: rgba(0,0,0,0.6);
+      border-radius: 8px;
+      padding: 15px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .list ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .list li {
+      padding: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .list input[type="checkbox"] {
+      transform: scale(1.2);
+    }
+
+    /* derecha */
+    .right {
+      width: 30%;
+      background: rgba(0,0,0,0.6);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .right label {
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .right input {
+      width: 100%;
+      padding: 8px;
+      margin: 10px 0 20px;
+      border: none;
+      border-radius: 6px;
+    }
+
+    .redeem-btn {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      background: #00ff44;
+      color: black;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .redeem-btn:hover {
+      background: #00cc33;
+    }

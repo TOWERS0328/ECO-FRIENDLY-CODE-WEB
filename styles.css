@@ -1,87 +1,235 @@
-/* Reset */
+/* 🌿 RESET GENERAL */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
- body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh; /* ocupa toda la altura de la pantalla */
-  background-image: url("Img/javier-miranda-NOBHX-kLLvc-unsplash.jpg");
-  background-size: cover;       /* ✅ Opción 1: llena la pantalla (puede recortar un poco) */
-  background-position: center center; 
-  background-repeat: no-repeat;
-  background-color: #000; /* fondo de apoyo si sobra espacio */
-  font-family: Arial, sans-serif;
-  color: white; /* para que el texto sea visible */
+body {
+  font-family: 'Poppins', 'Arial', sans-serif;
+  background-color: #ffffff;
+  color: #333;
+  scroll-behavior: smooth;
 }
 
-
-/* Header */
-header {
-  padding: 20px;
+/* 🌎 Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+  background: linear-gradient(90deg, #eaffea 0%, #ffffff 100%);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: background 0.3s ease;
 }
 
 .logo h1 {
-  font-size: 40px;
-  font-weight: bold;
-  color: #00ff40;
-  line-height: 1.1;
+  color: #00b050;
+  font-size: 30px;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.logo span {
+  color: #1e1e1e;
 }
 
 .logo p {
   font-size: 14px;
-  font-weight: bold;
-  color: white;
+  color: #666;
+  font-weight: 600;
+  margin-top: 5px;
 }
 
-/* Hero section */
-.hero {
-  flex: 1;
+nav ul {
+  list-style: none;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  gap: 25px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #00b050;
+  transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+nav a:hover {
+  color: #00b050;
+}
+
+/* 🔐 Botones de sesión */
+.session-links {
+  display: flex;
+  gap: 15px;
+}
+
+.btn-login, .btn-register {
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 2px solid #00b050;
+}
+
+.btn-login {
+  color: #00b050;
+  background-color: #fff;
+}
+
+.btn-login:hover {
+  background-color: #00b050;
+  color: #fff;
+  box-shadow: 0 3px 8px rgba(0, 176, 80, 0.3);
+}
+
+.btn-register {
+  background-color: #00b050;
+  color: #fff;
+}
+
+.btn-register:hover {
+  background-color: #00913d;
+  box-shadow: 0 3px 8px rgba(0, 145, 61, 0.3);
+}
+
+/* 🌤️ Hero */
+.hero {
+  display: flex;
   align-items: center;
-  text-align: center;
+  justify-content: space-between;
+  padding: 80px 100px;
+  background: linear-gradient(180deg, #f8fff8 0%, #ffffff 100%);
+  gap: 50px;
 }
 
 .hero-text {
-  font-size: 60px;
-  font-weight: bold;
-  margin-bottom: 30px;
+  flex: 1;
+  max-width: 45%;
+  animation: fadeIn 1s ease-in;
 }
 
+.hero-text h2 {
+  font-size: 56px;
+  color: #00b050;
+  margin-bottom: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+}
 
-/* Botón principal */
-.btn {
-  background-color: #00ff40;
-  border: none;
-  padding: 12px 40px;
+.hero-text p {
   font-size: 18px;
-  font-weight: bold;
-  border-radius: 5px;
+  margin-bottom: 35px;
+  color: #555;
+}
+
+.btn {
+  background-color: #00b050;
+  color: white;
+  padding: 14px 38px;
+  border: none;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 600;
   cursor: pointer;
-  transition: 0.3s;
-}
-
-.btn:hover {
-  background-color: #00cc33;
-}
-
-/* Texto de registro */
-.signup {
-  margin-top: 15px;
-  font-size: 14px;
-}
-
-.signup a {
-  color: #00ff40;
-  font-weight: bold;
+  transition: 0.3s ease;
   text-decoration: none;
 }
 
-.signup a:hover {
-  text-decoration: underline;
+.btn:hover {
+  background-color: #00913d;
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 176, 80, 0.3);
+}
+
+.hero-image img {
+  width: 480px;
+  border-radius: 20px;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+}
+
+.hero-image img:hover {
+  transform: scale(1.02);
+}
+
+/* 🧩 Sección informativa */
+.info-section {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 80px 100px;
+  background-color: #ffffff;
+}
+
+.info-card {
+  text-align: center;
+  width: 320px;
+  border-radius: 15px;
+  background: #f8fff8;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.info-card img {
+  width: 100%;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.info-card h3 {
+  color: #00b050;
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.info-card p {
+  font-size: 15px;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* 🌱 Footer */
+footer {
+  background-color: #f3f3f3;
+  text-align: center;
+  padding: 25px;
+  font-size: 15px;
+  color: #555;
+  border-top: 1px solid #ddd;
+}
+
+/* ✨ Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
