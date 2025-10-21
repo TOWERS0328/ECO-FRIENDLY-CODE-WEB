@@ -1,54 +1,107 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eco Friendly Code</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Header con el logo -->
+  <!-- Navbar -->
   <header class="navbar">
     <div class="logo">
-      <h1>ECO <span>FRIENDLY</span></h1>
+      <h1>ECO<span>FRIENDLY</span></h1>
       <p>CODE</p>
     </div>
-   
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="#">Cómo Funciona</a></li>
+        <li><a href="#">Recompensas</a></li>
+        <li><a href="login.html">Iniciar Sesión</a></li>
+      </ul>
+    </nav>
+    <a href="signup.html" class="register-btn">Regístrate</a>
   </header>
 
-  <!-- Sección principal -->
-  <main class="hero">
-    <div class="hero-text">
-      <h2>Reduce. Reutiliza. Recicla.</h2>
-      <p>Transformemos juntos el futuro con cada pequeño acto de reciclaje.</p>
-      <a href="login.html" class="btn">Comenzar</a>
-    </div>
-    <div class="hero-image">
-      <img src="Img/noah-buscher-x8ZStukS2PM-unsplash.jpg" alt="Reciclaje" />
-    </div>
-  </main>
-
-  <!-- Sección de imágenes informativas -->
-  <section class="info-section">
-    <div class="info-card">
-      <img src="Img/killari-hotaru-aK859Jaekls-unsplash.jpg" alt="Reciclaje de plástico">
-      <h3>Recicla Plástico</h3>
-      <p>Aprende cómo separar correctamente los envases de plástico.</p>
-    </div>
-    <div class="info-card">
-      <img src="Img/meizhi-lang-SXfwpk1L8pg-unsplash.jpg" alt="Reciclaje de vidrio">
-      <h3>Recicla Vidrio</h3>
-      <p>Conoce el impacto positivo del reciclaje de vidrio en el medio ambiente.</p>
-    </div>
-    <div class="info-card">
-      <img src="Img/annie-spratt-gyk4E3NTNxU-unsplash.jpg" alt="Reciclaje de papel">
-      <h3>Recicla Papel</h3>
-      <p>Reduce la tala de árboles reciclando tus papeles y cartones usados.</p>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Recicla, Gana Puntos y Cuida el Planeta</h2>
+      <p>Únete a nuestra comunidad y sé recompensado por cada acción ecológica que realices.</p>
+      <a href="login.html" class="btn-primary">Comienza a Reciclar Ahora</a>
     </div>
   </section>
 
+  <!-- Cómo Funciona -->
+  <section class="steps">
+    <h2>Cómo Funciona</h2>
+    <div class="step-container">
+      <div class="step">
+        <img src="Img/icon-register.png" alt="Registra">
+        <h3>Registra</h3>
+        <p>Usa nuestra plataforma para registrar los residuos que reciclas.</p>
+      </div>
+      <div class="step">
+        <img src="Img/icon-points.png" alt="Acumula">
+        <h3>Acumula</h3>
+        <p>Gana puntos por cada residuo reciclado a través de nuestro sistema.</p>
+      </div>
+      <div class="step">
+        <img src="Img/icon-redeem.png" alt="Canjea">
+        <h3>Canjea</h3>
+        <p>Utiliza tus puntos para obtener recompensas ecológicas y descuentos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Beneficios -->
+  <section class="benefits">
+    <h2>Beneficios de Reciclar</h2>
+    <div class="benefit-container">
+      <div class="benefit-card">
+        <img src="Img/mar.jpg" alt="Medio ambiente">
+        <h3>Cuida el Medio Ambiente</h3>
+        <p>Reduce la contaminación y conserva los recursos naturales.</p>
+      </div>
+      <div class="benefit-card">
+        <img src="Img/jardin.jpg" alt="Comunidad">
+        <h3>Apoya tu Comunidad</h3>
+        <p>Genera empleos y apoya a negocios locales sostenibles.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recompensas -->
+  <section class="rewards">
+    <h2>Recompensas Destacadas</h2>
+    <div class="reward-container">
+      <div class="reward-card">
+        <img src="Img/tienda.jpg" alt="Descuento">
+        <h3>Descuento en Tienda Orgánica</h3>
+        <p><span>1500</span> Puntos</p>
+      </div>
+      <div class="reward-card">
+        <img src="Img/botella.jpg" alt="Botella">
+        <h3>Botella de Agua Reutilizable</h3>
+        <p><span>2000</span> Puntos</p>
+      </div>
+      <div class="reward-card">
+        <img src="Img/planta.jpg" alt="Reforestación">
+        <h3>Donación a Reforestación</h3>
+        <p><span>1000</span> Puntos</p>
+      </div>
+    </div>
+    <a href="#" class="btn-secondary">Ver Todas las Recompensas</a>
+  </section>
+
+  <!-- Footer -->
   <footer>
     <p>© 2025 EcoFriendly Code - Cuidemos el planeta juntos 🌎</p>
+    <div class="footer-links">
+      <a href="#">Términos</a> | <a href="#">Privacidad</a> | <a href="#">Contacto</a>
+    </div>
   </footer>
 </body>
 </html>

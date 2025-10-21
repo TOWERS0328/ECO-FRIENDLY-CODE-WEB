@@ -7,73 +7,129 @@
   <link rel="stylesheet" href="styleinformation.css">
 </head>
 <body>
-  <!-- Navbar -->
-  <header class="navbar">
-    <div class="logo">
-      <h1><span>ECO</span> FRIENDLY</h1>
-      <p>CODE</p>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="viewinicial.html">Inicio</a></li>
-        <li><a href="information.html" class="active">Información</a></li>
-        <li><a href="recycle.html">Reciclar</a></li>
-        <li><a href="redeem.html">Canjear Puntos</a></li>
-      </ul>
-    </nav>
-  </header>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">
+        <h2><span>ECO</span> FRIENDLY</h2>
+        <p>CODE</p>
+      </div>
 
-  <!-- Contenido principal -->
-  <div class="container">
-    <!-- Formulario de información -->
-    <div class="info-box">
-      <h2 class="title">INFORMACIÓN</h2>
-      <form>
-        <label for="cedula">Cédula</label>
-        <input type="text" id="cedula" placeholder="Ingresa tu cédula">
+      <div class="user-info">
+        <img src="Img/9434619.jpg" alt="Usuario" class="avatar" id="user-avatar">
+        <h3 class="username">Ana López</h3>
+        <p class="email">ana.lopez@email.com</p>
+        <button class="change-photo-btn" id="change-photo-btn">Cambiar foto</button>
+        <input type="file" id="file-input" accept="image/*" style="display: none;">
+      </div>
 
-        <label for="id">ID</label>
-        <input type="text" id="id" placeholder="Ingresa tu ID">
+      <nav class="menu">
+        <a href="viewinicial.html">📊 Panel</a>
+        <a href="information.html" class="active">👤 Información</a>
+        <a href="recycle.html">♻️ Reciclar</a>
+        <a href="redeem.html">🎁 Canjear Puntos</a>
+      </nav>
+    </aside>
 
-        <label for="name">Nombre</label>
-        <input type="text" id="name" placeholder="Ingresa tu nombre">
+    <!-- Contenido principal -->
+    <main class="main-content">
+      <header class="top-bar">
+        <h2>Información del Usuario</h2>
+      </header>
 
-        <label for="lastname">Apellido</label>
-        <input type="text" id="lastname" placeholder="Ingresa tu apellido">
+      <section class="info-container">
+        <div class="info-box">
+          <form>
+            <div class="form-group">
+              <label for="cedula">Cédula</label>
+              <input type="text" id="cedula" placeholder="Ingresa tu cédula">
+            </div>
 
-        <label for="career">Carrera</label>
-        <select id="career" name="career" required>
-          <option value="">Selecciona tu carrera</option>
-          <option value="bilingual_english">Licenciatura en Bilingüismo con énfasis en Inglés</option>
-          <option value="administration">Administración de Empresas</option>
-          <option value="tourism_management">Administración de Empresas Turísticas y Hoteleras</option>
-          <option value="public_accounting">Contaduría Pública</option>
-          <option value="law">Derecho</option>
-          <option value="systems_engineering">Ingeniería de Sistemas</option>
-          <option value="industrial_engineering">Ingeniería Industrial</option>
-          <option value="tech_tourism_services">Tecnología en Gestión de Servicios Turísticos y Hoteleros</option>
-        </select>
+            <div class="form-group">
+              <label for="id">ID</label>
+              <input type="text" id="id" placeholder="Ingresa tu ID">
+            </div>
 
-        <label for="email">Correo Electrónico</label>
-        <input type="email" id="email" placeholder="Ingresa tu correo electrónico">
+            <div class="form-group">
+              <label for="name">Nombre</label>
+              <input type="text" id="name" placeholder="Ingresa tu nombre">
+            </div>
 
-        <label for="password">Contraseña</label>
-        <input type="password" id="password" placeholder="Ingresa tu contraseña">
+            <div class="form-group">
+              <label for="lastname">Apellido</label>
+              <input type="text" id="lastname" placeholder="Ingresa tu apellido">
+            </div>
 
-        <button type="submit">Modificar</button>
-      </form>
-    </div>
+            <div class="form-group">
+              <label for="career">Carrera</label>
+              <select id="career" required>
+                <option value="">Selecciona tu carrera</option>
+                <option value="bilingual_english">Licenciatura en Bilingüismo con énfasis en Inglés</option>
+                <option value="administration">Administración de Empresas</option>
+                <option value="tourism_management">Administración de Empresas Turísticas y Hoteleras</option>
+                <option value="public_accounting">Contaduría Pública</option>
+                <option value="law">Derecho</option>
+                <option value="systems_engineering">Ingeniería de Sistemas</option>
+                <option value="industrial_engineering">Ingeniería Industrial</option>
+                <option value="tech_tourism_services">Tecnología en Gestión de Servicios Turísticos y Hoteleros</option>
+              </select>
+            </div>
 
-    <!-- Caja de puntos -->
-    <div class="points-box">
-      <label for="points">TUS PUNTOS</label>
-      <input type="text" id="points" placeholder="0" readonly>
-      <p class="subtitle">¡ACUMULA MÁS PUNTOS Y CANJEA PREMIOS!</p>
-    </div>
+            <div class="form-group">
+              <label for="email">Correo Electrónico</label>
+              <input type="email" id="email" placeholder="Ingresa tu correo electrónico">
+            </div>
+
+            <div class="form-group">
+              <label for="password">Contraseña</label>
+              <input type="password" id="password" placeholder="Ingresa tu contraseña">
+            </div>
+
+            <button type="submit" class="btn green">Modificar</button>
+          </form>
+        </div>
+
+        <div class="points-box">
+          <h3>Tus Puntos</h3>
+          <p class="points">3,450</p>
+          <p class="subtitle">¡Acumula más puntos y canjea premios!</p>
+        </div>
+      </section>
+    </main>
   </div>
 
   <footer>
-    <p>© 2025 Eco Friendly Code. Todos los derechos reservados.</p>
+    © 2025 Eco Friendly Code. Todos los derechos reservados.
   </footer>
+
+  <script>
+    const avatar = document.getElementById('user-avatar');
+    const fileInput = document.getElementById('file-input');
+    const changeBtn = document.getElementById('change-photo-btn');
+
+    // Permite cambiar imagen haciendo clic en el botón o en la foto
+    avatar.addEventListener('click', () => fileInput.click());
+    changeBtn.addEventListener('click', () => fileInput.click());
+
+    // Actualiza la imagen de perfil
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          avatar.src = reader.result;
+          // Guardar la imagen en localStorage para que no se pierda al recargar
+          localStorage.setItem('userAvatar', reader.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Cargar la imagen guardada al iniciar la página
+    window.addEventListener('load', () => {
+      const savedImage = localStorage.getItem('userAvatar');
+      if (savedImage) avatar.src = savedImage;
+    });
+  </script>
 </body>
 </html>

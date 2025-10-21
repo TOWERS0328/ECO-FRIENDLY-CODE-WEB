@@ -1,55 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styleRedeemPoints.css">
-  <title>Eco Friendly Code - Redeem Points</title>
-  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eco Friendly Code - Canjear Puntos</title>
+  <link rel="stylesheet" href="styleRedeemPoints.css" />
 </head>
 <body>
-  <header>
-    <h1>
-      ECO <span>FRIENDLY</span> CODE
-    </h1>
-    <div class="title">Redeem Points</div>
+  <header class="navbar">
+    <div class="logo">🌿 <strong>ECO</strong> FRIENDLY CODE</div>
+    <nav>
+      <a href="information.html">Mi Perfil</a>
+      <a href="comoReciclar.html">Cómo Reciclar</a>
+      <div class="points">💚 2,500 pts</div>
+      <div class="cart">🛒 <span id="cart-count">0</span></div>
+    </nav>
   </header>
 
-  <div class="container">
-    <!-- IZQUIERDA -->
-    <div class="left">
-      <h2>Look for your prize:</h2>
-      <div class="search-box">
-        <input type="text" placeholder="search material">
-        <i>🔍</i>
-      </div>
-      <div class="list">
-        <ul>
-          <li>List Item <input type="checkbox"></li>
-          <li>List Item <input type="checkbox"></li>
-          <li>List Item <input type="checkbox"></li>
-          <li>List Item <input type="checkbox"></li>
-          <li>List Item <input type="checkbox"></li>
-          <li>List Item <input type="checkbox"></li>
-          <li>List Item <input type="checkbox"></li>
-          <li>List Item <input type="checkbox"></li>
-        </ul>
-      </div>
+  <section class="catalogo">
+    <h1>Catálogo de Premios y Recompensas</h1>
+    <p>Usa tus puntos ganados reciclando para canjear estos productos.</p>
+
+    <div class="search-bar">
+      <input type="text" placeholder="Buscar premio por nombre..." />
+      <button>🔍</button>
     </div>
 
-    <!-- DERECHA -->
-    <div class="right">
-      <label>Your Points:</label>
-      <input type="text" placeholder="0">
+    <div class="productos">
+      <!-- Producto 1 -->
+      <div class="card">
+        <img src="Img/snack.jpg" alt="Snack saludable" />
+        <h3>Snack Saludable</h3>
+        <p>Delicioso mix de frutas deshidratadas.</p>
+        <span class="puntos">500 Puntos</span>
+        <button class="add-cart">Agregar 🛒</button>
+      </div>
 
-      <label>Award:</label>
-      <input type="text" placeholder="Enter award">
+      <!-- Producto 2 -->
+      <div class="card">
+        <img src="Img/jugo.jpg" alt="Jugo Natural" />
+        <h3>Jugo Natural</h3>
+        <p>Refrescante jugo de frutas ecológicas.</p>
+        <span class="puntos">700 Puntos</span>
+        <button class="add-cart">Agregar 🛒</button>
+      </div>
 
-      <label>Points you needed:</label>
-      <input type="text" placeholder="0">
+      <!-- Producto 3 -->
+      <div class="card">
+        <img src="Img/gaseosa.jpg" alt="Gaseosa Ecológica" />
+        <h3>Gaseosa Eco</h3>
+        <p>Disfruta sin contaminar el planeta.</p>
+        <span class="puntos">1,000 Puntos</span>
+        <button class="add-cart">Agregar 🛒</button>
+      </div>
 
-      <button class="redeem-btn">Redeem</button>
+      <!-- Producto 4 -->
+      <div class="card">
+        <img src="Img/papas.jpg" alt="Papas horneadas" />
+        <h3>Papas Horneadas</h3>
+        <p>Ricas y sin aceite, ideales para tus snacks verdes.</p>
+        <span class="puntos">800 Puntos</span>
+        <button class="add-cart">Agregar 🛒</button>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <footer>
+    © 2025 Eco Friendly Code | Política de Privacidad | Términos de Servicio
+  </footer>
+
+  <script>
+    // Pequeño script para contar los ítems en el carrito
+    const cartCount = document.getElementById("cart-count");
+    const buttons = document.querySelectorAll(".add-cart");
+    let count = 0;
+
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        count++;
+        cartCount.textContent = count;
+        btn.textContent = "Agregado ✔️";
+        btn.disabled = true;
+      });
+    });
+  </script>
 </body>
 </html>

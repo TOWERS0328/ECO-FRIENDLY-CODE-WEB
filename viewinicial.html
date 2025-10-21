@@ -3,69 +3,158 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Eco Friendly Code - Perfil</title>
+  <title>Eco Friendly Code - Panel de Usuario</title>
   <link rel="stylesheet" href="styleviewinicial.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <!-- Navbar -->
-  <header class="navbar">
-    <div class="logo">
-      <h1><span>ECO</span> FRIENDLY</h1>
-      <p>CODE</p>
-    </div>
-   
-  </header>
-
-  <!-- Contenido principal -->
-  <main class="profile-container">
-    <div class="left">
-      <h1 class="main-title"><span class="eco">ECO</span> <span class="friendly">FRIENDLY</span></h1>
-      <h3 class="subtitle">CODE</h3>
-      
-    </div>
-
-    <div class="form-box">
-      <div class="profile-img">
-        <img id="avatar" src="Img/9434619.jpg" alt="Profile Picture">
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">
+        <h2><span>ECO</span> FRIENDLY</h2>
+        <p>CODE</p>
       </div>
 
-      <label for="fileInput" class="upload-btn">Cambiar Imagen</label>
-      <input type="file" id="fileInput" accept="image/*" style="display:none;">
-
-      <!-- Aquí se llenará el nombre del usuario cuando inicie sesión -->
-      <h3 class="username" id="username"></h3>
-
-      <div class="btn-group">
-        <a href="information.html" class="btn">Perfil</a>
-        <button class="btn">Reciclar</button>
-        <button class="btn">Canjear Puntos</button>
+      <div class="user-info">
+        <img src="Img/9434619.jpg" alt="Usuario" class="avatar">
+        <h3 class="username">Ana López</h3>
+        <p class="email">ana.lopez@email.com</p>
       </div>
-    </div>
-  </main>
 
-  <!-- Footer -->
+      <nav class="menu">
+        <a href="#" class="active">📊 Panel</a>
+        <a href="redeemPoints.html">🎁 Canjear Premios</a>
+        <a href="#">♻️ Historial</a>
+        <a href="information.html">👤 Perfil</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="top-bar">
+  <a href="recycle.html" class="btn-reciclar">➕ Registrar Reciclaje</a>
+</header>
+
+      <!-- Métricas -->
+      <section class="stats">
+        <div class="card">
+          <h4>Tus Puntos</h4>
+          <p class="value green">3,450</p>
+        </div>
+        <div class="card">
+          <h4>Total Reciclado (Kg)</h4>
+          <p class="value">127.5</p>
+        </div>
+        <div class="card">
+          <h4>Nivel de Reciclador</h4>
+          <p class="value green">Experto</p>
+        </div>
+      </section>
+
+      <!-- Impacto -->
+      <section class="impacto">
+        <h3>Tu Impacto (Últimos 6 meses)</h3>
+        <canvas id="impactChart"></canvas>
+      </section>
+
+      <!-- Acciones rápidas -->
+      <section class="acciones">
+        <div class="acciones-card">
+          <a href="redeemPoints.html" class="btn blue ">🎁 Canjear Premios</a>
+          <a href="information.html" class="btn orange">⚙️ Actualizar Perfil</a>
+          
+        </div>
+      </section>
+
+      <!-- Historial -->
+      <section class="historial">
+        <h3>Historial de Reciclaje Reciente</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Tipo de Residuo</th>
+              <th>Puntos Ganados</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2023-10-28</td>
+              <td>Plástico</td>
+              <td class="green">+150</td>
+            </tr>
+            <tr>
+              <td>2023-10-25</td>
+              <td>Vidrio</td>
+              <td class="green">+80</td>
+            </tr>
+            <tr>
+              <td>2023-10-22</td>
+              <td>Papel</td>
+              <td class="green">+120</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Insignias -->
+      <section class="insignias">
+        <h3>Insignias Obtenidas</h3>
+        <div class="badges">
+          <div class="badge">
+            🥇 <p>Eco-Iniciador</p>
+          </div>
+          <div class="badge">
+            🥈 <p>Rey del Plástico</p>
+          </div>
+          <div class="badge">
+            🥉 <p>Guardián del Vidrio</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
   <footer>
-    <p>© 2025 Eco Friendly Code. Todos los derechos reservados.</p>
+    © 2025 Eco Friendly Code. Todos los derechos reservados.
   </footer>
 
   <script>
-    // Permitir cambiar la imagen del perfil
-    const fileInput = document.getElementById("fileInput");
-    const avatar = document.getElementById("avatar");
-
-    fileInput.addEventListener("change", (event) => {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          avatar.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
+    const ctx = document.getElementById('impactChart');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Plástico', 'Vidrio', 'Papel', 'Metal', 'Orgánico', 'Otros'],
+        datasets: [{
+          label: 'Kg reciclados',
+          data: [30, 15, 20, 35, 10, 18],
+          backgroundColor: '#00b05080',
+          borderColor: '#00b050',
+          borderWidth: 1,
+          borderRadius: 6
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { beginAtZero: true }
+        }
       }
     });
-
-    // Ejemplo: cuando el usuario inicie sesión, puedes hacer algo como:
-    // document.getElementById("username").textContent = nombreUsuario;
   </script>
+
+    <script>
+    // Mostrar la imagen guardada en localStorage
+    window.addEventListener('load', () => {
+      const avatar = document.querySelector('.user-info .avatar');
+      const savedImage = localStorage.getItem('userAvatar');
+      if (savedImage && avatar) {
+        avatar.src = savedImage;
+      }
+    });
+  </script>
+
 </body>
 </html>
