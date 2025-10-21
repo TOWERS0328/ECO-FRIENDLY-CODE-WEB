@@ -26,9 +26,10 @@ body {
   padding: 30px 20px;
 }
 
-.logo h2 {
+.logo h1 {
   color: #00b050;
-  font-size: 22px;
+  font-size: 28px;
+  line-height: 1;
 }
 
 .logo span {
@@ -36,23 +37,29 @@ body {
 }
 
 .logo p {
-  font-size: 13px;
-  color: #777;
-  margin-bottom: 20px;
+  font-size: 14px;
+  color: #555;
+  font-weight: bold;
 }
 
 .user-info {
+  background: rgba(255,255,255,0.9);
+  padding: 20px;
+  border-radius: 15px;
   text-align: center;
-  margin-bottom: 30px;
+  width: 250px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #1d7a32;
+  cursor: pointer;
+  transition: transform 0.3s;
 }
 
-.avatar {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  border: 3px solid #00b050;
-  object-fit: cover;
-}
 
 .username {
   margin-top: 10px;

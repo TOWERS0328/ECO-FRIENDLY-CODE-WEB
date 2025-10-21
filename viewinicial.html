@@ -12,9 +12,10 @@
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="logo">
-        <h2><span>ECO</span> FRIENDLY</h2>
-        <p>CODE</p>
+      <h1><span>ECO</span> FRIENDLY</h1>
+      <p>CODE</p>
       </div>
+      
 
       <div class="user-info">
         <img src="Img/9434619.jpg" alt="Usuario" class="avatar">
@@ -146,6 +147,14 @@
   </script>
 
     <script>
+          // Mantiene el estado activo del menú
+    const links = document.querySelectorAll('.menu a');
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        links.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
     // Mostrar la imagen guardada en localStorage
     window.addEventListener('load', () => {
       const avatar = document.querySelector('.user-info .avatar');

@@ -1,57 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Eco Friendly Recycle</title>
+  <title>Eco Friendly Code - Reciclar</title>
   <link rel="stylesheet" href="stylerecycle.css">
 </head>
 <body>
-  <!-- Fondo -->
-  <div class="overlay">
-    <!-- Título -->
-    <header>
-      <h1><span class="eco">ECO</span> <span class="friendly">FRIENDLY</span> <span class="code">CODE</span></h1>
-      <h1 class="recycle">RECYCLE</h1>
-    </header>
 
-    <!-- Buscador -->
-    <section class="search-section">
-      <h2>Look for the material you want to recycle</h2>
-      <div class="search-box">
-        <input type="text" placeholder="search material">
-        <button class="search-btn">🔍</button>
-      </div>
-    </section>
-
-    <main>
-      <!-- Lista -->
-      <div class="list-box">
-        <ul>
-          <li>Paper <input type="checkbox" checked></li>
-          <li>Glass <input type="checkbox" checked></li>
-          <li>Cardboard <input type="checkbox" checked></li>
-        </ul>
+  <div class="dashboard-container">
+    <!-- === SIDEBAR === -->
+    <aside class="sidebar">
+      <div class="logo">
+        <h1><span>ECO</span> FRIENDLY</h1>
+        <p>CODE</p>
       </div>
 
-      <!-- Panel de puntos -->
-      <div class="points-box">
-        <label>Your Points</label>
-        <input type="text">
+      <div class="user-info">
+        <img src="Img/9434619.jpg" alt="Usuario" class="avatar" id="user-avatar">
+        <h3 class="username">Ana López</h3>
+        <p class="email">ana.lopez@email.com</p>
+      </div>
 
-        <label>Recycle Points</label>
-        <input type="text">
+      <nav class="menu">
+        <a href="comoReciclar.html">Cómo Reciclar</a>
+        <a href="recycle.html" class="active">Reciclar</a>
+        <a href="redeemPoints.html">Canjear Puntos</a>
+      </nav>
+    </aside>
 
-        <label>Weight</label>
-        <input type="text">
+    <!-- === CONTENIDO PRINCIPAL === -->
+    <main class="main-content">
+      <header class="top-bar">
+        <h2>♻️ Registrar Reciclaje</h2>
+      </header>
 
-        <label>Total Points</label>
-        <input type="text">
+      <div class="info-container">
+        <!-- FORMULARIO DE RECICLAJE -->
+        <div class="info-box">
+          <form id="recycle-form">
+            <div class="form-group">
+              <label for="material">Material</label>
+              <select id="material" required>
+                <option value="">Selecciona...</option>
+                <option value="papel">Papel</option>
+                <option value="vidrio">Vidrio</option>
+                <option value="carton">Cartón</option>
+                <option value="plastico">Plástico</option>
+              </select>
+            </div>
 
-        <button class="calc-btn">CALCULATE</button>
-        <button class="recycle-btn">RECYCLE</button>
+            <div class="form-group">
+              <label for="peso">Peso (kg)</label>
+              <input type="number" id="peso" min="0.1" step="0.1" required>
+            </div>
+
+            <div class="form-group">
+              <label for="puntos">Puntos por kg</label>
+              <input type="text" id="puntos" readonly>
+            </div>
+
+            <div class="form-group">
+              <label for="total">Total de Puntos</label>
+              <input type="text" id="total" readonly>
+            </div>
+
+            <button type="button" class="btn green" id="calc-btn">CALCULAR</button>
+            <button type="submit" class="btn green">RECICLAR</button>
+          </form>
+        </div>
+
+        <!-- PANEL DE PUNTOS -->
+        <div class="points-box">
+          <h3>Tus Puntos</h3>
+          <div class="points" id="user-points">2,500</div>
+          <p class="subtitle">💚 Continúa reciclando para ganar más</p>
+        </div>
       </div>
     </main>
   </div>
+
+  <footer>
+    © 2025 Eco Friendly Code | Política de Privacidad | Términos de Servicio
+  </footer>
+
+  <script>
+    // === MANTENER FOTO DE PERFIL ===
+    window.addEventListener("DOMContentLoaded", () => {
+      const avatarImg = document.getElementById("user-avatar");
+      const savedAvatar = localStorage.getItem("userAvatar");
+      if (savedAvatar && avatarImg) {
+        avatarImg.src = savedAvatar;
+      }
+    });
+
+    // === CALCULAR PUNTOS ===
+    const calcBtn = document.getElementById("calc-btn");
+    const materialSelect = document.getElementById("material");
+    const pesoInput = document.getElementById("peso");
+    const puntosInput = document.getElementById("puntos");
+    const totalInput = document.getElementById("total");
+    const recycleForm = document.getElementById("recycle-form");
+
+    const valoresPuntos = {
+      papel: 10,
+      vidrio: 15,
+      carton: 12,
+      plastico: 20
+    };
+
+    calcBtn.addEventListener("click", () => {
+      const material = materialSelect.value;
+      const peso = parseFloat(pesoInput.value);
+      if (material && peso > 0) {
+        const puntosKg = valoresPuntos[material];
+        const total = puntosKg * peso;
+        puntosInput.value = puntosKg + " pts/kg";
+        totalInput.value = total + " pts";
+      } else {
+        alert("Selecciona un material y un peso válido.");
+      }
+    });
+
+    // === REGISTRAR RECICLAJE ===
+    recycleForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      alert("♻️ ¡Reciclaje registrado con éxito! Redirigiendo a Canjear Puntos...");
+      setTimeout(() => {
+        window.location.href = "redeemPoints.html";
+      }, 1500);
+    });
+  </script>
+
 </body>
 </html>

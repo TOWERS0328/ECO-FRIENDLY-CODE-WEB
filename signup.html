@@ -26,33 +26,15 @@
       <h2>Crear una cuenta</h2>
       <p class="subtitle">Únete a <strong>Eco Friendly Code</strong></p>
 
-      <form action="login.html" method="post">
-        <label for="id">ID</label>
-        <input type="text" id="id" name="id" placeholder="Ingresa tu ID" required>
-
-        <label for="name">Nombre</label>
-        <input type="text" id="name" name="name" placeholder="Ingresa tu nombre" required>
-
-        <label for="lastname">Apellido</label>
-        <input type="text" id="lastname" name="lastname" placeholder="Ingresa tu apellido" required>
-
-        <label for="email">Correo electrónico</label>
-        <input type="email" id="email" name="email" placeholder="correo@ejemplo.com" required>
-
-        <label for="career">Carrera</label>
-        <select id="career" name="career" required>
-          <option value="">Selecciona tu carrera</option>
-          <option value="bilingual_english">Licenciatura en Bilingüismo con énfasis en Inglés</option>
-          <option value="administration">Administración de Empresas</option>
-          <option value="tourism_management">Administración de Empresas Turísticas y Hoteleras</option>
-          <option value="public_accounting">Contaduría Pública</option>
-          <option value="law">Derecho</option>
-          <option value="systems_engineering">Ingeniería de Sistemas</option>
-          <option value="industrial_engineering">Ingeniería Industrial</option>
-          <option value="tech_quality_management">Tecnología en Sistemas de Gestión de Calidad</option>
-          <option value="tech_software_development">Tecnología en Desarrollo de Sistemas de Información y de Software</option>
-          <option value="tech_tourism_services">Tecnología en Gestión de Servicios Turísticos y Hoteleros</option>
+      <form id="signup-form" action="login.html" method="post">
+        <label for="role">Selecciona tu rol</label>
+        <select id="role" name="role" required>
+          <option value="">Selecciona...</option>
+          <option value="estudiante">Estudiante</option>
+          <option value="administrador">Coordinador Ambiental</option>
         </select>
+
+        <div id="dynamic-fields"><!-- Campos dinámicos aquí --></div>
 
         <button type="submit" class="btn">Registrarse</button>
 
@@ -67,5 +49,64 @@
   <footer>
     <p>© 2025 Eco Friendly Code. Todos los derechos reservados.</p>
   </footer>
+
+  <script>
+    const roleSelect = document.getElementById('role');
+    const dynamicFields = document.getElementById('dynamic-fields');
+
+    const roleFields = {
+      estudiante: `
+        <label for="id">ID Estudiantil</label>
+        <input type="text" id="id" name="id" placeholder="Ingresa tu ID estudiantil" required>
+
+        <label for="name">Nombre</label>
+        <input type="text" id="name" name="name" placeholder="Ingresa tu nombre" required>
+
+        <label for="lastname">Apellido</label>
+        <input type="text" id="lastname" name="lastname" placeholder="Ingresa tu apellido" required>
+
+        <label for="career">Carrera</label>
+        <select id="career" name="career" required>
+          <option value="">Selecciona tu carrera</option>
+          <option value="bilingual_english">Licenciatura en Bilingüismo con énfasis en Inglés</option>
+          <option value="administration">Administración de Empresas</option>
+          <option value="tourism_management">Administración de Empresas Turísticas y Hoteleras</option>
+          <option value="public_accounting">Contaduría Pública</option>
+          <option value="law">Derecho</option>
+          <option value="systems_engineering">Ingeniería de Sistemas</option>
+          <option value="industrial_engineering">Ingeniería Industrial</option>
+          <option value="tech_tourism_services">Tecnología en Gestión de Servicios Turísticos y Hoteleros</option>
+        </select>
+
+        <label for="email">Correo institucional</label>
+        <input type="email" id="email" name="email" placeholder="ejemplo@universidad.edu" required>
+
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" name="password" placeholder="Crea una contraseña" required>
+      `,
+      administrador: `
+        <label for="id_admin">ID Coordinador</label>
+        <input type="text" id="id_admin" name="id_admin" placeholder="ID de coordinador" required>
+
+        <label for="name_admin">Nombre completo</label>
+        <input type="text" id="name_admin" name="name_admin" placeholder="Ingresa tu nombre" required>
+
+        <label for="institution">Institución o Universidad</label>
+        <input type="text" id="institution" name="institution" placeholder="Nombre de la institución" required>
+
+        <label for="email_admin">Correo institucional</label>
+        <input type="email" id="email_admin" name="email_admin" placeholder="ejemplo@institucion.edu" required>
+
+        <label for="password_admin">Contraseña</label>
+        <input type="password" id="password_admin" name="password_admin" placeholder="Crea una contraseña" required>
+      `
+    };
+
+    // Escucha el cambio de rol y genera los campos
+    roleSelect.addEventListener('change', () => {
+      const selected = roleSelect.value;
+      dynamicFields.innerHTML = roleFields[selected] || '';
+    });
+  </script>
 </body>
 </html>

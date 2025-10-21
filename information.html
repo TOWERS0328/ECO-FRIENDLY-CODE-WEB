@@ -11,8 +11,8 @@
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="logo">
-        <h2><span>ECO</span> FRIENDLY</h2>
-        <p>CODE</p>
+      <h1><span>ECO</span> FRIENDLY</h1>
+      <p>CODE</p>
       </div>
 
       <div class="user-info">
@@ -103,6 +103,7 @@
   </footer>
 
   <script>
+    
     const avatar = document.getElementById('user-avatar');
     const fileInput = document.getElementById('file-input');
     const changeBtn = document.getElementById('change-photo-btn');
@@ -131,5 +132,16 @@
       if (savedImage) avatar.src = savedImage;
     });
   </script>
+  <script>
+  // Mostrar la foto guardada del usuario si existe en localStorage
+  window.addEventListener("DOMContentLoaded", () => {
+    const avatarImg = document.getElementById("user-avatar");
+    const savedAvatar = localStorage.getItem("userAvatar");
+    if (savedAvatar && avatarImg) {
+      avatarImg.src = savedAvatar;
+    }
+  });
+</script>
+
 </body>
 </html>
