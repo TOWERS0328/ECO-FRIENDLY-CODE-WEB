@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Eco Friendly Code - Información del Usuario</title>
-  <link rel="stylesheet" href="styleinformation.css">
+  <link rel="stylesheet" href="styleinformation.css" />
+  <link rel="stylesheet" href="style-dashboard.css">
 </head>
 <body>
   <div class="dashboard-container">
     <!-- Sidebar -->
     <aside class="sidebar">
-      <div class="logo">
-      <h1><span>ECO</span> FRIENDLY</h1>
-      <p>CODE</p>
+     <div class="logo">
+        <h1><span>ECO</span> FRIENDLY</h1>
+        <p>CODE</p>
       </div>
 
       <div class="user-info">
-        <img src="Img/9434619.jpg" alt="Usuario" class="avatar" id="user-avatar">
+        <img src="Img/9434619.jpg" alt="Usuario" class="avatar" id="user-avatar" />
         <h3 class="username">Ana López</h3>
         <p class="email">ana.lopez@email.com</p>
         <button class="change-photo-btn" id="change-photo-btn">Cambiar foto</button>
-        <input type="file" id="file-input" accept="image/*" style="display: none;">
+        <input type="file" id="file-input" accept="image/*" style="display: none;" />
       </div>
 
       <nav class="menu">
         <a href="viewinicial.html">📊 Panel</a>
-        <a href="information.html" class="active">👤 Información</a>
-        <a href="recycle.html">♻️ Reciclar</a>
         <a href="redeem.html">🎁 Canjear Puntos</a>
+        <a href="#">♻️ Historial</a>
+        <a href="information.html" class="active">👤 Perfil</a>
+        
       </nav>
     </aside>
 
@@ -91,8 +93,8 @@
 
         <div class="points-box">
           <h3>Tus Puntos</h3>
-          <p class="points">3,450</p>
-          <p class="subtitle">¡Acumula más puntos y canjea premios!</p>
+          <p class="points">0</p>
+          <p class="subtitle">¡Acumula puntos reciclando!</p>
         </div>
       </section>
     </main>
@@ -103,45 +105,30 @@
   </footer>
 
   <script>
-    
+    // Cambiar y guardar imagen
     const avatar = document.getElementById('user-avatar');
     const fileInput = document.getElementById('file-input');
     const changeBtn = document.getElementById('change-photo-btn');
 
-    // Permite cambiar imagen haciendo clic en el botón o en la foto
     avatar.addEventListener('click', () => fileInput.click());
     changeBtn.addEventListener('click', () => fileInput.click());
 
-    // Actualiza la imagen de perfil
     fileInput.addEventListener('change', (e) => {
       const file = e.target.files[0];
       if (file) {
         const reader = new FileReader();
         reader.onload = () => {
           avatar.src = reader.result;
-          // Guardar la imagen en localStorage para que no se pierda al recargar
           localStorage.setItem('userAvatar', reader.result);
         };
         reader.readAsDataURL(file);
       }
     });
 
-    // Cargar la imagen guardada al iniciar la página
     window.addEventListener('load', () => {
       const savedImage = localStorage.getItem('userAvatar');
       if (savedImage) avatar.src = savedImage;
     });
   </script>
-  <script>
-  // Mostrar la foto guardada del usuario si existe en localStorage
-  window.addEventListener("DOMContentLoaded", () => {
-    const avatarImg = document.getElementById("user-avatar");
-    const savedAvatar = localStorage.getItem("userAvatar");
-    if (savedAvatar && avatarImg) {
-      avatarImg.src = savedAvatar;
-    }
-  });
-</script>
-
 </body>
 </html>

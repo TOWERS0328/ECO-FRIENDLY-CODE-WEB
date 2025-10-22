@@ -1,46 +1,25 @@
-body {
+/* 🌍 CONTENIDO CATÁLOGO */
+.catalogo {
+  text-align: center;
+  padding: 30px 40px;
+}
+
+.header-catalogo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.catalogo h1 {
+  font-size: 2rem;
+  color: #1d7a32;
   margin: 0;
-  font-family: "Poppins", sans-serif;
-  background-color: #f3f8f4;
-  color: #333;
 }
 
-/* --- HEADER --- */
-.navbar {
-  background: #fff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 60px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.logo h1 {
-  color: #00b050;
-  font-size: 28px;
-  line-height: 1;
-}
-
-.logo span {
-  color: #333;
-}
-
-.logo p {
-  font-size: 14px;
+.catalogo p {
   color: #555;
-  font-weight: bold;
-}
-
-nav {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-}
-
-nav a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
 }
 
 .points {
@@ -52,7 +31,7 @@ nav a {
 }
 
 .cart {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   background: #e6ffe6;
   padding: 6px 14px;
   border-radius: 20px;
@@ -66,29 +45,11 @@ nav a {
   margin-left: 5px;
 }
 
-/* --- CATÁLOGO --- */
-.catalogo {
-  text-align: center;
-  padding: 50px 80px;
-}
-
-.catalogo h1 {
-  font-size: 2.2rem;
-  color: #1d7a32;
-  margin-bottom: 10px;
-}
-
-.catalogo p {
-  color: #555;
-  margin-bottom: 30px;
-}
-
 /* --- BUSCADOR --- */
 .search-bar {
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin-bottom: 40px;
+  margin: 20px 0 30px;
 }
 
 .search-bar input {
@@ -111,7 +72,7 @@ nav a {
 /* --- PRODUCTOS --- */
 .productos {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 25px;
 }
 
@@ -167,14 +128,4 @@ nav a {
 
 .add-cart:hover {
   background: #e6a700;
-}
-
-/* --- FOOTER --- */
-footer {
-  text-align: center;
-  background: #e6f4e8;
-  padding: 15px;
-  font-size: 0.9rem;
-  color: #444;
-  margin-top: 50px;
 }

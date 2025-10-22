@@ -5,17 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eco Friendly Code - Panel de Usuario</title>
   <link rel="stylesheet" href="styleviewinicial.css">
+  <link rel="stylesheet" href="style-dashboard.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <div class="dashboard-container">
-    <!-- Sidebar -->
+    <!-- Sidebar fija -->
     <aside class="sidebar">
       <div class="logo">
-      <h1><span>ECO</span> FRIENDLY</h1>
-      <p>CODE</p>
+        <h1><span>ECO</span> FRIENDLY</h1>
+        <p>CODE</p>
       </div>
-      
 
       <div class="user-info">
         <img src="Img/9434619.jpg" alt="Usuario" class="avatar">
@@ -31,25 +31,25 @@
       </nav>
     </aside>
 
-    <!-- Main Content -->
+    <!-- Contenido principal -->
     <main class="main-content">
       <header class="top-bar">
-  <a href="recycle.html" class="btn-reciclar">➕ Registrar Reciclaje</a>
-</header>
+        <a href="recycle.html" class="btn-reciclar">➕ Registrar Reciclaje</a>
+      </header>
 
       <!-- Métricas -->
       <section class="stats">
         <div class="card">
           <h4>Tus Puntos</h4>
-          <p class="value green">3,450</p>
+          <p class="value green">0</p>
         </div>
         <div class="card">
           <h4>Total Reciclado (Kg)</h4>
-          <p class="value">127.5</p>
+          <p class="value">0</p>
         </div>
         <div class="card">
           <h4>Nivel de Reciclador</h4>
-          <p class="value green">Experto</p>
+          <p class="value green">Principiante</p>
         </div>
       </section>
 
@@ -62,9 +62,8 @@
       <!-- Acciones rápidas -->
       <section class="acciones">
         <div class="acciones-card">
-          <a href="redeemPoints.html" class="btn blue ">🎁 Canjear Premios</a>
+          <a href="redeemPoints.html" class="btn blue">🎁 Canjear Premios</a>
           <a href="information.html" class="btn orange">⚙️ Actualizar Perfil</a>
-          
         </div>
       </section>
 
@@ -80,21 +79,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>2023-10-28</td>
-              <td>Plástico</td>
-              <td class="green">+150</td>
-            </tr>
-            <tr>
-              <td>2023-10-25</td>
-              <td>Vidrio</td>
-              <td class="green">+80</td>
-            </tr>
-            <tr>
-              <td>2023-10-22</td>
-              <td>Papel</td>
-              <td class="green">+120</td>
-            </tr>
+            <tr><td colspan="3" style="text-align:center;">Sin registros</td></tr>
           </tbody>
         </table>
       </section>
@@ -103,15 +88,7 @@
       <section class="insignias">
         <h3>Insignias Obtenidas</h3>
         <div class="badges">
-          <div class="badge">
-            🥇 <p>Eco-Iniciador</p>
-          </div>
-          <div class="badge">
-            🥈 <p>Rey del Plástico</p>
-          </div>
-          <div class="badge">
-            🥉 <p>Guardián del Vidrio</p>
-          </div>
+          <div class="badge">🌱 <p>Nuevo Recolector</p></div>
         </div>
       </section>
     </main>
@@ -129,7 +106,7 @@
         labels: ['Plástico', 'Vidrio', 'Papel', 'Metal', 'Orgánico', 'Otros'],
         datasets: [{
           label: 'Kg reciclados',
-          data: [30, 15, 20, 35, 10, 18],
+          data: [0, 0, 0, 0, 0, 0],
           backgroundColor: '#00b05080',
           borderColor: '#00b050',
           borderWidth: 1,
@@ -139,15 +116,11 @@
       options: {
         responsive: true,
         plugins: { legend: { display: false } },
-        scales: {
-          y: { beginAtZero: true }
-        }
+        scales: { y: { beginAtZero: true } }
       }
     });
-  </script>
 
-    <script>
-          // Mantiene el estado activo del menú
+    // Mantiene el menú activo y la imagen guardada
     const links = document.querySelectorAll('.menu a');
     links.forEach(link => {
       link.addEventListener('click', () => {
@@ -155,15 +128,12 @@
         link.classList.add('active');
       });
     });
-    // Mostrar la imagen guardada en localStorage
+
     window.addEventListener('load', () => {
-      const avatar = document.querySelector('.user-info .avatar');
+      const avatar = document.querySelector('.avatar');
       const savedImage = localStorage.getItem('userAvatar');
-      if (savedImage && avatar) {
-        avatar.src = savedImage;
-      }
+      if (savedImage) avatar.src = savedImage;
     });
   </script>
-
 </body>
 </html>

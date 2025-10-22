@@ -8,6 +8,7 @@
 body {
   background-color: #f7fdf8;
   color: #333;
+  overflow-x: hidden;
 }
 
 /* Estructura principal */
@@ -16,82 +17,84 @@ body {
   min-height: 100vh;
 }
 
-/* Sidebar */
+/* Sidebar fija */
 .sidebar {
-  width: 250px;
-  background-color: #ffffff;
+  width: 230px;
+  background-color: #fff;
   border-right: 2px solid #e6f5ea;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px 20px;
+  padding: 20px;
+  position: fixed;
+  height: 100vh;
+  top: 0;
+  left: 0;
 }
 
+.main-content {
+  flex: 1;
+  margin-left: 230px;
+  padding: 25px;
+  background-color: #f8fef9;
+}
+
+/* Logo */
 .logo h1 {
   color: #00b050;
-  font-size: 28px;
+  font-size: 24px;
   line-height: 1;
 }
+.logo span { color: #333; }
+.logo p { font-size: 13px; color: #555; font-weight: bold; }
 
-.logo span {
-  color: #333;
-}
 
-.logo p {
-  font-size: 14px;
-  color: #555;
-  font-weight: bold;
-}
-
+/* Usuario */
 .user-info {
   background: rgba(255,255,255,0.9);
-  padding: 20px;
+  padding: 15px;
   border-radius: 15px;
   text-align: center;
-  width: 250px;
+  width: 100%;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .avatar {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  object-fit: cover;
   border: 3px solid #1d7a32;
+  object-fit: cover;
   cursor: pointer;
-  transition: transform 0.3s;
 }
 
 .username {
-  margin-top: 10px;
-  font-size: 18px;
+  margin-top: 8px;
+  font-size: 16px;
   color: #00b050;
 }
 
 .email {
-  font-size: 13px;
+  font-size: 12px;
   color: #666;
 }
 
 .change-photo-btn {
-  margin-top: 10px;
-  background: #1d7a32;
+  margin-top: 8px;
+  background: #00b050;
   color: white;
   border: none;
-  padding: 8px 15px;
+  padding: 6px 12px;
   border-radius: 8px;
   cursor: pointer;
-  font-weight: 600;
-  transition: background 0.3s;
+  font-size: 13px;
 }
 
-.change-photo-btn:hover {
-  background: #146d29;
-}
+/* Menú */
 .menu {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   width: 100%;
   margin-top: 15px;
 }
@@ -100,9 +103,8 @@ body {
   text-decoration: none;
   color: #333;
   font-weight: 600;
-  padding: 10px;
+  padding: 8px;
   border-radius: 8px;
-  text-align: left;
   transition: 0.3s;
 }
 
@@ -112,24 +114,15 @@ body {
 }
 
 /* Contenido principal */
-.main-content {
-  flex: 1;
-  padding: 30px 50px;
-  background-color: #f8fef9;
-}
-
-.top-bar {
-  margin-bottom: 30px;
-}
-
 .top-bar h2 {
   color: #00b050;
+  font-size: 22px;
+  margin-bottom: 20px;
 }
 
-/* Caja de información */
 .info-container {
   display: flex;
-  gap: 30px;
+  gap: 20px;
   flex-wrap: wrap;
 }
 
@@ -138,13 +131,13 @@ body {
   background-color: white;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  padding: 30px;
+  padding: 20px;
 }
 
 .info-box form {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 15px;
 }
 
 .form-group {
@@ -160,11 +153,10 @@ label {
 }
 
 input, select {
-  padding: 10px;
+  padding: 8px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  outline: none;
-  font-size: 14px;
+  font-size: 13px;
   transition: 0.3s;
 }
 
@@ -176,13 +168,12 @@ input:focus, select:focus {
 /* Botón */
 .btn {
   margin-top: 10px;
-  padding: 12px 20px;
+  padding: 10px 18px;
   border: none;
   border-radius: 8px;
   font-weight: bold;
   color: white;
   cursor: pointer;
-  transition: 0.3s;
 }
 
 .green {
@@ -200,7 +191,7 @@ input:focus, select:focus {
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   text-align: center;
-  padding: 30px;
+  padding: 25px;
 }
 
 .points-box h3 {
@@ -208,38 +199,40 @@ input:focus, select:focus {
 }
 
 .points {
-  font-size: 40px;
+  font-size: 36px;
   color: #00b050;
   font-weight: bold;
   margin: 10px 0;
 }
 
 .subtitle {
-  font-size: 14px;
+  font-size: 13px;
   color: #666;
 }
 
 /* Footer */
 footer {
   text-align: center;
-  padding: 15px;
-  font-size: 13px;
+  padding: 10px;
+  font-size: 12px;
   color: #666;
   background-color: #f7fdf8;
   border-top: 1px solid #e6f5ea;
 }
 
-
 /* Responsivo */
 @media (max-width: 900px) {
-  .dashboard-container {
-    flex-direction: column;
-  }
-
   .sidebar {
+    position: relative;
     width: 100%;
+    height: auto;
     flex-direction: row;
     justify-content: space-around;
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding: 15px;
   }
 
   .info-container {

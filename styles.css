@@ -1,48 +1,61 @@
+/* ======== ESTILO GLOBAL ======== */
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background-color: #12e912;
+  background-color: #eef1ee;
   color: #333;
+  scroll-behavior: smooth;
 }
 
-/* NAVBAR */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ======== NAVBAR ======== */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 60px;
+  padding: 15px 50px;
   background-color: #fff;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 100;
+  transition: all 0.3s ease;
 }
 
 .logo h1 {
   color: #00b050;
-  font-size: 28px;
+  font-size: 26px;
+  margin: 0;
   line-height: 1;
+  letter-spacing: 1px;
 }
-
 .logo span {
   color: #333;
 }
-
 .logo p {
-  font-size: 14px;
+  font-size: 13px;
   color: #555;
   font-weight: bold;
+  margin: 0;
 }
 
 nav ul {
   list-style: none;
   display: flex;
   gap: 25px;
+  margin: 0;
+  padding: 0;
 }
 nav a {
   text-decoration: none;
   color: #333;
   font-weight: 500;
+  transition: color 0.3s ease;
 }
 nav a:hover {
   color: #2e7d32;
@@ -55,70 +68,110 @@ nav a:hover {
   border-radius: 25px;
   text-decoration: none;
   font-weight: 600;
+  transition: background-color 0.3s ease;
 }
 .register-btn:hover {
   background-color: #2e7d32;
 }
 
-/* HERO */
+/* ======== HERO ======== */
 .hero {
   background-image: url('Img/hojas.jpg');
   background-size: cover;
   background-position: center;
   text-align: center;
-  padding: 140px 20px;
-  border-radius: 0 0 40px 40px;
+  padding: 100px 20px;
   color: #fff;
+  border-radius: 0 0 30px 30px;
+  position: relative;
 }
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 0 0 30px 30px;
+}
+
+.hero-content {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 .hero h2 {
-  font-size: 40px;
+  font-size: 32px;
   margin-bottom: 15px;
+  line-height: 1.3;
 }
+
 .hero p {
-  font-size: 18px;
-  margin-bottom: 30px;
+  font-size: 16px;
+  margin-bottom: 25px;
+  line-height: 1.6;
 }
+
 .btn-primary {
   background-color: #43a047;
   color: #fff;
-  padding: 12px 30px;
+  padding: 10px 25px;
   border-radius: 25px;
   text-decoration: none;
   font-weight: 600;
+  transition: all 0.3s ease;
 }
 .btn-primary:hover {
   background-color: #2e7d32;
+  transform: scale(1.05);
 }
 
-/* SECCIÓN: Cómo funciona */
+/* ======== SECCIÓN: Cómo funciona ======== */
 .steps {
   text-align: center;
-  padding: 80px 40px;
+  padding: 70px 20px;
   background-color: #fff;
 }
+
+.steps h2 {
+  font-size: 28px;
+  color: #2e7d32;
+  margin-bottom: 20px;
+}
+
 .step-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 30px;
-  margin-top: 40px;
+  margin-top: 30px;
 }
+
 .step {
   background: #f9f9f9;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  border-radius: 15px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   width: 250px;
-  padding: 20px;
+  padding: 25px;
+  transition: transform 0.3s ease;
+}
+.step:hover {
+  transform: translateY(-5px);
 }
 .step img {
   width: 60px;
   margin-bottom: 15px;
 }
 
-/* BENEFICIOS */
+/* ======== BENEFICIOS ======== */
 .benefits {
   text-align: center;
-  padding: 80px 40px;
+  padding: 80px 20px;
+}
+.benefits h2 {
+  font-size: 28px;
+  color: #2e7d32;
+  margin-bottom: 25px;
 }
 .benefit-container {
   display: flex;
@@ -128,12 +181,19 @@ nav a:hover {
   margin-top: 30px;
 }
 .benefit-card {
-  width: 400px;
+  width: 350px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+.benefit-card:hover {
+  transform: translateY(-5px);
 }
 .benefit-card img {
   width: 100%;
-  border-radius: 15px;
-  height: 250px;
+  height: 220px;
   object-fit: cover;
 }
 .benefit-card h3 {
@@ -141,11 +201,16 @@ nav a:hover {
   color: #2e7d32;
 }
 
-/* RECOMPENSAS */
+/* ======== RECOMPENSAS ======== */
 .rewards {
   text-align: center;
-  padding: 80px 40px;
+  padding: 80px 20px;
   background-color: #fff;
+}
+.rewards h2 {
+  font-size: 28px;
+  color: #2e7d32;
+  margin-bottom: 20px;
 }
 .reward-container {
   display: flex;
@@ -155,41 +220,42 @@ nav a:hover {
   margin-top: 40px;
 }
 .reward-card {
-  width: 280px;
+  width: 260px;
   background: #f9f9f9;
   border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  padding-bottom: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+.reward-card:hover {
+  transform: translateY(-5px);
 }
 .reward-card img {
   width: 100%;
-  height: 180px;
-  border-radius: 12px 12px 0 0;
+  height: 170px;
   object-fit: cover;
 }
 .reward-card h3 {
   margin: 15px 0 5px;
   color: #2e7d32;
 }
-.reward-card p span {
-  color: #ffb300;
-  font-weight: 600;
-}
 .btn-secondary {
   display: inline-block;
-  margin-top: 30px;
+  margin-top: 25px;
   background-color: #2196f3;
   color: #fff;
-  padding: 12px 30px;
+  padding: 10px 25px;
   border-radius: 25px;
   text-decoration: none;
   font-weight: 600;
+  transition: all 0.3s ease;
 }
 .btn-secondary:hover {
   background-color: #1976d2;
+  transform: scale(1.05);
 }
 
-/* FOOTER */
+/* ======== FOOTER ======== */
 footer {
   background-color: #2e7d32;
   color: #fff;
@@ -204,4 +270,55 @@ footer {
 }
 .footer-links a:hover {
   text-decoration: underline;
+}
+
+/* ======== RESPONSIVE DESIGN ======== */
+@media (max-width: 992px) {
+  .navbar {
+    padding: 15px 25px;
+  }
+  .hero h2 {
+    font-size: 28px;
+  }
+  .hero p {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  nav ul {
+    gap: 15px;
+  }
+  .navbar {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .hero {
+    padding: 80px 15px;
+  }
+  .hero h2 {
+    font-size: 24px;
+  }
+  .hero p {
+    font-size: 14px;
+  }
+  .step, .benefit-card, .reward-card {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 60px 10px;
+  }
+  .hero h2 {
+    font-size: 20px;
+  }
+  .hero p {
+    font-size: 13px;
+  }
+  .register-btn, .btn-primary, .btn-secondary {
+    font-size: 14px;
+    padding: 8px 18px;
+  }
 }
