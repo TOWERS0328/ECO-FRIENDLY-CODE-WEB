@@ -9,10 +9,10 @@
 </head>
 <body>
   <header class="navbar">
-  <a href="index.html" class="logo">
-    <h1><span>ECO</span> FRIENDLY</h1>
-    <p>CODE</p>
-  </a>
+    <a href="index.html" class="logo">
+      <h1><span>ECO</span> FRIENDLY</h1>
+      <p>CODE</p>
+    </a>
     <nav>
       <ul>
         <li><a href="index.html">Inicio</a></li>
@@ -27,7 +27,7 @@
       <h2>Crear cuenta de estudiante</h2>
       <p class="subtitle">Únete a <strong>Eco Friendly Code</strong></p>
 
-      <form id="signup-form" action="login.html" method="post">
+      <form id="signup-form">
         <label for="id">ID Estudiantil</label>
         <input type="text" id="id" name="id" placeholder="Ingresa tu ID estudiantil" required>
 
@@ -37,27 +37,26 @@
         <label for="lastname">Apellido</label>
         <input type="text" id="lastname" name="lastname" placeholder="Ingresa tu apellido" required>
 
-        <!-- Campo de género -->
         <label for="gender">Género</label>
         <select id="gender" name="gender" required>
           <option value="">Selecciona tu género</option>
-          <option value="male">Masculino</option>
-          <option value="female">Femenino</option>
-          <option value="other">Otro</option>
-          <option value="prefer_not_say">Prefiero no decirlo</option>
+          <option value="Masculino">Masculino</option>
+          <option value="Femenino">Femenino</option>
+          <option value="Otro">Otro</option>
+          <option value="Prefiero no decirlo">Prefiero no decirlo</option>
         </select>
 
         <label for="career">Carrera</label>
         <select id="career" name="career" required>
           <option value="">Selecciona tu carrera</option>
-          <option value="bilingual_english">Licenciatura en Bilingüismo con énfasis en Inglés</option>
-          <option value="administration">Administración de Empresas</option>
-          <option value="tourism_management">Administración de Empresas Turísticas y Hoteleras</option>
-          <option value="public_accounting">Contaduría Pública</option>
-          <option value="law">Derecho</option>
-          <option value="systems_engineering">Ingeniería de Sistemas</option>
-          <option value="industrial_engineering">Ingeniería Industrial</option>
-          <option value="tech_tourism_services">Tecnología en Gestión de Servicios Turísticos y Hoteleros</option>
+          <option value="Licenciatura en Bilingüismo con énfasis en Inglés">Licenciatura en Bilingüismo con énfasis en Inglés</option>
+          <option value="Administración de Empresas">Administración de Empresas</option>
+          <option value="Administración de Empresas Turísticas y Hoteleras">Administración de Empresas Turísticas y Hoteleras</option>
+          <option value="Contaduría Pública">Contaduría Pública</option>
+          <option value="Derecho">Derecho</option>
+          <option value="Ingeniería de Sistemas">Ingeniería de Sistemas</option>
+          <option value="Ingeniería Industrial">Ingeniería Industrial</option>
+          <option value="Tecnología en Gestión de Servicios Turísticos y Hoteleros">Tecnología en Gestión de Servicios Turísticos y Hoteleros</option>
         </select>
 
         <label for="email">Correo institucional</label>
@@ -79,5 +78,38 @@
   <footer>
     <p>© 2025 Eco Friendly Code. Todos los derechos reservados.</p>
   </footer>
+
+  <script>
+    document.getElementById("signup-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const data = {
+        id: document.getElementById("id").value,
+        name: document.getElementById("name").value,
+        lastname: document.getElementById("lastname").value,
+        gender: document.getElementById("gender").value,
+        career: document.getElementById("career").value,
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value
+      };
+
+      try {
+        const response = await fetch("http://localhost/ECO-FRIENDLY-WEB/backend/controllers/register.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        alert(result.message);
+
+        if (result.status === "success") {
+          window.location.href = "login.html";
+        }
+      } catch (error) {
+        alert("Error al conectar con el servidor: " + error.message);
+      }
+    });
+  </script>
 </body>
 </html>

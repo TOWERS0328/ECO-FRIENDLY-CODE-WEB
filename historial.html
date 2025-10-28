@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Historial de Reciclaje</title>
+  <link rel="stylesheet" href="style-dashboard.css">
+  <link rel="stylesheet" href="stylehistorial.css">
+</head>
+<body>
+
+  <div class="dashboard-container">
+    <!-- === SIDEBAR === -->
+    <aside class="sidebar">
+      <div class="logo">
+        <h1><span>ECO</span> FRIENDLY</h1>
+        <p>CODE</p>
+      </div>
+
+      <div class="user-info">
+        <img src="Img/9434619.jpg" alt="Usuario" class="avatar" id="user-avatar">
+        <h3 class="username">Ana López</h3>
+        <p class="email">ana.lopez@email.com</p>
+      </div>
+
+      <nav class="menu">
+        <a href="recycle.html">♻️ Reciclar</a>
+        <a href="redeemPoints.html">🎁 Canjear Premios</a>
+        <a href="historial.html" class="active">📋 Historial</a>
+        <a href="viewinicial.html">📊 Panel</a>
+      </nav>
+    </aside>
+
+    <!-- === CONTENIDO PRINCIPAL === -->
+    <main class="main-content">
+      <header class="top-bar">
+        <h2>📋 Historial de Reciclaje</h2>
+      </header>
+
+      <section class="records">
+        <table id="residuos-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Material</th>
+              <th>Descripción</th>
+              <th>Puntos</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const API_URL = "http://localhost/Eco-Friendly-Web/backend/controllers/residuos.php";
+    const residuosTable = document.querySelector("#residuos-table tbody");
+
+    async function loadResiduos() {
+      try {
+        const response = await fetch(API_URL);
+        const data = await response.json();
+        residuosTable.innerHTML = "";
+
+        if (data.length > 0) {
+          data.forEach(r => {
+            const row = `<tr>
+              <td>${r.id}</td>
+              <td>${r.nombre}</td>
+              <td>${r.descripcion}</td>
+              <td>${r.puntos}</td>
+              <td>${r.fecha}</td>
+            </tr>`;
+            residuosTable.innerHTML += row;
+          });
+        } else {
+          residuosTable.innerHTML = `<tr><td colspan="5">No hay registros todavía.</td></tr>`;
+        }
+      } catch (error) {
+        console.error("Error cargando historial:", error);
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", loadResiduos);
+  </script>
+</body>
+</html>
