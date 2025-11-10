@@ -1,0 +1,153 @@
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f8fef9;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.main-content {
+  padding: 25px 40px;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e6f5ea;
+  padding: 15px 20px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+
+.top-bar h2 {
+  color: #007a3d;
+  margin: 0;
+  font-weight: 700;
+}
+
+.settings-section {
+  background: #fff;
+  border: 1px solid #e6f5ea;
+  border-radius: 12px;
+  padding: 20px 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+.settings-section h3 {
+  color: #00b050;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.settings-form input[readonly] {
+  background: #f2f8f4;
+  color: #555;
+  border: 1px solid #d9f2e3;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: not-allowed;
+}
+
+.settings-form input,
+.settings-form select {
+  padding: 10px;
+  border: 1px solid #d9f2e3;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: border 0.2s ease;
+}
+
+.settings-form input:focus,
+.settings-form select:focus {
+  border-color: #00b050;
+  outline: none;
+}
+
+.profile-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.profile-container img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #00b050;
+}
+
+.upload-btn {
+  background-color: #00b050;
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.upload-btn:hover {
+  background-color: #007a3d;
+}
+
+.toggle-group label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f7fdf8;
+  border: 1px solid #d9f2e3;
+  border-radius: 10px;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.security-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.color-picker {
+  margin: 10px 0;
+  width: 60px;
+  height: 35px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn.green {
+  background-color: #00b050;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn.green:hover {
+  background-color: #007a3d;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  color: #666;
+  background: #f2f8f4;
+}
+

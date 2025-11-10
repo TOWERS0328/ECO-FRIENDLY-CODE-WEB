@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel del Coordinador | ECO Friendly Code</title>
+  <link rel="stylesheet" href="coordinator-dashboard.css">
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+  <!-- Iconos Flaticon -->
+  <link rel="stylesheet"
+        href="https://cdn-uicons.flaticon.com/2.5.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
+
+  <!-- DataTables -->
+  <link rel="stylesheet"
+        href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="coordinator-dashboard.css">
+</head>
+
+<body>
+
+<div class="dashboard-container">
+    <!-- 🌱 Sidebar -->
+    <aside class="sidebar">
+      <a href="index.html" class="logo">
+        <h1><span>ECO</span> FRIENDLY</h1>
+        <p>CODE</p>
+      </a>
+
+    <div class="user-profile">
+      <img src="Img/coordinator.jpg" class="avatar">
+      <h3>Coordinador</h3>
+      <p>coordinador@eco.com</p>
+    </div>
+
+    <nav class="menu">
+      <a class="active"><i class="fi fi-rr-dashboard"></i> Panel</a>
+      <a href="manage-students.html"><i class="fi fi-rr-graduation-cap"></i> Estudiantes</a>
+      <a href="manage-recyclables.html"><i class="fi fi-rr-recycle"></i> Residuos</a>
+      <a href="manage-rewards.html"><i class="fi fi-rr-gift"></i> Premios</a>
+      <a href="messages.html"><i class="fi fi-rr-comment-alt"></i> Mensajes</a>
+      <a href="reports.html"><i class="fi fi-rr-document"></i> Reportes</a>
+      <a href="settings.html"><i class="fi fi-rr-settings"></i> Configuración</a>
+      <a href="#"><i class="fi fi-rr-exit"></i> Cerrar Sesión</a>
+    </nav>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <div class="d-flex justify-content-between align-items-center">
+      <h1><i class="fi fi-rr-stats"></i> Panel del Coordinador</h1>
+      <input type="text" class="form-control search-bar" placeholder="Buscar...">
+    </div>
+
+    <div class="stats">
+
+      <div class="stat-card">
+        <i class="fi fi-rr-users"></i>
+        <h5>Estudiantes Registrados</h5>
+        <p id="statStudents">—</p>
+      </div>
+
+      <div class="stat-card">
+        <i class="fi fi-rr-recycle"></i>
+        <h5>Kilogramos Reciclados</h5>
+        <p id="statRecycle">—</p>
+      </div>
+
+      <div class="stat-card">
+        <i class="fi fi-rr-briefcase"></i>
+        <h5>Carreras</h5>
+        <p id="statCareers">—</p>
+      </div>
+
+      <div class="stat-card">
+        <i class="fi fi-rr-gift"></i>
+        <h5>Premios Entregados</h5>
+        <p id="statRewards">—</p>
+      </div>
+
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <div class="chart-card">
+          <h6>Reciclaje por Carrera</h6>
+          <canvas id="careerChart"></canvas>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="chart-card">
+          <h6>Top Estudiantes Destacados</h6>
+          <canvas id="studentsChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="data-section mt-4">
+      <h5>Registro General</h5>
+      <table id="ecoTable" class="table table-striped"></table>
+    </div>
+
+  </main>
+
+</div>
+
+<script src="coordinator-dashboard.js"></script>
+</body>
+<script>
+  // Detecta el clic en el enlace "Cerrar Sesión"
+  document.querySelector('.menu a[href="login.html"]').addEventListener('click', function (e) {
+    e.preventDefault();
+
+    // Confirmación opcional
+    if (confirm("¿Seguro que deseas cerrar sesión?")) {
+      // Elimina datos de sesión
+      localStorage.removeItem("userRole");
+      localStorage.removeItem("userEmail");
+
+      // Redirige al login
+      window.location.href = "../auth/login.html";
+    }
+  });
+</script>
+
+</html>

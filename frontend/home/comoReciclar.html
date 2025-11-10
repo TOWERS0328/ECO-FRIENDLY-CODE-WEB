@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eco Friendly Code - Guía de Reciclaje</title>
+  <link rel="stylesheet" href="../GOBAL-CSS/logoEcoBtnInicio.css">
+  <link rel="stylesheet" href="comoReciclar.css">
+</head>
+<body>
+  <!-- Header -->
+ <header class="header">
+  <a href="index.html" class="logo">
+    <h1><span>ECO</span> FRIENDLY</h1>
+    <p>CODE</p>
+  </a>
+</header>
+
+   
+   
+  </header>
+
+  <!-- Main content -->
+  <main class="content">
+    <h1>Guía de Reciclaje</h1>
+    <p class="subtitle">Aprende a reciclar y gana puntos por un planeta más limpio.</p>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" data-tab="plastico">♻️ Plásticos</button>
+      <button class="tab" data-tab="papel">📄 Papel y Cartón</button>
+    </div>
+
+    <!-- Content sections -->
+    <section class="tab-content active" id="plastico">
+      <h2>Cómo reciclar Plástico</h2>
+      <h3>Qué se puede reciclar:</h3>
+      <p>Botellas PET (agua, refrescos), envases de yogurt, tapas de plástico, botellas de champú y detergente.</p>
+
+      <h3>Cómo prepararlo:</h3>
+      <ol>
+        <li>Vacía completamente el contenido.</li>
+        <li>Enjuaga ligeramente para eliminar restos.</li>
+        <li>Aplasta las botellas para ahorrar espacio.</li>
+      </ol>
+
+      <h3>Dónde depositarlo:</h3>
+      <p>Busca los contenedores amarillos en tu ciudad o encuentra nuestros puntos de recogida asociados en el mapa.</p>
+
+      <div class="reward-box">
+        <p>🏅 ¡Gana <strong>10 puntos</strong> por cada 1kg de plástico reciclado!</p>
+      </div>
+    </section>
+
+    <section class="tab-content" id="papel">
+      <h2>Cómo reciclar Papel y Cartón</h2>
+      <h3>Qué se puede reciclar:</h3>
+      <p>Periódicos, revistas, cajas de cartón limpias, sobres y hojas de papel.</p>
+
+      <h3>Cómo prepararlo:</h3>
+      <ol>
+        <li>No mezcles con residuos orgánicos.</li>
+        <li>Evita que el papel esté mojado o sucio.</li>
+        <li>Dobla o aplana las cajas para ocupar menos espacio.</li>
+      </ol>
+
+      <div class="reward-box">
+        <p>📘 ¡Gana <strong>8 puntos</strong> por cada 1kg de papel reciclado!</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 Eco Friendly Code. Todos los derechos reservados.
+  </footer>
+
+  <script>
+    // Control de pestañas
+    const tabs = document.querySelectorAll('.tab');
+    const contents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        contents.forEach(c => c.classList.remove('active'));
+
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.tab).classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

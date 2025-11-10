@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestión de Estudiantes | Eco Friendly Code</title>
+
+  <!-- 🌿 Estilos -->
+  <link rel="stylesheet" href="manage-students.css" />
+
+  <!-- 🧩 Iconos de Flaticon -->
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <!-- 🌱 Sidebar -->
+    <aside class="sidebar">
+      <a href="index.html" class="logo">
+        <h1><span>ECO</span> FRIENDLY</h1>
+        <p>CODE</p>
+      </a>
+
+      <div class="user-info">
+        <img src="Img/coordinator.jpg" class="avatar" alt="Coordinador" />
+        <h3 class="username">Coordinador</h3>
+        <p class="email">coordinador@eco.com</p>
+      </div>
+
+      <nav class="menu">
+        <a href="coordinator-dashboard.html"><i class="fi fi-rr-chart-pie"></i> Panel</a>
+        <a href="manage-students.html" class="active"><i class="fi fi-rr-graduation-cap"></i> Estudiantes</a>
+        <a href="manage-recyclables.html"><i class="fi fi-rr-recycle"></i> Residuos</a>
+        <a href="manage-rewards.html"><i class="fi fi-rr-gift"></i> Premios</a>
+      </nav>
+    </aside>
+
+    <!-- 🌿 Contenido principal -->
+    <main class="main-content">
+      <header class="top-bar">
+        <h2><i class="fi fi-rr-users-alt"></i> Gestión de Estudiantes</h2>
+        <button class="btn add" onclick="openModal()">
+          <i class="fi fi-rr-plus-small"></i> Nuevo Estudiante
+        </button>
+      </header>
+
+      <!-- 🔍 Buscador -->
+      <section class="buscador">
+        <input type="text" id="searchId" placeholder="Buscar estudiante por cédula o nombre..." />
+        <button class="btn green" onclick="buscarEstudiante()">
+          <i class="fi fi-rr-search"></i> Buscar
+        </button>
+      </section>
+
+      <!-- 📋 Tabla -->
+      <section class="historial">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Carrera</th>
+              <th>Puntos</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="resultadoTabla">
+            <tr><td colspan="5" class="empty">No hay resultados.</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <footer>© 2025 Eco Friendly Code. Todos los derechos reservados.</footer>
+
+  <!-- 🪄 MODAL REGISTRAR / ACTUALIZAR USUARIO -->
+  <div class="modal" id="userModal">
+    <div class="modal-content">
+      <h3 id="modalTitle">Registrar Nuevo Estudiante</h3>
+      <form id="userForm">
+        <label for="id">ID Estudiantil (Cédula)</label>
+        <input type="text" id="id" placeholder="Ej: 1002345678" required>
+
+        <label for="name">Nombre</label>
+        <input type="text" id="name" placeholder="Ingresa tu nombre" required>
+
+        <label for="lastname">Apellido</label>
+        <input type="text" id="lastname" placeholder="Ingresa tu apellido" required>
+
+        <label for="gender">Género</label>
+        <select id="gender" required>
+          <option value="">Selecciona tu género</option>
+          <option value="Masculino">Masculino</option>
+          <option value="Femenino">Femenino</option>
+          <option value="Otro">Otro</option>
+          <option value="Prefiero no decirlo">Prefiero no decirlo</option>
+        </select>
+
+        <label for="career">Carrera</label>
+        <select id="career" required>
+          <option value="">Selecciona tu carrera</option>
+          <option value="Licenciatura en Bilingüismo con énfasis en Inglés">Licenciatura en Bilingüismo con énfasis en Inglés</option>
+          <option value="Administración de Empresas">Administración de Empresas</option>
+          <option value="Administración de Empresas Turísticas y Hoteleras">Administración de Empresas Turísticas y Hoteleras</option>
+          <option value="Contaduría Pública">Contaduría Pública</option>
+          <option value="Derecho">Derecho</option>
+          <option value="Ingeniería de Sistemas">Ingeniería de Sistemas</option>
+          <option value="Ingeniería Industrial">Ingeniería Industrial</option>
+          <option value="Tecnología en Gestión de Servicios Turísticos y Hoteleros">Tecnología en Gestión de Servicios Turísticos y Hoteleros</option>
+        </select>
+
+        <label for="email">Correo institucional</label>
+        <input type="email" id="email" placeholder="ejemplo@universidad.edu" required>
+
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" placeholder="Crea una contraseña" required>
+
+        <label for="confirm-password">Confirmar Contraseña</label>
+        <input type="password" id="confirm-password" placeholder="Confirma tu contraseña" required>
+
+        <div class="modal-actions">
+          <button type="button" class="btn cancel" onclick="closeModal()">Cancelar</button>
+          <button type="submit" class="btn green">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ⚙️ SCRIPT -->
+  <script>
+    let estudiantes = [
+      { id: '101', nombre: 'Ana López', carrera: 'Ingeniería de Sistemas', puntos: 520 },
+      { id: '102', nombre: 'Carlos Pérez', carrera: 'Administración de Empresas', puntos: 410 },
+      { id: '103', nombre: 'Luisa Torres', carrera: 'Ingeniería Industrial', puntos: 390 },
+      { id: '104', nombre: 'Juan Díaz', carrera: 'Derecho', puntos: 365 },
+    ];
+
+    let editando = null;
+
+    function mostrarEstudiantes(lista) {
+      const tabla = document.getElementById('resultadoTabla');
+      if (!lista.length) {
+        tabla.innerHTML = `<tr><td colspan="5" class="empty">No hay resultados.</td></tr>`;
+        return;
+      }
+
+      tabla.innerHTML = lista.map(e => `
+        <tr>
+          <td>${e.id}</td>
+          <td>${e.nombre}</td>
+          <td>${e.carrera}</td>
+          <td class="green bold">${e.puntos}</td>
+          <td>
+            <button class="btn small add" onclick='openModal(true, ${JSON.stringify(e)})'>
+              <i class="fi fi-rr-edit"></i>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function buscarEstudiante() {
+      const id = document.getElementById('searchId').value.trim().toLowerCase();
+      const resultado = estudiantes.filter(e =>
+        e.id.includes(id) || e.nombre.toLowerCase().includes(id)
+      );
+      mostrarEstudiantes(resultado);
+    }
+
+    function openModal(edit = false, data = null) {
+      const modal = document.getElementById('userModal');
+      const title = document.getElementById('modalTitle');
+      const form = document.getElementById('userForm');
+
+      modal.style.display = 'flex';
+      form.reset();
+      editando = edit ? data.id : null;
+      title.textContent = edit ? 'Editar Estudiante' : 'Registrar Nuevo Estudiante';
+
+      if (edit && data) {
+        document.getElementById('id').value = data.id;
+        document.getElementById('name').value = data.nombre.split(' ')[0];
+        document.getElementById('lastname').value = data.nombre.split(' ')[1] || '';
+        document.getElementById('career').value = data.carrera;
+        document.getElementById('email').value = data.correo || '';
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('userModal').style.display = 'none';
+    }
+
+    document.getElementById('userForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const id = document.getElementById('id').value.trim();
+      const nombre = document.getElementById('name').value.trim();
+      const apellido = document.getElementById('lastname').value.trim();
+      const carrera = document.getElementById('career').value;
+      const puntos = 0;
+
+      const nuevo = { id, nombre: `${nombre} ${apellido}`, carrera, puntos };
+
+      if (editando) {
+        const i = estudiantes.findIndex(e => e.id === editando);
+        estudiantes[i] = nuevo;
+      } else {
+        estudiantes.push(nuevo);
+      }
+
+      closeModal();
+      mostrarEstudiantes(estudiantes);
+    });
+
+    // Mostrar lista inicial
+    mostrarEstudiantes(estudiantes);
+  </script>
+</body>
+</html>

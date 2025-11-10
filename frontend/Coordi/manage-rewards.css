@@ -1,0 +1,271 @@
+/* 🌿 ESTILO BASE */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #f7fdf8;
+  color: #333;
+  overflow-x: hidden;
+}
+
+/* 🔹 CONTENEDOR GENERAL */
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* 🌱 SIDEBAR */
+.sidebar {
+  width: 240px;
+  background-color: #fff;
+  border-right: 2px solid #e6f5ea;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px 15px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.logo {
+  text-decoration: none;
+  color: inherit;
+  text-align: left;
+  width: 100%;
+  transition: 0.3s;
+}
+.logo:hover { transform: scale(1.03); }
+.logo h1 { color: #00b050; font-size: 26px; margin: 0; }
+.logo span { color: #333; }
+.logo p { font-size: 13px; font-weight: bold; color: #555; }
+
+.user-info {
+  background: rgba(255,255,255,0.9);
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  width: 100%;
+  margin-top: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 3px solid #00b050;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.username { margin-top: 8px; font-size: 16px; color: #00b050; font-weight: 600; }
+.email { font-size: 12px; color: #666; }
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-top: 20px;
+}
+.menu a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+  padding: 10px 12px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+.menu a:hover,
+.menu a.active {
+  background-color: #e6f5ea;
+  color: #00b050;
+}
+
+/* 🌿 CONTENIDO PRINCIPAL */
+.main-content {
+  flex: 1;
+  margin-left: 240px;
+  padding: 30px;
+  background-color: #f8fef9;
+}
+
+/* 🌾 BARRA SUPERIOR */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+.top-bar h2 {
+  font-size: 22px;
+  color: #007a3d;
+  font-weight: 600;
+}
+
+/* BOTONES */
+.btn {
+  border: none;
+  padding: 9px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn.green {
+  background-color: #00b050;
+  color: #fff;
+}
+.btn.green:hover { background-color: #007a3d; }
+.btn.add {
+  background-color: #e6f5ea;
+  color: #007a3d;
+  border: 1px solid #00b050;
+}
+.btn.add:hover {
+  background-color: #00b050;
+  color: #fff;
+}
+.btn.cancel {
+  background-color: #f0f0f0;
+  color: #444;
+}
+.btn.cancel:hover { background-color: #ddd; }
+.btn.small {
+  padding: 6px 8px;
+  font-size: 14px;
+}
+
+/* 🔍 BUSCADOR */
+.buscador {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.buscador input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #cce6d2;
+  border-radius: 8px;
+  outline: none;
+  transition: 0.3s;
+}
+.buscador input:focus {
+  border-color: #00b050;
+  box-shadow: 0 0 5px rgba(0, 176, 80, 0.3);
+}
+
+/* 📋 TABLA */
+.historial table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.historial th, .historial td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e6f5ea;
+}
+.historial th {
+  background-color: #e6f5ea;
+  color: #007a3d;
+  font-weight: 600;
+}
+.historial tr:hover {
+  background-color: #f5fbf6;
+  transition: 0.2s;
+}
+.empty { text-align: center; color: #777; padding: 20px; }
+
+/* 🪄 MODAL */
+.modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.3);
+  z-index: 1000;
+}
+.modal-content {
+  background: #fff;
+  padding: 25px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.modal-content h3 {
+  color: #007a3d;
+  margin-bottom: 15px;
+}
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.modal-content input, select {
+  padding: 10px;
+  border: 1px solid #cce6d2;
+  border-radius: 8px;
+  outline: none;
+}
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+/* 🖼️ IMÁGENES DE PREMIOS */
+.img-mini {
+  width: 90px;              /* más grandes que antes */
+  height: 90px;
+  object-fit: cover;        /* mantiene el enfoque sin deformar */
+  border-radius: 12px;      /* esquinas suaves */
+  border: 2px solid #cce6d2;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  display: block;
+  margin: 0 auto;           /* centra dentro de la celda */
+  transition: transform 0.3s ease;
+}
+
+.img-mini:hover {
+  transform: scale(1.08);   /* pequeño zoom al pasar el cursor */
+  border-color: #00b050;
+}
+
+/* 🦶 FOOTER */
+footer {
+  text-align: center;
+  padding: 15px;
+  font-size: 12px;
+  color: #666;
+  background-color: #f7fdf8;
+  border-top: 1px solid #e6f5ea;
+  
+}
+/* 🖼️ Vista previa dentro del modal */
+.preview-container {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.preview-img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 2px solid #00b050;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 8px;
+}
+

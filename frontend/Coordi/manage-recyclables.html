@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestión de Residuos | Eco Friendly Code</title>
+  <link rel="stylesheet" href="manage-recyclables.css" />
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <!-- 🌱 Sidebar -->
+    <aside class="sidebar">
+      <a href="index.html" class="logo">
+        <h1><span>ECO</span> FRIENDLY</h1>
+        <p>CODE</p>
+      </a>
+
+      <div class="user-info">
+        <img src="Img/coordinator.jpg" class="avatar" alt="Coordinador" />
+        <h3 class="username">Coordinador</h3>
+        <p class="email">coordinador@eco.com</p>
+      </div>
+
+      <nav class="menu">
+        <a href="coordinator-dashboard.html"><i class="fi fi-rr-chart-pie"></i> Panel</a>
+        <a href="manage-students.html"><i class="fi fi-rr-graduation-cap"></i> Estudiantes</a>
+        <a href="manage-recyclables.html" class="active"><i class="fi fi-rr-recycle"></i> Residuos</a>
+        <a href="manage-rewards.html"><i class="fi fi-rr-gift"></i> Premios</a>
+      </nav>
+    </aside>
+
+    <!-- 🌿 Contenido principal -->
+    <main class="main-content">
+      <header class="top-bar">
+        <h2><i class="fi fi-rr-recycle"></i> Gestión de Residuos</h2>
+        <button class="btn add" onclick="openModal()">
+          <i class="fi fi-rr-plus-small"></i> Nuevo Residuo
+        </button>
+      </header>
+
+      <!-- 🔍 Buscador -->
+      <section class="buscador">
+        <input type="text" id="searchInput" placeholder="Buscar por tipo o nombre..." />
+        <button class="btn green" onclick="buscarResiduo()">
+          <i class="fi fi-rr-search"></i> Buscar
+        </button>
+      </section>
+
+      <!-- 📋 Tabla -->
+      <section class="historial">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Tipo</th>
+              <th>Nombre</th>
+              <th>Puntos</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="residuoTable">
+            <tr><td colspan="6" class="empty">No hay residuos registrados.</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <footer>© 2025 Eco Friendly Code. Todos los derechos reservados.</footer>
+
+  <!-- 🪄 MODAL -->
+  <div class="modal" id="residuoModal">
+    <div class="modal-content">
+      <h3 id="modalTitle">Registrar Nuevo Residuo</h3>
+      <form id="residuoForm">
+        <label for="id">ID del Residuo</label>
+        <input type="text" id="id" placeholder="Ej: R001" required>
+
+        <label for="tipo">Tipo</label>
+        <input type="text" id="tipo" placeholder="Ej: Plástico" required>
+
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" placeholder="Ej: Botella PET" required>
+
+        <label for="puntos">Puntos</label>
+        <input type="number" id="puntos" placeholder="Ej: 10" required>
+
+        <label for="estado">Estado</label>
+        <select id="estado" required>
+          <option value="">Selecciona un estado</option>
+          <option value="Activo">Activo</option>
+          <option value="Inactivo">Inactivo</option>
+        </select>
+
+        <div class="modal-actions">
+          <button type="button" class="btn cancel" onclick="closeModal()">Cancelar</button>
+          <button type="submit" class="btn green">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ⚙️ SCRIPT -->
+  <script>
+    let residuos = [
+      { id: 'R001', tipo: 'Plástico', nombre: 'Botella PET', puntos: 10, estado: 'Activo' },
+      { id: 'R002', tipo: 'Vidrio', nombre: 'Botella de Cerveza', puntos: 15, estado: 'Activo' },
+      { id: 'R003', tipo: 'Metal', nombre: 'Lata de Gaseosa', puntos: 12, estado: 'Inactivo' }
+    ];
+    let editando = null;
+
+    function mostrarResiduos(lista) {
+      const tabla = document.getElementById('residuoTable');
+      if (!lista.length) {
+        tabla.innerHTML = `<tr><td colspan="6" class="empty">No hay resultados.</td></tr>`;
+        return;
+      }
+
+      tabla.innerHTML = lista.map(r => `
+        <tr>
+          <td>${r.id}</td>
+          <td>${r.tipo}</td>
+          <td>${r.nombre}</td>
+          <td class="green bold">${r.puntos}</td>
+          <td>${r.estado}</td>
+          <td>
+            <button class="btn small add" onclick='openModal(true, ${JSON.stringify(r)})'><i class="fi fi-rr-edit"></i></button>
+            <button class="btn small cancel" onclick='eliminarResiduo("${r.id}")'><i class="fi fi-rr-trash"></i></button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function buscarResiduo() {
+      const texto = document.getElementById('searchInput').value.trim().toLowerCase();
+      const resultado = residuos.filter(r =>
+        r.tipo.toLowerCase().includes(texto) ||
+        r.nombre.toLowerCase().includes(texto)
+      );
+      mostrarResiduos(resultado);
+    }
+
+    function openModal(edit = false, data = null) {
+      const modal = document.getElementById('residuoModal');
+      const title = document.getElementById('modalTitle');
+      const form = document.getElementById('residuoForm');
+
+      modal.style.display = 'flex';
+      form.reset();
+      editando = edit ? data.id : null;
+      title.textContent = edit ? 'Editar Residuo' : 'Registrar Nuevo Residuo';
+
+      if (edit && data) {
+        document.getElementById('id').value = data.id;
+        document.getElementById('tipo').value = data.tipo;
+        document.getElementById('nombre').value = data.nombre;
+        document.getElementById('puntos').value = data.puntos;
+        document.getElementById('estado').value = data.estado;
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('residuoModal').style.display = 'none';
+    }
+
+    function eliminarResiduo(id) {
+      if (confirm('¿Seguro que deseas eliminar este residuo?')) {
+        residuos = residuos.filter(r => r.id !== id);
+        mostrarResiduos(residuos);
+      }
+    }
+
+    document.getElementById('residuoForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const id = document.getElementById('id').value.trim();
+      const tipo = document.getElementById('tipo').value.trim();
+      const nombre = document.getElementById('nombre').value.trim();
+      const puntos = parseInt(document.getElementById('puntos').value);
+      const estado = document.getElementById('estado').value;
+
+      const nuevo = { id, tipo, nombre, puntos, estado };
+
+      if (editando) {
+        const i = residuos.findIndex(r => r.id === editando);
+        residuos[i] = nuevo;
+      } else {
+        residuos.push(nuevo);
+      }
+
+      closeModal();
+      mostrarResiduos(residuos);
+    });
+
+    // Mostrar lista inicial
+    mostrarResiduos(residuos);
+  </script>
+</body>
+</html>

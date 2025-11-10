@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eco Friendly Code - Información del Usuario</title>
+
+  <!-- Estilos Globales -->
+  <link rel="stylesheet" href="../GOBAL-CSS/logoEcoBtnInicio.css">
+  <link rel="stylesheet" href="styleinformation.css" />
+  <link rel="stylesheet" href="../GOBAL-CSS/style-dashboard.css">
+
+  <!-- ICONOS FLATICON -->
+  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css">
+
+</head>
+<body>
+  <div class="dashboard-container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <a href="index.html" class="logo">
+        <h1><span>ECO</span> FRIENDLY</h1>
+        <p>CODE</p>
+      </a>
+
+      <div class="user-info">
+        <img src="Img/9434619.jpg" alt="Usuario" class="avatar" id="user-avatar" />
+        <h3 class="username">Ana López</h3>
+        <p class="email">ana.lopez@email.com</p>
+        <button class="change-photo-btn" id="change-photo-btn"><i class="fi fi-rr-picture"></i> Cambiar foto</button>
+        <input type="file" id="file-input" accept="image/*" style="display: none;" />
+      </div>
+
+      <nav class="menu">
+        <a href="viewinicial.html"><i class="fi fi-rr-dashboard"></i> Panel</a>
+        <a href="redeemPoints.html"><i class="fi fi-rr-gift"></i> Canjear Puntos</a>
+        <a href="historial.html"><i class="fi fi-rr-list-check"></i> Historial</a>
+        <a href="information.html" class="active"><i class="fi fi-rr-user"></i> Perfil</a>
+      </nav>
+    </aside>
+
+    <!-- Contenido principal -->
+    <main class="main-content">
+      <header class="top-bar">
+        <h2><i class="fi fi-rr-id-badge"></i> Información del Usuario</h2>
+      </header>
+
+      <section class="info-container">
+        <div class="info-box">
+          <form>
+            <div class="form-group">
+              <label for="cedula"><i class="fi fi-rr-credit-card"></i> Cédula</label>
+              <input type="text" id="cedula" placeholder="Ingresa tu cédula">
+            </div>
+
+            <div class="form-group">
+              <label for="id"><i class="fi fi-rr-hashtag"></i> ID</label>
+              <input type="text" id="id" placeholder="Ingresa tu ID">
+            </div>
+
+            <div class="form-group">
+              <label for="name"><i class="fi fi-rr-user"></i> Nombre</label>
+              <input type="text" id="name" placeholder="Ingresa tu nombre">
+            </div>
+
+            <div class="form-group">
+              <label for="lastname"><i class="fi fi-rr-user"></i> Apellido</label>
+              <input type="text" id="lastname" placeholder="Ingresa tu apellido">
+            </div>
+
+            <div class="form-group">
+              <label for="career"><i class="fi fi-rr-graduation-cap"></i> Carrera</label>
+              <select id="career" required>
+                <option value="">Selecciona tu carrera</option>
+                <option value="bilingual_english">Licenciatura en Bilingüismo con énfasis en Inglés</option>
+                <option value="administration">Administración de Empresas</option>
+                <option value="tourism_management">Administración de Empresas Turísticas y Hoteleras</option>
+                <option value="public_accounting">Contaduría Pública</option>
+                <option value="law">Derecho</option>
+                <option value="systems_engineering">Ingeniería de Sistemas</option>
+                <option value="industrial_engineering">Ingeniería Industrial</option>
+                <option value="tech_tourism_services">Tecnología en Gestión de Servicios Turísticos y Hoteleros</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="email"><i class="fi fi-rr-envelope"></i> Correo Electrónico</label>
+              <input type="email" id="email" placeholder="Ingresa tu correo electrónico">
+            </div>
+
+            <div class="form-group">
+              <label for="password"><i class="fi fi-rr-lock"></i> Contraseña</label>
+              <input type="password" id="password" placeholder="Ingresa tu contraseña">
+            </div>
+
+            <button type="submit" class="btn green"><i class="fi fi-rr-edit"></i> Modificar</button>
+          </form>
+        </div>
+
+        <div class="points-box">
+          <h3><i class="fi fi-rr-trophy"></i> Tus Puntos</h3>
+          <p class="points">0</p>
+          <p class="subtitle">¡Acumula puntos reciclando!</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    © 2025 Eco Friendly Code. Todos los derechos reservados.
+  </footer>
+
+  <script>
+    // Cambiar y guardar imagen
+    const avatar = document.getElementById('user-avatar');
+    const fileInput = document.getElementById('file-input');
+    const changeBtn = document.getElementById('change-photo-btn');
+
+    avatar.addEventListener('click', () => fileInput.click());
+    changeBtn.addEventListener('click', () => fileInput.click());
+
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          avatar.src = reader.result;
+          localStorage.setItem('userAvatar', reader.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    window.addEventListener('load', () => {
+      const savedImage = localStorage.getItem('userAvatar');
+      if (savedImage) avatar.src = savedImage;
+    });
+  </script>
+
+</body>
+</html>

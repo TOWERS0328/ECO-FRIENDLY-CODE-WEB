@@ -1,0 +1,174 @@
+/* === BASE GENERAL === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #f7fdf8;
+  color: #333;
+  overflow-x: hidden;
+}
+
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* === SIDEBAR === */
+.sidebar {
+  width: 230px;
+  background-color: #fff;
+  border-right: 2px solid #e6f5ea;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  position: fixed;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 230px;
+  padding: 25px;
+  background-color: #f8fef9;
+}
+
+/* === LOGO === */
+.logo h1 {
+  color: #00b050;
+  font-size: 24px;
+  line-height: 1;
+}
+.logo span { color: #333; }
+.logo p { font-size: 13px; color: #555; font-weight: bold; }
+
+/* === USUARIO === */
+.user-info {
+  background: rgba(255,255,255,0.9);
+  padding: 15px;
+  border-radius: 15px;
+  text-align: center;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid #1d7a32;
+  object-fit: cover;
+}
+
+.username { margin-top: 8px; font-size: 16px; color: #00b050; }
+.email { font-size: 12px; color: #666; }
+
+/* === MENÚ === */
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+  padding: 8px;
+  border-radius: 8px;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.menu a:hover, .menu a.active {
+  background-color: #e6f5ea;
+  color: #00b050;
+}
+
+/* === TÍTULO === */
+.top-bar h2 {
+  color: #00b050;
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+/* === TABLA MEJORADA === */
+.records {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.08);
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+#reciclaje-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  text-align: center;
+  background: #ffffff;
+}
+
+/* Bordes de celdas */
+#reciclaje-table th,
+#reciclaje-table td {
+  border: 1px solid #c8e6c9;
+  padding: 10px;
+}
+
+/* Encabezados */
+#reciclaje-table thead th {
+  background: #2b8a3e;
+  color: #fff;
+  border-color: #1e6a30;
+  font-weight: 700;
+}
+
+/* Alternar filas */
+#reciclaje-table tbody tr:nth-child(even) {
+  background: #f7f7f7;
+}
+
+#reciclaje-table tbody td {
+  color: #444;
+}
+
+#reciclaje-table tbody tr:hover {
+  background: #e9ffe9;
+  transition: 0.3s;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding: 15px;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  th, td {
+    padding: 8px;
+  }
+}

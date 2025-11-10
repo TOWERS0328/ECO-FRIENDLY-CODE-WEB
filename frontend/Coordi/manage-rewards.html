@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestión de Premios | Eco Friendly Code</title>
+
+  <!-- 🌿 Estilos -->
+  <link rel="stylesheet" href="manage-rewards.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- 🌟 Iconos -->
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4315/4315609.png">
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <!-- 🌱 Sidebar -->
+    <aside class="sidebar">
+      <a href="../home/index.html" class="logo">
+        <h1><span>ECO</span> FRIENDLY</h1>
+        <p>CODE</p>
+      </a>
+
+      <div class="user-info">
+        <img src="Img/coordinator.jpg" class="avatar" alt="Coordinador" />
+        <h3 class="username">Juan David</h3>
+        <p class="email">coordinador@eco.com</p>
+      </div>
+
+      <nav class="menu">
+        <a href="coordinator-dashboard.html"><i class="fi fi-rr-chart-pie"></i> Panel</a>
+        <a href="manage-students.html"><i class="fi fi-rr-graduation-cap"></i> Estudiantes</a>
+        <a href="manage-recyclables.html"><i class="fi fi-rr-recycle"></i> Residuos</a>
+        <a href="manage-rewards.html" class="active"><i class="fi fi-rr-gift"></i> Premios</a>
+       
+      </nav>
+    </aside>
+
+    <!-- 🌿 Contenido principal -->
+    <main class="main-content">
+      <header class="top-bar">
+        <h2><i class="fi fi-sr-gift"></i> Gestión de Premios</h2>
+        <button class="btn add" onclick="openModal()">
+          <i class="fi fi-rr-plus-small"></i> Nuevo Premio
+        </button>
+      </header>
+
+      <!-- 📋 Tabla -->
+      <section class="historial">
+        <table>
+          <thead>
+            <tr>
+              <th><i class="fi fi-rr-label"></i> Nombre</th>
+              <th><i class="fi fi-rr-star"></i> Puntos</th>
+              <th><i class="fi fi-rr-picture"></i> Imagen</th>
+              <th><i class="fi fi-rr-settings-sliders"></i> Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="premioTable">
+            <tr><td colspan="4" class="empty">No hay premios registrados.</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <footer>© 2025 Eco Friendly Code. Todos los derechos reservados.</footer>
+
+ <!-- 🪄 Modal -->
+<div id="premioModal" class="modal">
+  <div class="modal-content">
+    <h3 id="modalTitle">Agregar Premio</h3>
+    <form id="premioForm" enctype="multipart/form-data">
+      <label for="nombrePremio">Nombre del premio</label>
+      <input type="text" id="nombrePremio" placeholder="Ej: Camiseta ecológica" required>
+
+      <label for="puntosPremio">Puntos requeridos</label>
+      <input type="number" id="puntosPremio" placeholder="Ej: 500" required>
+
+      <label for="imagenPremio">Imagen del premio</label>
+      <input type="file" id="imagenPremio" accept="image/*" required onchange="previewImage(event)">
+
+      <!-- Vista previa -->
+      <div class="preview-container">
+        <img id="preview" src="" alt="Vista previa" class="preview-img" style="display:none;">
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn cancel" onclick="closeModal()">Cancelar</button>
+        <button type="submit" class="btn green">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+  <!-- ⚙️ SCRIPT -->
+ <script>
+  let premios = [];
+  let editIndex = null;
+
+  function renderTable() {
+    const tbody = document.getElementById("premioTable");
+    if (premios.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="4" class="empty">No hay premios registrados.</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = premios.map((p, i) => `
+      <tr>
+        <td>${p.nombre}</td>
+        <td class="green bold">${p.puntos}</td>
+        <td><img src="${p.imagen}" class="img-mini" alt="${p.nombre}"></td>
+        <td>
+          <button class="btn small add" onclick="editPremio(${i})"><i class="fi fi-rr-edit"></i></button>
+          <button class="btn small cancel" onclick="deletePremio(${i})"><i class="fi fi-rr-trash"></i></button>
+        </td>
+      </tr>
+    `).join('');
+  }
+  function editPremio(i) {
+  editIndex = i;
+  const premio = premios[i];
+
+  // Abre el modal en modo edición
+  document.getElementById("premioModal").style.display = "flex";
+  document.getElementById("modalTitle").textContent = "Editar Premio";
+
+  // Llena los campos con los datos actuales
+  document.getElementById("nombrePremio").value = premio.nombre;
+  document.getElementById("puntosPremio").value = premio.puntos;
+
+  // Muestra la imagen previa (sin tocar el input file)
+  const preview = document.getElementById("preview");
+  preview.src = premio.imagen;
+  preview.style.display = "block";
+}
+
+
+  function openModal(edit = false) {
+    document.getElementById("premioModal").style.display = "flex";
+    document.getElementById("premioForm").reset();
+    document.getElementById("preview").style.display = "none";
+    document.getElementById("modalTitle").textContent = edit ? "Editar Premio" : "Agregar Premio";
+  }
+
+  function closeModal() {
+    document.getElementById("premioModal").style.display = "none";
+  }
+
+  function previewImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const preview = document.getElementById("preview");
+        preview.src = e.target.result;
+        preview.style.display = "block";
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  document.getElementById("premioForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const nombre = document.getElementById("nombrePremio").value;
+    const puntos = parseInt(document.getElementById("puntosPremio").value);
+    const fileInput = document.getElementById("imagenPremio");
+
+    let imagen = "";
+    if (fileInput.files.length > 0) {
+      imagen = URL.createObjectURL(fileInput.files[0]); // crea una URL temporal para mostrar la imagen
+    }
+
+    if (editIndex === null) premios.push({ nombre, puntos, imagen });
+    else premios[editIndex] = { nombre, puntos, imagen };
+
+    closeModal();
+    renderTable();
+  });
+
+  renderTable();
+</script>
+
+</body>
+</html>

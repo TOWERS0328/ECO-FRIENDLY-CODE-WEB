@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eco Friendly Code - Reciclar</title>
+  <link rel="stylesheet" href="stylerecycle.css">
+  <link rel="stylesheet" href="../GOBAL-CSS/style-dashboard.css">
+  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+<link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css">
+
+</head>
+<body>
+
+  <div class="dashboard-container">
+    <!-- === SIDEBAR === -->
+    <aside class="sidebar">
+      <div class="logo">
+        <h1><span>ECO</span> FRIENDLY</h1>
+        <p>CODE</p>
+      </div>
+
+      <div class="user-info">
+        <img src="Img/9434619.jpg" alt="Usuario" class="avatar" id="user-avatar">
+        <h3 class="username">Ana López</h3>
+        <p class="email">ana.lopez@email.com</p>
+      </div>
+
+      <nav class="menu">
+  <a href="recycle.html" class="active"><i class="fi fi-rr-recycle"></i> Reciclar</a>
+  <a href="redeemPoints.html"><i class="fi fi-rr-gift"></i> Canjear Premios</a>
+  <a href="historial.html"><i class="fi fi-rr-list-check"></i> Historial</a>
+  <a href="viewinicial.html"><i class="fi fi-rr-dashboard"></i> Panel</a>
+</nav>
+
+    </aside>
+
+    <!-- === CONTENIDO PRINCIPAL === -->
+    <main class="main-content">
+      <header class="top-bar">
+        <h2> Registrar Reciclaje</h2>
+      </header>
+
+      <div class="info-container">
+        <!-- FORMULARIO DE RECICLAJE -->
+        <div class="info-box">
+          <form id="recycle-form">
+            <div class="form-group">
+              <label for="material">Material</label>
+              <select id="material" required>
+                <option value="">Selecciona...</option>
+                <option value="1">Papel</option>
+                <option value="2">Vidrio</option>
+                <option value="3">Cartón</option>
+                <option value="4">Plástico</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="peso">Peso (kg)</label>
+              <input type="number" id="peso" min="0.1" step="0.1" required>
+            </div>
+
+            <div class="form-group">
+              <label for="puntos">Puntos por kg</label>
+              <input type="text" id="puntos" readonly>
+            </div>
+
+            <div class="form-group">
+              <label for="total">Total de Puntos</label>
+              <input type="text" id="total" readonly>
+            </div>
+
+            <button type="button" class="btn green" id="calc-btn">CALCULAR</button>
+            <button type="submit" class="btn green">RECICLAR</button>
+          </form>
+        </div>
+
+        <!-- PANEL DE PUNTOS -->
+        <div class="points-box">
+          <h3>Tus Puntos</h3>
+          <div class="points" id="user-points">0</div>
+          <p class="subtitle">💚 Continúa reciclando para ganar más</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer>
+    © 2025 Eco Friendly Code | Política de Privacidad | Términos de Servicio
+  </footer>
+
+ <script>
+  const calcBtn = document.getElementById("calc-btn");
+  const materialSelect = document.getElementById("material");
+  const pesoInput = document.getElementById("peso");
+  const puntosInput = document.getElementById("puntos");
+  const totalInput = document.getElementById("total");
+  const recycleForm = document.getElementById("recycle-form");
+
+  const valoresPuntos = {
+    1: 10, // Papel
+    2: 15, // Vidrio
+    3: 12, // Cartón
+    4: 20  // Plástico
+  };
+
+  // === CALCULAR PUNTOS ===
+  calcBtn.addEventListener("click", () => {
+    const id_residuo = materialSelect.value;
+    const peso = parseFloat(pesoInput.value);
+
+    if (id_residuo && peso > 0) {
+      const puntosKg = valoresPuntos[id_residuo];
+      const total = puntosKg * peso;
+      puntosInput.value = `${puntosKg} pts/kg`;
+      totalInput.value = `${total} pts`;
+    } else {
+      alert("Selecciona un material y un peso válido.");
+    }
+  });
+
+  // === REGISTRO SIN BACKEND ===
+  recycleForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const id_residuo = materialSelect.value;
+    const peso = parseFloat(pesoInput.value);
+
+    if (!id_residuo || !peso) {
+      alert("⚠️ Debes seleccionar un material y un peso válido.");
+      return;
+    }
+
+    const puntosPorKg = valoresPuntos[id_residuo];
+    const total = puntosPorKg * peso;
+
+    alert(`♻️ Reciclaje registrado. Has ganado ${total} puntos.`);
+
+    const currentPoints = parseInt(document.getElementById("user-points").innerText);
+    document.getElementById("user-points").innerText = currentPoints + total;
+
+    recycleForm.reset();
+    puntosInput.value = "";
+    totalInput.value = "";
+  });
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const avatarImg = document.getElementById("user-avatar");
+    const savedAvatar = localStorage.getItem("userAvatar");
+    if (savedAvatar && avatarImg) avatarImg.src = savedAvatar;
+  });
+
+
+
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const avatarImg = document.getElementById("user-avatar");
+      const savedAvatar = localStorage.getItem("userAvatar");
+      if (savedAvatar && avatarImg) avatarImg.src = savedAvatar;
+    });
+  </script>
+
+</body>
+</html>

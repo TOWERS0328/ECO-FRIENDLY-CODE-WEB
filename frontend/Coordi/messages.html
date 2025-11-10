@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mensajes | Eco Friendly Code</title>
+
+  <!-- 🌿 Estilos -->
+  <link rel="stylesheet" href="messages.css" />
+  <link rel="stylesheet" href="../GOBAL-CSS/logoEcoBtnInicio.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- 🌟 Iconos -->
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <!-- 🌱 Sidebar -->
+    <aside class="sidebar">
+      <a href="../home/index.html" class="logo">
+        <h1><span>ECO</span> FRIENDLY</h1>
+        <p>CODE</p>
+      </a>
+
+      <div class="user-info">
+        <img src="Img/coordinator.jpg" class="avatar" alt="Coordinador" />
+        <h3 class="username">Coordinador</h3>
+        <p class="email">coordinador@eco.com</p>
+      </div>
+
+      <nav class="menu">
+        <a href="coordinator-dashboard.html"><i class="fi fi-rr-chart-pie"></i> Panel</a>
+        <a href="messages.html" class="active"><i class="fi fi-rr-comment-alt"></i> Mensajes</a>
+      </nav>
+    </aside>
+
+    <!-- 💬 Main -->
+    <main class="main-content">
+      <!-- 🔍 Barra superior -->
+      <header class="top-bar">
+        <h2><i class="fi fi-rr-envelope"></i> Bandeja de Mensajes</h2>
+        <input type="text" id="searchMessages" placeholder="Buscar mensajes o entidades..." />
+      </header>
+
+      <section class="messages-section">
+        <!-- 📋 Lista de conversaciones -->
+        <div class="conversation-list">
+          <div class="conversation active" onclick="openChat('Entidad Recicladora Central')">
+            <img src="Img/entity1.jpg" alt="Entidad 1" />
+            <div class="conv-info">
+              <h4>Entidad Recicladora Central</h4>
+              <p>Hola Coordinador, ¿cómo va el reciclaje esta semana?</p>
+            </div>
+            <span class="time">10:45 AM</span>
+          </div>
+
+          <div class="conversation" onclick="openChat('EcoPlast')">
+            <img src="Img/entity2.jpg" alt="EcoPlast" />
+            <div class="conv-info">
+              <h4>EcoPlast</h4>
+              <p>Tenemos un nuevo punto de recolección disponible.</p>
+            </div>
+            <span class="time">Ayer</span>
+          </div>
+        </div>
+
+        <!-- 💌 Chat actual -->
+        <div class="chat-area" id="chatArea">
+          <div class="chat-header">
+            <img src="Img/entity1.jpg" alt="Entidad actual" id="chatAvatar" />
+            <div>
+              <h4 id="chatName">Entidad Recicladora Central</h4>
+              <p>En línea</p>
+            </div>
+          </div>
+
+          <div class="chat-box" id="chatBox">
+            <div class="message received">
+              <p>Hola Coordinador, ¿cómo va el reciclaje esta semana?</p>
+              <span class="time">10:45 AM</span>
+            </div>
+
+            <div class="message sent">
+              <p>¡Hola! Muy bien, hemos aumentado la recolección un 20% 💪</p>
+              <span class="time">10:47 AM</span>
+            </div>
+          </div>
+
+          <div class="message-input">
+            <input type="text" id="messageText" placeholder="Escribe un mensaje..." />
+            <button onclick="sendMessage()"><i class="fi fi-rr-paper-plane"></i></button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>© 2025 Eco Friendly Code. Todos los derechos reservados.</footer>
+
+  <script>
+    function openChat(name) {
+      document.getElementById('chatName').textContent = name;
+      document.querySelectorAll('.conversation').forEach(c => c.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+    }
+
+    function sendMessage() {
+      const input = document.getElementById("messageText");
+      const text = input.value.trim();
+      if (!text) return;
+
+      const chatBox = document.getElementById("chatBox");
+      const msg = document.createElement("div");
+      msg.classList.add("message", "sent");
+      msg.innerHTML = `<p>${text}</p><span class="time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>`;
+      chatBox.appendChild(msg);
+      input.value = "";
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  </script>
+</body>
+</html>

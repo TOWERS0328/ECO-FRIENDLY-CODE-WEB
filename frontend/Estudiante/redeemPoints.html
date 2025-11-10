@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eco Friendly Code - Canjear Puntos</title>
+
+  <link rel="stylesheet" href="../GOBAL-CSS/logoEcoBtnInicio.css">
+  <link rel="stylesheet" href="../GOBAL-CSS/style-dashboard.css" />
+  <link rel="stylesheet" href="styleRedeemPoints.css" />
+
+  <!-- Iconos Flaticon -->
+  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css">
+</head>
+<body>
+  <div class="dashboard-container">
+    
+    <!-- PANEL IZQUIERDO -->
+    <aside class="sidebar">
+      <a href="index.html" class="logo">
+        <h1><span>ECO</span> FRIENDLY</h1>
+        <p>CODE</p>
+      </a>
+
+      <div class="user-info">
+        <img src="Img/9434619.jpg" alt="Usuario" class="avatar" id="user-avatar" />
+        <h3 class="username">Ana López</h3>
+        <p class="email">ana.lopez@email.com</p>
+      </div>
+
+      <nav class="menu">
+        <a href="viewinicial.html"><i class="fi fi-rr-dashboard"></i> Panel</a>
+        <a href="information.html"><i class="fi fi-rr-user"></i> Mi Perfil</a>
+        <a href="redeemPoints.html" class="active"><i class="fi fi-rr-gift"></i> Canjear Puntos</a>
+      </nav>
+
+      <footer>© 2025 Eco Friendly Code</footer>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="main-content">
+      <section class="catalogo">
+        <div class="header-catalogo">
+          <h1><i class="fi fi-rr-gift"></i> Catálogo de Premios y Recompensas</h1>
+          <p>Usa tus puntos ganados reciclando para canjear estos productos.</p>
+
+          <div class="points"><i class="fi fi-rr-badge-check"></i> 0 pts</div>
+          <div class="cart"><i class="fi fi-rr-shopping-cart"></i> <span id="cart-count">0</span></div>
+        </div>
+
+        <div class="search-bar">
+          <input type="text" placeholder="Buscar premio por nombre..." />
+          <button><i class="fi fi-rr-search"></i></button>
+        </div>
+
+        <div class="productos">
+          <!-- Producto 1 -->
+          <div class="card">
+            <img src="../Img/snack.jpg" alt="Snack saludable" />
+            <h3><i class="fi fi-rr-apple-whole"></i> Snack Saludable</h3>
+            <p>Delicioso mix de frutas deshidratadas.</p>
+            <span class="puntos"><i class="fi fi-rr-star"></i> 10 Puntos</span>
+            <button class="add-cart"><i class="fi fi-rr-shopping-cart-add"></i> Agregar</button>
+          </div>
+
+          <!-- Producto 2 -->
+          <div class="card">
+            <img src="../Img/jugo.jpg" alt="Jugo Natural" />
+            <h3><i class="fi fi-rr-cup-straw"></i> Jugo Natural</h3>
+            <p>Refrescante jugo de frutas ecológicas.</p>
+            <span class="puntos"><i class="fi fi-rr-star"></i> 7 Puntos</span>
+            <button class="add-cart"><i class="fi fi-rr-shopping-cart-add"></i> Agregar</button>
+          </div>
+
+          <!-- Producto 3 -->
+          <div class="card">
+            <img src="../Img/gaseosa.jpg" alt="Gaseosa" />
+            <h3><i class="fi fi-rr-bottle"></i> Gaseosa Eco</h3>
+            <p>Disfruta sin contaminar el planeta.</p>
+            <span class="puntos"><i class="fi fi-rr-star"></i> 20 Puntos</span>
+            <button class="add-cart"><i class="fi fi-rr-shopping-cart-add"></i> Agregar</button>
+          </div>
+
+          <!-- Producto 4 -->
+          <div class="card">
+            <img src="../Img/papas.jpg" alt="Papas horneadas" />
+            <h3><i class="fi fi-rr-bowl-chopsticks"></i> Papas Horneadas</h3>
+            <p>Ricas y sin aceite.</p>
+            <span class="puntos"><i class="fi fi-rr-star"></i> 8 Puntos</span>
+            <button class="add-cart"><i class="fi fi-rr-shopping-cart-add"></i> Agregar</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+<script>
+  const avatar = document.getElementById('user-avatar');
+  window.addEventListener('load', () => {
+    const savedImage = localStorage.getItem('userAvatar');
+    if (savedImage) avatar.src = savedImage;
+  });
+
+  const cartCount = document.getElementById("cart-count");
+  const buttons = document.querySelectorAll(".add-cart");
+  let count = 0;
+
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      count++;
+      cartCount.textContent = count;
+      btn.innerHTML = '<i class="fi fi-rr-check"></i> Agregado';
+      btn.disabled = true;
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Historial de Reciclaje</title>
+
+  <!-- ÍCONOS FLATICON -->
+  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+
+  <link rel="stylesheet" href="../GOBAL-CSS/logoEcoBtnInicio.css">
+  <link rel="stylesheet" href="../GOBAL-CSS/style-dashboard.css">
+  <link rel="stylesheet" href="stylehistorial.css">
+</head>
+<body>
+
+  <div class="dashboard-container">
+
+    <!-- === SIDEBAR === -->
+    <aside class="sidebar">
+
+      <div class="logo">
+        <h1><span>ECO</span> FRIENDLY</h1>
+        <p>CODE</p>
+      </div>
+
+      <div class="user-info">
+        <img src="Img/9434619.jpg" alt="Usuario" class="avatar" id="user-avatar">
+        <h3 class="username">Ana López</h3>
+        <p class="email">ana.lopez@email.com</p>
+      </div>
+
+      <nav class="menu">
+        <a href="viewinicial.html"><i class="fi fi-rr-dashboard"></i> Panel</a>
+        <a href="recycle.html"><i class="fi fi-rr-recycle"></i> Reciclar</a>
+        <a href="redeemPoints.html"><i class="fi fi-rr-gift"></i> Canjear Premios</a>
+        <a href="historial.html" class="active"><i class="fi fi-rr-list-check"></i> Historial</a>
+        <a href="information.html"><i class="fi fi-rr-user"></i> Perfil</a>
+      </nav>
+
+    </aside>
+
+    <!-- === CONTENIDO PRINCIPAL === -->
+    <main class="main-content">
+      <header class="top-bar">
+        <h2>Historial de Reciclaje</h2>
+      </header>
+
+      <section class="records">
+        <table id="reciclaje-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Material</th>
+              <th>Descripción</th>
+              <th>Cantidad (kg)</th>
+              <th>Puntos Ganados</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    </main>
+
+  </div>
+
+  <script>
+    // Mostrar avatar guardado en LocalStorage
+    const avatarImg = document.getElementById("user-avatar");
+    const savedAvatar = localStorage.getItem("userAvatar");
+    if (savedAvatar) avatarImg.src = savedAvatar;
+  </script>
+
+</body>
+</html>
