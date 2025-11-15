@@ -5,6 +5,22 @@
   box-sizing: border-box;
 }
 
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    box-shadow: 0 0 0 30px white inset !important;
+    background-color: white !important;
+    color: #333 !important;
+}
+
+.input-error {
+    border-color: red !important;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.4);
+}
+
 body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #e7f7ee, #ffffff);
@@ -69,6 +85,16 @@ nav a:hover, nav a.active {
   align-items: center;
   padding: 40px 20px;
   background-color: #f7fdf9;
+}
+
+.error-box {
+  display:none; 
+    background:#ffe5e5; 
+    color:#d60000; 
+    padding:10px; 
+    margin-bottom:15px; 
+    border-radius:6px; 
+    font-weight:600;
 }
 
 /* Caja del formulario */
@@ -192,4 +218,18 @@ footer {
   .subtitle {
     font-size: 14px;
   }
+}
+
+.input-msg-error {
+  color: #d60000;
+  font-size: 13px;
+  margin-top: -12px;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+/* 🔥 Input con error */
+.input-error {
+  border-color: #d60000 !important;
+  box-shadow: 0 0 6px rgba(214, 0, 0, 0.3);
 }
