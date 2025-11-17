@@ -7,20 +7,21 @@ const campos = {
     "cedula": "id",
     "nombre": "name",
     "apellido": "lastname",
+    "genero": "gender",
     "correo": "email",
     "contrasena": "password",
     "confirmar": "confirm-password",
-    "programa": "career"
+    "carrera": "career"
 };
 
-// --- Función para limpiar errores visuales ---
+// --- Limpiar errores ---
 function limpiarErrores() {
     document.querySelectorAll(".input-error").forEach(el => el.classList.remove("input-error"));
     document.querySelectorAll(".msg-error").forEach(el => el.remove());
     mensajeBox.innerHTML = "";
 }
 
-// --- Función para mostrar un error en un input ---
+// --- Mostrar error debajo del input ---
 function mostrarError(campo, mensaje) {
     const input = document.getElementById(campos[campo]);
     if (!input) return;
@@ -39,7 +40,7 @@ function mostrarError(campo, mensaje) {
     input.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
-// --- Función que hace el fetch al backend ---
+// --- Consumir backend ---
 async function registrarEstudiante(data) {
     try {
         const res = await fetch("http://localhost/ECO-FRIENDLY-CODE-WEB/backend/index.php?route=estudiante.registrar", {
@@ -49,51 +50,50 @@ async function registrarEstudiante(data) {
         });
 
         return await res.json();
+
     } catch (err) {
         return { status: "error", field: null, message: "Error inesperado en el servidor." };
     }
 }
 
 // --- Evento submit ---
-form.addEventListener("submit", async function (e) {
+form.addEventListener("submit", async function(e) {
     e.preventDefault();
     limpiarErrores();
 
-    // --- Tomar datos ---
+    // Tomar datos del formulario
     const data = {
         cedula: document.getElementById("id").value.trim(),
         nombre: document.getElementById("name").value.trim(),
         apellido: document.getElementById("lastname").value.trim(),
         genero: document.getElementById("gender").value,
-        programa: document.getElementById("career").value,
+        carrera: document.getElementById("career").value,
         correo: document.getElementById("email").value.trim(),
         contrasena: document.getElementById("password").value,
         confirmar: document.getElementById("confirm-password").value,
     };
 
-    // --- Llamar al backend ---
+    // Enviar al backend
     const json = await registrarEstudiante(data);
 
     if (json.status === "error") {
-        // Si hay campo específico, mostrar en ese input
         if (json.field) {
             mostrarError(json.field, json.message);
 
-            // Manejar caso especial: contraseñas no coinciden
             if (json.field === "contrasena") {
                 mostrarError("confirmar", json.message);
             }
         } else {
-            // Mensaje general
             mensajeBox.innerHTML = `<p style="color:red; font-weight:bold;">${json.message}</p>`;
             mensajeBox.scrollIntoView({ behavior: "smooth" });
         }
     } else {
-        // Éxito
         mensajeBox.innerHTML = `<p style="color:green; font-weight:bold;">${json.message}</p>`;
         mensajeBox.scrollIntoView({ behavior: "smooth" });
+
+        // Redirección con delay
         setTimeout(() => {
-    window.location.href = "login.html"; // o la ruta correcta de tu login
-}, 2000);
+            window.location.href = "login.html";
+        }, 2000);
     }
 });

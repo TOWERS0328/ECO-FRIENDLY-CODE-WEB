@@ -28,6 +28,8 @@
     <div class="login-box">
       <h2><i class="fi fi-rr-lock-alt"></i> Inicia Sesión</h2>
       <p class="subtitle">Bienvenido a <strong>Eco Friendly Code</strong></p>
+      <div id="login-message" class="form-message"></div>
+
 
       <form id="login-form">
 
@@ -56,35 +58,6 @@
   <footer>
     <p>© 2025 Eco Friendly Code. Todos los derechos reservados.</p>
   </footer>
-
-  <script>
-    document.getElementById("login-form").addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const data = {
-        email: document.getElementById("email").value,
-        password: document.getElementById("password").value
-      };
-
-      try {
-        const response = await fetch("http://localhost/ECO-FRIENDLY-WEB/backend/api/estudiante/login.php", {
-
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data)
-        });
-
-        const result = await response.json();
-        alert(result.message);
-
-        if (result.status === "success") {
-          window.location.href = "viewinicial.html";
-        }
-      } catch (error) {
-        alert("Error al conectar con el servidor: " + error.message);
-      }
-    });
-  </script>
-
+  <script src="login.js"></script>
 </body>
 </html>

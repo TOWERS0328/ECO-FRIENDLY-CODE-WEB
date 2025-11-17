@@ -21,15 +21,13 @@
         <h1><span>ECO</span> FRIENDLY</h1>
         <p>CODE</p>
       </a>
-
       <div class="user-info">
-        <img src="Img/coordinator.jpg" class="avatar" alt="Coordinador" />
+        <img src="../Img/9434619.jpg" class="avatar" alt="Coordinador" />
         <h3 class="username">Coordinador</h3>
         <p class="email">coordinador@eco.com</p>
       </div>
-
       <nav class="menu">
-        <a href="coordinator-dashboard.html"><i class="fi fi-rr-chart-pie"></i> Panel</a>
+        <a href="coordinator_dashboard.html"><i class="fi fi-rr-chart-pie"></i> Panel</a>
         <a href="manage-students.html" class="active"><i class="fi fi-rr-graduation-cap"></i> Estudiantes</a>
         <a href="manage-recyclables.html"><i class="fi fi-rr-recycle"></i> Residuos</a>
         <a href="manage-rewards.html"><i class="fi fi-rr-gift"></i> Premios</a>
@@ -40,17 +38,13 @@
     <main class="main-content">
       <header class="top-bar">
         <h2><i class="fi fi-rr-users-alt"></i> Gestión de Estudiantes</h2>
-        <button class="btn add" onclick="openModal()">
-          <i class="fi fi-rr-plus-small"></i> Nuevo Estudiante
-        </button>
+        <button class="btn add" id="btnNuevo"><i class="fi fi-rr-plus-small"></i> Nuevo Estudiante</button>
       </header>
 
       <!-- 🔍 Buscador -->
       <section class="buscador">
         <input type="text" id="searchId" placeholder="Buscar estudiante por cédula o nombre..." />
-        <button class="btn green" onclick="buscarEstudiante()">
-          <i class="fi fi-rr-search"></i> Buscar
-        </button>
+        <button class="btn green" id="btnBuscar"><i class="fi fi-rr-search"></i> Buscar</button>
       </section>
 
       <!-- 📋 Tabla -->
@@ -59,14 +53,17 @@
           <thead>
             <tr>
               <th>ID</th>
+              <th>Cédula</th>
               <th>Nombre</th>
+              <th>Género</th>
               <th>Carrera</th>
+              <th>Correo</th>
               <th>Puntos</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody id="resultadoTabla">
-            <tr><td colspan="5" class="empty">No hay resultados.</td></tr>
+            <tr><td colspan="8" class="empty">Cargando estudiantes...</td></tr>
           </tbody>
         </table>
       </section>
@@ -75,31 +72,43 @@
 
   <footer>© 2025 Eco Friendly Code. Todos los derechos reservados.</footer>
 
-  <!-- 🪄 MODAL REGISTRAR / ACTUALIZAR USUARIO -->
-  <div class="modal" id="userModal">
-    <div class="modal-content">
-      <h3 id="modalTitle">Registrar Nuevo Estudiante</h3>
-      <form id="userForm">
-        <label for="id">ID Estudiantil (Cédula)</label>
-        <input type="text" id="id" placeholder="Ej: 1002345678" required>
+<!-- MODAL REGISTRAR -->
+<div class="modal" id="modalRegistrar" style="display:none;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Registrar Nuevo Estudiante</h3>
+      <button type="button" class="close-btn" onclick="cerrarModalRegistrar()">✕</button>
+    </div>
 
-        <label for="name">Nombre</label>
-        <input type="text" id="name" placeholder="Ingresa tu nombre" required>
+    <form id="formRegistrar">
+      <div class="form-group">
+        <label>Cédula</label>
+        <input id="regCedula" type="text" required>
+      </div>
 
-        <label for="lastname">Apellido</label>
-        <input type="text" id="lastname" placeholder="Ingresa tu apellido" required>
+      <div class="form-group">
+        <label>Nombre</label>
+        <input id="regName" type="text" required>
+      </div>
 
-        <label for="gender">Género</label>
-        <select id="gender" required>
-          <option value="">Selecciona tu género</option>
-          <option value="Masculino">Masculino</option>
-          <option value="Femenino">Femenino</option>
-          <option value="Otro">Otro</option>
-          <option value="Prefiero no decirlo">Prefiero no decirlo</option>
+      <div class="form-group">
+        <label>Apellido</label>
+        <input id="regLastname" type="text" required>
+      </div>
+
+      <div class="form-group">
+        <label>Género</label>
+        <select id="regGender" required>
+          <option value="">Selecciona</option>
+          <option value="masculino">Masculino</option>
+          <option value="femenino">Femenino</option>
+          <option value="otro">Otro</option>
         </select>
+      </div>
 
-        <label for="career">Carrera</label>
-        <select id="career" required>
+      <div class="form-group">
+        <label>Carrera</label>
+        <select id="regCareer" required>
           <option value="">Selecciona tu carrera</option>
           <option value="Licenciatura en Bilingüismo con énfasis en Inglés">Licenciatura en Bilingüismo con énfasis en Inglés</option>
           <option value="Administración de Empresas">Administración de Empresas</option>
@@ -110,112 +119,103 @@
           <option value="Ingeniería Industrial">Ingeniería Industrial</option>
           <option value="Tecnología en Gestión de Servicios Turísticos y Hoteleros">Tecnología en Gestión de Servicios Turísticos y Hoteleros</option>
         </select>
+      </div>
 
-        <label for="email">Correo institucional</label>
-        <input type="email" id="email" placeholder="ejemplo@universidad.edu" required>
+      <div class="form-group">
+        <label>Correo institucional</label>
+        <input id="regEmail" type="email" required>
+      </div>
 
-        <label for="password">Contraseña</label>
-        <input type="password" id="password" placeholder="Crea una contraseña" required>
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input id="regPassword" type="password" required>
+      </div>
 
-        <label for="confirm-password">Confirmar Contraseña</label>
-        <input type="password" id="confirm-password" placeholder="Confirma tu contraseña" required>
+      <div class="form-group">
+        <label>Confirmar contraseña</label>
+        <input id="regConfirm" type="password" required>
+      </div>
 
-        <div class="modal-actions">
-          <button type="button" class="btn cancel" onclick="closeModal()">Cancelar</button>
-          <button type="submit" class="btn green">Guardar</button>
-        </div>
-      </form>
-    </div>
+      <div class="modal-actions">
+        <button type="submit" class="btn green">Registrar</button>
+      </div>
+    </form>
   </div>
+</div>
 
-  <!-- ⚙️ SCRIPT -->
-  <script>
-    let estudiantes = [
-      { id: '101', nombre: 'Ana López', carrera: 'Ingeniería de Sistemas', puntos: 520 },
-      { id: '102', nombre: 'Carlos Pérez', carrera: 'Administración de Empresas', puntos: 410 },
-      { id: '103', nombre: 'Luisa Torres', carrera: 'Ingeniería Industrial', puntos: 390 },
-      { id: '104', nombre: 'Juan Díaz', carrera: 'Derecho', puntos: 365 },
-    ];
 
-    let editando = null;
 
-    function mostrarEstudiantes(lista) {
-      const tabla = document.getElementById('resultadoTabla');
-      if (!lista.length) {
-        tabla.innerHTML = `<tr><td colspan="5" class="empty">No hay resultados.</td></tr>`;
-        return;
-      }
+<!-- MODAL EDITAR -->
+<div class="modal" id="modalEditar" style="display:none;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Editar Estudiante</h3>
+      <button type="button" class="close-btn" onclick="cerrarModalEditar()">✕</button>
+    </div>
 
-      tabla.innerHTML = lista.map(e => `
-        <tr>
-          <td>${e.id}</td>
-          <td>${e.nombre}</td>
-          <td>${e.carrera}</td>
-          <td class="green bold">${e.puntos}</td>
-          <td>
-            <button class="btn small add" onclick='openModal(true, ${JSON.stringify(e)})'>
-              <i class="fi fi-rr-edit"></i>
-            </button>
-          </td>
-        </tr>
-      `).join('');
-    }
+    <form id="formEditar">
+      <div class="form-group">
+        <label>ID</label>
+        <input id="editId" type="text" disabled>
+      </div>
 
-    function buscarEstudiante() {
-      const id = document.getElementById('searchId').value.trim().toLowerCase();
-      const resultado = estudiantes.filter(e =>
-        e.id.includes(id) || e.nombre.toLowerCase().includes(id)
-      );
-      mostrarEstudiantes(resultado);
-    }
+      <div class="form-group">
+        <label>Cédula</label>
+        <input id="editCedula" type="text" required>
+      </div>
 
-    function openModal(edit = false, data = null) {
-      const modal = document.getElementById('userModal');
-      const title = document.getElementById('modalTitle');
-      const form = document.getElementById('userForm');
+      <div class="form-group">
+        <label>Nombre</label>
+        <input id="editName" type="text" required>
+      </div>
 
-      modal.style.display = 'flex';
-      form.reset();
-      editando = edit ? data.id : null;
-      title.textContent = edit ? 'Editar Estudiante' : 'Registrar Nuevo Estudiante';
+      <div class="form-group">
+        <label>Apellido</label>
+        <input id="editLastname" type="text" required>
+      </div>
 
-      if (edit && data) {
-        document.getElementById('id').value = data.id;
-        document.getElementById('name').value = data.nombre.split(' ')[0];
-        document.getElementById('lastname').value = data.nombre.split(' ')[1] || '';
-        document.getElementById('career').value = data.carrera;
-        document.getElementById('email').value = data.correo || '';
-      }
-    }
+      <div class="form-group">
+        <label>Género</label>
+        <select id="editGender" required>
+          <option value="">Selecciona</option>
+          <option value="masculino">Masculino</option>
+          <option value="femenino">Femenino</option>
+          <option value="otro">Otro</option>
+        </select>
+      </div>
 
-    function closeModal() {
-      document.getElementById('userModal').style.display = 'none';
-    }
+      <div class="form-group">
+        <label>Carrera</label>
+        <select id="editCareer" required>
+          <option value="">Selecciona</option>
+          <option value="Licenciatura en Bilingüismo con énfasis en Inglés">Licenciatura en Bilingüismo con énfasis en Inglés</option>
+          <option value="Administración de Empresas">Administración de Empresas</option>
+          <option value="Administración de Empresas Turísticas y Hoteleras">Administración de Empresas Turísticas y Hoteleras</option>
+          <option value="Contaduría Pública">Contaduría Pública</option>
+          <option value="Derecho">Derecho</option>
+          <option value="Ingeniería de Sistemas">Ingeniería de Sistemas</option>
+          <option value="Ingeniería Industrial">Ingeniería Industrial</option>
+          <option value="Tecnología en Gestión de Servicios Turísticos y Hoteleros">Tecnología en Gestión de Servicios Turísticos y Hoteleros</option>
+        </select>
+      </div>
 
-    document.getElementById('userForm').addEventListener('submit', (e) => {
-      e.preventDefault();
+      <div class="form-group">
+        <label>Correo institucional</label>
+        <input id="editEmail" type="email" required>
+      </div>
 
-      const id = document.getElementById('id').value.trim();
-      const nombre = document.getElementById('name').value.trim();
-      const apellido = document.getElementById('lastname').value.trim();
-      const carrera = document.getElementById('career').value;
-      const puntos = 0;
+      <div class="modal-actions" style="justify-content: space-between;">
+        <button type="submit" class="btn green">Guardar cambios</button>
+        <button type="button" class="btn yellow" id="btnRestablecer">Restablecer contraseña</button>
+      </div>
+    </form>
+  </div>
+</div>
 
-      const nuevo = { id, nombre: `${nombre} ${apellido}`, carrera, puntos };
 
-      if (editando) {
-        const i = estudiantes.findIndex(e => e.id === editando);
-        estudiantes[i] = nuevo;
-      } else {
-        estudiantes.push(nuevo);
-      }
 
-      closeModal();
-      mostrarEstudiantes(estudiantes);
-    });
-
-    // Mostrar lista inicial
-    mostrarEstudiantes(estudiantes);
-  </script>
+  <!-- JS -->
+  <script src="manage_students.js"></script>
 </body>
 </html>
+

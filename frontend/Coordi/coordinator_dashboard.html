@@ -112,23 +112,4 @@
 
 </div>
 
-<script src="coordinator-dashboard.js"></script>
-</body>
-<script>
-  // Detecta el clic en el enlace "Cerrar Sesión"
-  document.querySelector('.menu a[href="login.html"]').addEventListener('click', function (e) {
-    e.preventDefault();
-
-    // Confirmación opcional
-    if (confirm("¿Seguro que deseas cerrar sesión?")) {
-      // Elimina datos de sesión
-      localStorage.removeItem("userRole");
-      localStorage.removeItem("userEmail");
-
-      // Redirige al login
-      window.location.href = "../auth/login.html";
-    }
-  });
-</script>
-
 </html>

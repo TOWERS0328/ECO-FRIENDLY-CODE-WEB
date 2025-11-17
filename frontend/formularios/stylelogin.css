@@ -10,6 +10,18 @@ body {
   background-color: #fff;
   color: #333;
 }
+.input-error {
+  border-color: #e74c3c !important;
+  background-color: #ffecec;
+}
+
+.msg-error {
+  color: #e74c3c;
+  font-size: 13px;
+  margin-top: -12px;
+  margin-bottom: 10px;
+  text-align: left;
+}
 
 /* Navbar */
 .navbar {
@@ -170,3 +182,39 @@ footer {
     font-size: 22px;
   }
 }
+
+/* Mensaje general */
+.form-message {
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  display: none;
+  font-weight: bold;
+}
+
+/* Estilos de éxito y error */
+.form-message.error {
+  background-color: #ffe0e0;
+  color: #b30000;
+  border: 1px solid #ff9b9b;
+}
+
+.form-message.success {
+  background-color: #e0ffe7;
+  color: #007a29;
+  border: 1px solid #8fffba;
+}
+
+/* Mensaje debajo del input */
+.input-error {
+  border-color: red !important;
+}
+
+.error-text {
+  color: red;
+  font-size: 12px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
