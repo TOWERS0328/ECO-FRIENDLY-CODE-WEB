@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mensajes | Entidad Recicladora</title>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="recicladora_mensajes.css" />
+  <link rel="stylesheet" href="../GOBAL-CSS/logoEcoBtnInicio.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Iconos -->
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+</head>
+
+<body>
+
+  <div class="dashboard-container">
+
+    <!-- 🌱 SIDEBAR -->
+    <aside class="sidebar">
+      <a href="../home/index.html" class="logo">
+        <h1><span>ECO</span> FRIENDLY</h1>
+        <p>CODE</p>
+      </a>
+
+      <div class="user-info">
+        <img src="Img/recicladora.jpg" class="avatar" alt="Recicladora" />
+        <h3 class="username">Entidad Recicladora</h3>
+        <p class="email">recicladora@eco.com</p>
+      </div>
+
+      <nav class="menu">
+        <a href="EntidadRecicladora_dashboard.html"><i class="fi fi-rr-dashboard"></i> Panel</a>
+
+        <a href="recicladora_mensajes.html" class="active">
+          <i class="fi fi-rr-comment-alt"></i> Mensajes
+          <span class="msg-badge">3</span>
+        </a>
+
+    
+      </nav>
+    </aside>
+
+    <!-- 💬 MAIN CONTENT -->
+    <main class="main-content">
+      <!-- 🔍 Top Bar -->
+      <header class="top-bar">
+        <h2><i class="fi fi-rr-envelope"></i> Mensajes con el Coordinador</h2>
+        <input type="text" id="searchMessages" placeholder="Buscar mensajes..." />
+      </header>
+
+      <section class="messages-section">
+
+        <!-- 📋 Lista de conversaciones -->
+        <div class="conversation-list">
+
+          <div class="conversation active" onclick="openChat('Coordinador General', 'Img/coordinador.jpg')">
+            <img src="Img/coordinador.jpg" alt="Coordinador" />
+            <div class="conv-info">
+              <h4>Coordinador General</h4>
+              <p>Recibimos los últimos residuos. Todo OK.</p>
+            </div>
+            <span class="time">10:25 AM</span>
+          </div>
+
+          <div class="conversation" onclick="openChat('Supervisor de Planta', 'Img/supervisor.jpg')">
+            <img src="Img/supervisor.jpg" alt="Supervisor" />
+            <div class="conv-info">
+              <h4>Supervisor de Planta</h4>
+              <p>¿Ya confirmaron el transporte?</p>
+            </div>
+            <span class="time">Ayer</span>
+          </div>
+
+        </div>
+
+        <!-- 💌 Área de Chat -->
+        <div class="chat-area">
+
+          <!-- Encabezado -->
+          <div class="chat-header">
+            <img src="Img/coordinador.jpg" id="chatAvatar" />
+            <div>
+              <h4 id="chatName">Coordinador General</h4>
+              <p>En línea</p>
+            </div>
+          </div>
+
+          <!-- Chat -->
+          <div class="chat-box" id="chatBox">
+            
+            <div class="message received">
+              <p>Recibimos los residuos. Todo en orden ✔️</p>
+              <span class="time">10:12 AM</span>
+            </div>
+
+            <div class="message sent">
+              <p>Perfecto 👍 Gracias por la confirmación.</p>
+              <span class="time">10:15 AM</span>
+            </div>
+
+          </div>
+
+          <!-- Input -->
+          <div class="message-input">
+            <input type="file" id="imageInput" accept="image/*" hidden>
+            <button class="img-btn" onclick="document.getElementById('imageInput').click();">
+              <i class="fi fi-rr-picture"></i>
+            </button>
+
+            <input type="text" id="messageText" placeholder="Escribe un mensaje..." />
+
+            <button onclick="sendMessage()"><i class="fi fi-rr-paper-plane"></i></button>
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+<script>
+  function openChat(name, img) {
+    document.getElementById("chatName").textContent = name;
+    document.getElementById("chatAvatar").src = img;
+
+    document.querySelectorAll('.conversation').forEach(c => c.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+  }
+
+  function sendMessage() {
+    const input = document.getElementById("messageText");
+    const text = input.value.trim();
+    if (!text) return;
+
+    const box = document.getElementById("chatBox");
+
+    const msg = document.createElement("div");
+    msg.classList.add("message", "sent");
+    msg.innerHTML = `
+      <p>${text}</p>
+      <span class="time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+    `;
+
+    box.appendChild(msg);
+    input.value = "";
+    box.scrollTop = box.scrollHeight;
+  }
+</script>
+
+</body>
+</html>
