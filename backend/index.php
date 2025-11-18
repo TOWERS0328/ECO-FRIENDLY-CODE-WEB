@@ -91,6 +91,31 @@ switch ($route) {
         $controller->obtener();
         break;
 
+    // RESIDUOS
+case "residuo.listar":
+    require_once __DIR__ . "/app/controllers/ResiduoController.php";
+    $controller = new ResiduoController();
+    $controller->listar();
+    break;
+
+case "residuo.crear":
+    require_once __DIR__ . "/app/controllers/ResiduoController.php";
+    $controller = new ResiduoController();
+    $controller->crear();
+    break;
+
+case "residuo.actualizar":
+    require_once __DIR__ . "/app/controllers/ResiduoController.php";
+    $controller = new ResiduoController();
+    $controller->actualizar();
+    break;
+
+case "residuo.obtener":
+    require_once __DIR__ . "/app/controllers/ResiduoController.php";
+    $controller = new ResiduoController();
+    $controller->obtener();
+    break;
+
 
     default:
         echo json_encode([

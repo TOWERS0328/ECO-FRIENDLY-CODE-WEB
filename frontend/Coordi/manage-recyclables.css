@@ -235,3 +235,18 @@ footer {
   background-color: #f7fdf8;
   border-top: 1px solid #e6f5ea;
 }
+table td, table th {
+  padding: 6px 10px; /* ajusta según tu preferencia */
+  vertical-align: middle; /* importante para centrar imágenes */
+}
+
+.img-mini {
+  width: 50px;           /* ajusta tamaño */
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;        /* evita espacio por alineamiento inline */
+  margin: 0 auto;        /* centra horizontalmente */
+}
+
+

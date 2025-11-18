@@ -11,7 +11,7 @@
 
 <body>
   <div class="dashboard-container">
-    <!-- 🌱 Sidebar -->
+    <!-- Sidebar -->
     <aside class="sidebar">
       <a href="index.html" class="logo">
         <h1><span>ECO</span> FRIENDLY</h1>
@@ -32,38 +32,36 @@
       </nav>
     </aside>
 
-    <!-- 🌿 Contenido principal -->
+    <!-- Main content -->
     <main class="main-content">
       <header class="top-bar">
         <h2><i class="fi fi-rr-recycle"></i> Gestión de Residuos</h2>
-        <button class="btn add" onclick="openModal()">
-          <i class="fi fi-rr-plus-small"></i> Nuevo Residuo
-        </button>
+        <button class="btn add" id="btnNuevoResiduo"><i class="fi fi-rr-plus-small"></i> Nuevo Residuo</button>
       </header>
 
-      <!-- 🔍 Buscador -->
+      <!-- Buscador -->
       <section class="buscador">
         <input type="text" id="searchInput" placeholder="Buscar por tipo o nombre..." />
-        <button class="btn green" onclick="buscarResiduo()">
-          <i class="fi fi-rr-search"></i> Buscar
-        </button>
+        <button class="btn green" id="btnBuscarResiduo"><i class="fi fi-rr-search"></i> Buscar</button>
       </section>
 
-      <!-- 📋 Tabla -->
+      <!-- Tabla de residuos -->
       <section class="historial">
         <table>
           <thead>
             <tr>
               <th>ID</th>
+              <th>Código</th>
               <th>Tipo</th>
               <th>Nombre</th>
               <th>Puntos</th>
               <th>Estado</th>
+              <th>Imagen</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody id="residuoTable">
-            <tr><td colspan="6" class="empty">No hay residuos registrados.</td></tr>
+            <tr><td colspan="8" class="empty">Cargando residuos...</td></tr>
           </tbody>
         </table>
       </section>
@@ -72,37 +70,102 @@
 
   <footer>© 2025 Eco Friendly Code. Todos los derechos reservados.</footer>
 
-  <!-- 🪄 MODAL -->
-  <div class="modal" id="residuoModal">
-    <div class="modal-content">
-      <h3 id="modalTitle">Registrar Nuevo Residuo</h3>
-      <form id="residuoForm">
-        <label for="id">ID del Residuo</label>
-        <input type="text" id="id" placeholder="Ej: R001" required>
-
-        <label for="tipo">Tipo</label>
-        <input type="text" id="tipo" placeholder="Ej: Plástico" required>
-
-        <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" placeholder="Ej: Botella PET" required>
-
-        <label for="puntos">Puntos</label>
-        <input type="number" id="puntos" placeholder="Ej: 10" required>
-
-        <label for="estado">Estado</label>
-        <select id="estado" required>
-          <option value="">Selecciona un estado</option>
+  <!-- Modal Registrar Residuo -->
+<div class="modal" id="modalRegistrarResiduo" style="display:none;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Registrar Nuevo Residuo</h3>
+      <button type="button" class="close-btn">✕</button>
+    </div>
+    <form id="formRegistrarResiduo">
+      <div class="form-group">
+        <label>Tipo</label>
+        <select id="regTipo" name="tipo" required>
+          <option value="">Seleccione tipo</option>
+          <option value="Plastico">Plastico</option>
+          <option value="Papel">Papel</option>
+          <option value="Carton">Carton</option>
+          <option value="Vidrio">Vidrio</option>
+          <option value="Metal">Metal</option>
+          <option value="Organico">Organico</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Nombre</label>
+        <input id="regNombre" name="nombre" type="text" required placeholder="Ej: Botella PET">
+      </div>
+      <div class="form-group">
+        <label>Puntos</label>
+        <input id="regPuntos" name="puntos" type="number" min="1" required placeholder="Ej: 10">
+      </div>
+      <div class="form-group">
+        <label>Estado</label>
+        <select id="regEstado" name="estado" required>
+          <option value="">Seleccione estado</option>
           <option value="Activo">Activo</option>
           <option value="Inactivo">Inactivo</option>
         </select>
-
-        <div class="modal-actions">
-          <button type="button" class="btn cancel" onclick="closeModal()">Cancelar</button>
-          <button type="submit" class="btn green">Guardar</button>
-        </div>
-      </form>
-    </div>
+      </div>
+      <div class="form-group">
+        <label>Imagen</label>
+        <input id="regImagen" name="imagen" type="file" accept="image/*">
+      </div>
+      <div class="modal-actions">
+        <button type="submit" class="btn green">Guardar</button>
+      </div>
+    </form>
   </div>
+</div>
 
+<!-- Modal Editar Residuo -->
+<div class="modal" id="modalEditarResiduo" style="display:none;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Editar Residuo</h3>
+      <button type="button" class="close-btn">✕</button>
+    </div>
+    <form id="formEditarResiduo">
+      <input type="hidden" id="editId">
+      <div class="form-group">
+        <label>Tipo</label>
+        <select id="editTipo" required>
+          <option value="">Seleccione tipo</option>
+          <option value="Plastico">Plastico</option>
+          <option value="Papel">Papel</option>
+          <option value="Carton">Carton</option>
+          <option value="Vidrio">Vidrio</option>
+          <option value="Metal">Metal</option>
+          <option value="Organico">Organico</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Nombre</label>
+        <input id="editNombre" type="text" required>
+      </div>
+      <div class="form-group">
+        <label>Puntos</label>
+        <input id="editPuntos" type="number" min="1" required>
+      </div>
+      <div class="form-group">
+        <label>Estado</label>
+        <select id="editEstado" required>
+          <option value="">Seleccione estado</option>
+          <option value="Activo">Activo</option>
+          <option value="Inactivo">Inactivo</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Imagen</label>
+        <input id="editImagen" type="file" accept="image/*">
+        <div class="preview-container" style="margin-top:6px;"></div>
+      </div>
+      <div class="modal-actions">
+        <button type="submit" class="btn green">Guardar cambios</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+  <script src="manage_recyclables.js"></script>
 </body>
 </html>
