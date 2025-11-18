@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reportes | Entidad Recicladora</title>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="EntidadRecicladora_Reports.css" />
+  <link rel="stylesheet" href="../GOBAL-CSS/logoEcoBtnInicio.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Iconos -->
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+</head>
+
+<body>
+  <div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <a href="../home/index.html" class="logo">
+        <h1><span>ECO</span> FRIENDLY</h1>
+        <p>CODE</p>
+      </a>
+
+      <div class="user-info">
+        <img src="Img/recicladora.jpg" class="avatar" alt="Recicladora">
+        <h3 class="username">Entidad Recicladora</h3>
+        <p class="email">recicladora@eco.com</p>
+      </div>
+
+      <nav class="menu">
+        <a href="recicladora_dashboard.html"><i class="fi fi-rr-dashboard"></i> Panel</a>
+        <a class="active" href="EntidadRecicladoraReports.html"><i class="fi fi-rr-document"></i> Reportes</a>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+      <!-- Top Bar -->
+      <header class="top-bar">
+        <h2><i class="fi fi-rr-folder-download"></i> Generación de Reportes</h2>
+      </header>
+
+      <!-- Content -->
+      <section class="reports-container">
+
+        <h3>Reportes Disponibles</h3>
+
+        <div class="reports-grid">
+
+          
+          </div>
+
+          <div class="report-card">
+            <i class="fi fi-rr-tag"></i>
+            <h4>Reporte por Tipo de Residuo</h4>
+            <p>Categorías más comunes entregadas por los estudiantes.</p>
+            <div class="btn-group">
+              <button class="btn pdf">PDF</button>
+              <button class="btn excel">Excel</button>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- CHARTS SECTION -->
+      <section class="charts-section">
+        <h3>Visualizaciones Tipo Power BI</h3>
+
+        <div class="charts-grid">
+
+          <div class="chart-card">
+            <h4>Kilos Reciclados por Semana</h4>
+            <canvas id="chartSemana"></canvas>
+          </div>
+
+          <div class="chart-card">
+            <h4>Tipos de Residuos Más Frecuentes</h4>
+            <canvas id="chartResiduos"></canvas>
+          </div>
+
+          <div class="chart-card">
+            <h4>Reciclaje Mensual</h4>
+            <canvas id="chartMensual"></canvas>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+</body>
+</html>
