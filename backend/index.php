@@ -42,6 +42,56 @@ switch ($route) {
         $controller->login();
         break;
 
+    // PREMIOS
+    case "premio.listar":
+        require_once __DIR__ . "/app/controllers/PremioController.php";
+        $controller = new PremioController();
+        $controller->listar();
+        break;
+
+    case "premio.crear":
+        require_once __DIR__ . "/app/controllers/PremioController.php";
+        $controller = new PremioController();
+        $controller->crear();
+        break;
+
+    case "premio.actualizar":
+        require_once __DIR__ . "/app/controllers/PremioController.php";
+        $controller = new PremioController();
+        $controller->actualizar();
+        break;
+
+    case "empresa.listar":
+        require_once __DIR__ . "/app/controllers/EmpresaController.php";
+        $controller = new EmpresaController();
+        $controller->listar();
+        break;
+
+    case "empresa.listarActivas":
+        require_once __DIR__ . "/app/controllers/EmpresaController.php";
+        $controller = new EmpresaController();
+        $controller->listarActivas();
+        break;
+
+    case "empresa.registrar":
+        require_once __DIR__ . "/app/controllers/EmpresaController.php";
+        $controller = new EmpresaController();
+        $controller->registrar();
+        break;
+
+    case "empresa.actualizar":
+        require_once __DIR__ . "/app/controllers/EmpresaController.php";
+        $controller = new EmpresaController();
+        $controller->actualizar();
+        break;
+
+    case "empresa.obtener":
+        require_once __DIR__ . "/app/controllers/EmpresaController.php";
+        $controller = new EmpresaController();
+        $controller->obtener();
+        break;
+
+
     default:
         echo json_encode([
             "status" => "error",

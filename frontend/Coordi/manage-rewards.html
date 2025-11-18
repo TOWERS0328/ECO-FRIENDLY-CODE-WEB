@@ -1,33 +1,30 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gestión de Premios | Eco Friendly Code</title>
-
-  <!-- 🌿 Estilos -->
+  <title>Gestión de Premios y Empresas | Eco Friendly</title>
   <link rel="stylesheet" href="manage-rewards.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
-  <!-- 🌟 Iconos -->
-  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
-  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
-
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4315/4315609.png">
+  <link rel='stylesheet'
+    href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+  <link rel='stylesheet'
+    href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
 </head>
 
 <body>
   <div class="dashboard-container">
-    <!-- 🌱 Sidebar -->
+
+    <!-- Sidebar -->
     <aside class="sidebar">
-      <a href="../home/index.html" class="logo">
+      <a href="index.html" class="logo">
         <h1><span>ECO</span> FRIENDLY</h1>
         <p>CODE</p>
       </a>
 
       <div class="user-info">
-        <img src="Img/coordinator.jpg" class="avatar" alt="Coordinador" />
-        <h3 class="username">Juan David</h3>
+        <img src="../Img/9434619.jpg" class="avatar" alt="Coordinador" />
+        <h3 class="username">Coordinador</h3>
         <p class="email">coordinador@eco.com</p>
       </div>
 
@@ -36,154 +33,252 @@
         <a href="manage-students.html"><i class="fi fi-rr-graduation-cap"></i> Estudiantes</a>
         <a href="manage-recyclables.html"><i class="fi fi-rr-recycle"></i> Residuos</a>
         <a href="manage-rewards.html" class="active"><i class="fi fi-rr-gift"></i> Premios</a>
-       
       </nav>
     </aside>
 
-    <!-- 🌿 Contenido principal -->
+    <!-- MAIN CONTENT -->
     <main class="main-content">
       <header class="top-bar">
-        <h2><i class="fi fi-sr-gift"></i> Gestión de Premios</h2>
-        <button class="btn add" onclick="openModal()">
-          <i class="fi fi-rr-plus-small"></i> Nuevo Premio
-        </button>
+        <h2><i class="fi fi-rr-gift"></i> Gestión de Premios</h2>
       </header>
 
-      <!-- 📋 Tabla -->
-      <section class="historial">
-        <table>
-          <thead>
-            <tr>
-              <th><i class="fi fi-rr-label"></i> Nombre</th>
-              <th><i class="fi fi-rr-star"></i> Puntos</th>
-              <th><i class="fi fi-rr-picture"></i> Imagen</th>
-              <th><i class="fi fi-rr-settings-sliders"></i> Acciones</th>
-            </tr>
-          </thead>
-          <tbody id="premioTable">
-            <tr><td colspan="4" class="empty">No hay premios registrados.</td></tr>
-          </tbody>
-        </table>
+      <!-- MINI TABLA EMPRESAS -->
+      <section class="mini-empresas">
+        <div class="mini-header">
+          <h3>Empresas Patrocinadoras</h3>
+          <button class="btn add" id="btnNuevaEmpresa"><i class="fi fi-rr-plus-small"></i> Nueva Empresa</button>
+        </div>
+
+        <div class="mini-table-container">
+          <table id="tablaEmpresas">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>NIT</th>
+                <th>Nombre</th>
+                <th>Contacto</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td colspan="6" class="empty">Cargando empresas...</td></tr>
+            </tbody>
+          </table>
+        </div>
       </section>
+
+     <!-- PREMIOS -->
+<section class="premios-section">
+  <div class="premios-header">
+    <h3>Tabla de Premios</h3>
+    <button class="btn add" id="btnNuevo"><i class="fi fi-rr-plus-small"></i> Nuevo Premio</button>
+  </div>
+
+  <div class="buscador-premios">
+    <input type="text" id="searchId" placeholder="Buscar premio por código o nombre..." />
+    <button class="btn green" id="btnBuscar"><i class="fi fi-rr-search"></i> Buscar</button>
+  </div>
+
+  <section class="historial">
+    <table>
+      <thead>
+  <tr>
+    <th>ID</th>
+    <th>Código</th>
+    <th>Nombre</th>
+    <th>Puntos requeridos</th>
+    <th>Stock</th>
+    <th>Empresa</th>
+    <th>Estado</th>
+    <th>Imagen</th>
+    <th>Acciones</th>
+  </tr>
+</thead>
+
+      <tbody id="resultadoTabla">
+        <tr><td colspan="9" class="empty">Cargando premios...</td></tr>
+      </tbody>
+    </table>
+  </section>
+</section>
+
     </main>
   </div>
 
   <footer>© 2025 Eco Friendly Code. Todos los derechos reservados.</footer>
 
- <!-- 🪄 Modal -->
-<div id="premioModal" class="modal">
+  <!-- MODAL REGISTRAR PREMIO -->
+  <div class="modal" id="modalRegistrar" style="display:none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Registrar Nuevo Premio</h3>
+        <button type="button" class="close-btn" onclick="cerrarModalRegistrarPremio()">✕</button>
+      </div>
+
+      <form id="formRegistrar">
+        <div class="form-group"><label>Código</label><input id="regCodigo" type="text" required></div>
+        <div class="form-group"><label>Nombre</label><input id="regNombre" type="text" required></div>
+
+        <div class="form-group">
+          <label>Puntos requeridos</label>
+          <input id="regPuntos" type="number" min="1" required>
+        </div>
+
+        <div class="form-group">
+          <label>Stock</label>
+          <input id="regStock" type="number" min="0" required>
+        </div>
+
+        <div class="form-group">
+          <label>Empresa patrocinadora</label>
+          <select id="regEmpresa" required>
+            <option value="">Cargando empresas...</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+  <label>Imagen del premio</label>
+  <input id="regImagen" type="file" accept="image/*">
+</div>
+
+
+        <div class="modal-actions">
+          <button class="btn green" type="submit">Registrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL EDITAR PREMIO -->
+<div class="modal" id="modalEditar" style="display:none;">
   <div class="modal-content">
-    <h3 id="modalTitle">Agregar Premio</h3>
-    <form id="premioForm" enctype="multipart/form-data">
-      <label for="nombrePremio">Nombre del premio</label>
-      <input type="text" id="nombrePremio" placeholder="Ej: Camiseta ecológica" required>
 
-      <label for="puntosPremio">Puntos requeridos</label>
-      <input type="number" id="puntosPremio" placeholder="Ej: 500" required>
+    <div class="modal-header">
+      <h3>Editar Premio</h3>
+      <button type="button" class="close-btn" onclick="cerrarModalEditarPremio()">✕</button>
+    </div>
 
-      <label for="imagenPremio">Imagen del premio</label>
-      <input type="file" id="imagenPremio" accept="image/*" required onchange="previewImage(event)">
+    <form id="formEditar">
 
-      <!-- Vista previa -->
-      <div class="preview-container">
-        <img id="preview" src="" alt="Vista previa" class="preview-img" style="display:none;">
+      <input type="hidden" id="editId">
+
+      <div class="form-group">
+        <label>Código</label>
+        <input id="editCodigo" type="text" required>
+      </div>
+
+      <div class="form-group">
+        <label>Nombre</label>
+        <input id="editNombre" type="text" required>
+      </div>
+
+      <div class="form-group">
+        <label>Puntos requeridos</label>
+        <input id="editPuntos" type="number" min="1" required>
+      </div>
+
+      <div class="form-group">
+        <label>Stock</label>
+        <input id="editStock" type="number" min="0" required>
+      </div>
+
+      <div class="form-group">
+        <label>Empresa patrocinadora</label>
+        <select id="editEmpresa" required>
+          <option value="">Cargando empresas...</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Imagen del premio</label>
+        <input id="editImagen" type="file" accept="image/*">
+        <div class="preview-container"></div> <!-- contenedor de miniatura -->
       </div>
 
       <div class="modal-actions">
-        <button type="button" class="btn cancel" onclick="closeModal()">Cancelar</button>
-        <button type="submit" class="btn green">Guardar</button>
+        <button class="btn green" type="submit">Guardar cambios</button>
       </div>
+
     </form>
   </div>
 </div>
 
+  <!-- MODAL REGISTRAR EMPRESA -->
+  <div class="modal" id="modalEmpresa" style="display:none;">
+    <div class="modal-content">
 
-  <!-- ⚙️ SCRIPT -->
- <script>
-  let premios = [];
-  let editIndex = null;
+      <div class="modal-header">
+        <h3>Registrar Nueva Empresa</h3>
+        <button type="button" class="close-btn" onclick="cerrarModalEmpresa()">✕</button>
+      </div>
 
-  function renderTable() {
-    const tbody = document.getElementById("premioTable");
-    if (premios.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="4" class="empty">No hay premios registrados.</td></tr>`;
-      return;
-    }
-    tbody.innerHTML = premios.map((p, i) => `
-      <tr>
-        <td>${p.nombre}</td>
-        <td class="green bold">${p.puntos}</td>
-        <td><img src="${p.imagen}" class="img-mini" alt="${p.nombre}"></td>
-        <td>
-          <button class="btn small add" onclick="editPremio(${i})"><i class="fi fi-rr-edit"></i></button>
-          <button class="btn small cancel" onclick="deletePremio(${i})"><i class="fi fi-rr-trash"></i></button>
-        </td>
-      </tr>
-    `).join('');
-  }
-  function editPremio(i) {
-  editIndex = i;
-  const premio = premios[i];
+      <form id="formEmpresa">
+        <div class="form-group"><label>NIT</label><input id="empNIT" type="text" required></div>
+        <div class="form-group"><label>Nombre</label><input id="empNombre" type="text" required></div>
+        <div class="form-group"><label>Logo (URL)</label><input id="empLogo" type="text"></div>
+        <div class="form-group"><label>Contacto</label><input id="empContacto" type="text"></div>
 
-  // Abre el modal en modo edición
-  document.getElementById("premioModal").style.display = "flex";
-  document.getElementById("modalTitle").textContent = "Editar Premio";
+        <div class="modal-actions">
+          <button class="btn green" type="submit">Registrar Empresa</button>
+        </div>
+      </form>
 
-  // Llena los campos con los datos actuales
-  document.getElementById("nombrePremio").value = premio.nombre;
-  document.getElementById("puntosPremio").value = premio.puntos;
+    </div>
+  </div>
 
-  // Muestra la imagen previa (sin tocar el input file)
-  const preview = document.getElementById("preview");
-  preview.src = premio.imagen;
-  preview.style.display = "block";
-}
+  <!-- MODAL EDITAR EMPRESA -->
+  <div class="modal" id="modalEditarEmpresa" style="display:none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Editar Empresa</h3>
+        <button type="button" class="close-btn" onclick="cerrarModalEditarEmpresa()">✕</button>
+      </div>
 
+      <form id="formEditarEmpresa">
 
-  function openModal(edit = false) {
-    document.getElementById("premioModal").style.display = "flex";
-    document.getElementById("premioForm").reset();
-    document.getElementById("preview").style.display = "none";
-    document.getElementById("modalTitle").textContent = edit ? "Editar Premio" : "Agregar Premio";
-  }
+        <input type="hidden" id="editEmpId">
 
-  function closeModal() {
-    document.getElementById("premioModal").style.display = "none";
-  }
+        <div class="form-group">
+          <label>NIT</label>
+          <input id="editEmpNIT" type="text" required>
+        </div>
 
-  function previewImage(event) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const preview = document.getElementById("preview");
-        preview.src = e.target.result;
-        preview.style.display = "block";
-      };
-      reader.readAsDataURL(file);
-    }
-  }
+        <div class="form-group">
+          <label>Nombre</label>
+          <input id="editEmpNombre" type="text" required>
+        </div>
 
-  document.getElementById("premioForm").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const nombre = document.getElementById("nombrePremio").value;
-    const puntos = parseInt(document.getElementById("puntosPremio").value);
-    const fileInput = document.getElementById("imagenPremio");
+        <div class="form-group">
+          <label>Logo (URL)</label>
+          <input id="editEmpLogo" type="text">
+        </div>
 
-    let imagen = "";
-    if (fileInput.files.length > 0) {
-      imagen = URL.createObjectURL(fileInput.files[0]); // crea una URL temporal para mostrar la imagen
-    }
+        <div class="form-group">
+          <label>Contacto</label>
+          <input id="editEmpContacto" type="text">
+        </div>
 
-    if (editIndex === null) premios.push({ nombre, puntos, imagen });
-    else premios[editIndex] = { nombre, puntos, imagen };
+        <div class="form-group">
+          <label>Estado</label>
+          <select id="editEmpEstado" required>
+            <option value="activo">Activo</option>
+            <option value="inactivo">Inactivo</option>
+          </select>
+        </div>
 
-    closeModal();
-    renderTable();
-  });
+        <div class="modal-actions">
+          <button class="btn green" type="submit">Guardar Cambios</button>
+        </div>
 
-  renderTable();
-</script>
+      </form>
+    </div>
+  </div>
 
+  <script src="manage_rewards.js"></script>
 </body>
+
 </html>
+
+
+
