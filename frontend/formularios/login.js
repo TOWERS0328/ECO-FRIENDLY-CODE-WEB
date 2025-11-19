@@ -1,5 +1,15 @@
 const form = document.getElementById("login-form");
 const message = document.getElementById("login-message");
+const popup = document.getElementById("popup-error");
+
+function showPopupError(text) {
+    popup.textContent = text;
+    popup.style.display = "block";
+
+    setTimeout(() => {
+        popup.style.display = "none";
+    }, 3000);
+}
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -7,17 +17,25 @@ form.addEventListener("submit", async (e) => {
     const correo = document.getElementById("email").value;
     const contrasena = document.getElementById("password").value;
 
-    const response = await fetch("http://localhost/ECO-FRIENDLY-CODE-WEB/backend/index.php?route=actor.login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ correo, contrasena })
-    });
+    try {
+        const response = await fetch(
+            "http://localhost/ECO-FRIENDLY-CODE-WEB/backend/index.php?route=actor.login",
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ correo, contrasena })
+            }
+        );
 
-    const data = await response.json();
+        const data = await response.json();
+        console.log("Respuesta del backend:", data);
 
-    if (data.status === "success") {
-        message.textContent = "¡Bienvenido!";
-        // Redirigir según rol
+        if (data.status === "error") {
+            showPopupError(data.message);
+            return;
+        }
+
+        // Login correcto
         switch(data.rol) {
             case "estudiante":
                 window.location.href = "../Estudiante/viewinicial.html";
@@ -29,8 +47,9 @@ form.addEventListener("submit", async (e) => {
                 window.location.href = "../Entidad/dashboard.html";
                 break;
         }
-    } else {
-        message.textContent = data.message;
+
+    } catch (err) {
+        console.error(err);
+        showPopupError("Error al conectar con el servidor");
     }
 });
-
