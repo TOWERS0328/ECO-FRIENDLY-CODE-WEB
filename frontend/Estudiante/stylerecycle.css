@@ -1,265 +1,139 @@
-/* ==== ESTILO GENERAL ==== */
-* {
+/* Basado en styleRedeemPoints.css, adaptado para residuos */
+.catalogo {
+  text-align: center;
+  padding: 30px 40px;
+  position: relative;
+}
+
+.header-catalogo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.catalogo h1 {
+  font-size: 2rem;
+  color: #1d7a32;
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
 }
 
-body {
-  background-color: #f5f7f5;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-/* ==== CONTENEDOR PRINCIPAL ==== */
-.dashboard-container {
-  display: flex;
-  flex: 1;
-}
-
-/* ==== SIDEBAR ==== */
-.sidebar {
-  width: 250px;
-  background-color: #ffffff;
-  border-right: 2px solid #e6f5ea;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 30px 20px;
-}
-
-
-.logo h1 {
-  color: #00b050;
-  font-size: 28px;
-  line-height: 1;
-}
-
-.logo span {
-  color: #333;
-}
-
-.logo p {
-  font-size: 14px;
+.catalogo p {
   color: #555;
-  font-weight: bold;
-}
-
-/* ==== INFO USUARIO ==== */
-.user-info {
-  background: rgba(255,255,255,0.9);
-  padding: 20px;
-  border-radius: 15px;
-  text-align: center;
-  width: 250px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #1d7a32;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-
-.username {
-  margin-top: 10px;
-  font-size: 18px;
-  color: #00b050;
-}
-
-.email {
-  font-size: 13px;
-  color: #666;
-}
-
-.change-photo-btn {
-  background-color: #7ef57c;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-  color: #1f3d28;
-  font-weight: bold;
-  font-size: 13px;
-  transition: background 0.3s;
-}
-
-.change-photo-btn:hover {
-  background-color: #a4f7a3;
-}
-
-/* ==== MENÚ ==== */
-.menu {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
-  margin-top: 15px;
-}
-
-.menu a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 600;
-  padding: 10px;
-  border-radius: 8px;
-  text-align: left;
-  transition: 0.3s;
-}
-
-.menu a:hover, .menu a.active {
-  background-color: #e6f5ea;
-  color: #00b050;
-}
-
-/* ==== CONTENIDO PRINCIPAL ==== */
-.main-content {
-  flex: 1;
-  padding: 30px;
-  background-color: #f5f7f5;
-  display: flex;
-  flex-direction: column;
-}
-
-.top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
-}
-
-.top-bar h2 {
-  font-size: 24px;
-  color: #1f3d28;
-}
-
-/* ==== FORMULARIO ==== */
-.info-container {
-  display: flex;
-  gap: 40px;
-  justify-content: space-between;
-}
-
-.info-box {
-  flex: 2;
-  background: #fff;
-  border-radius: 15px;
-  padding: 25px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-label {
-  font-weight: 600;
-  color: #1f3d28;
-}
-
-input,
-select {
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  transition: border 0.3s;
-}
-
-input:focus,
-select:focus {
-  outline: none;
-  border-color: #7ef57c;
-}
-
-/* ==== BOTONES ==== */
-.btn {
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 15px;
-  transition: 0.3s;
-}
-
-.btn.green {
-  background-color: #7ef57c;
-  color: #1f3d28;
-}
-
-.btn.green:hover {
-  background-color: #a4f7a3;
-}
-
-/* ==== PANEL DE PUNTOS ==== */
-.points-box {
-  flex: 1;
-  background-color: #e9f7eb;
-  border-radius: 15px;
-  padding: 25px;
-  text-align: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-}
-
-.points-box h3 {
-  color: #1f3d28;
-  margin-bottom: 15px;
 }
 
 .points {
-  font-size: 48px;
-  color: #4caf50;
+  background: #d9fcd1;
+  color: #157d1c;
+  padding: 8px 16px;
+  border-radius: 20px;
   font-weight: bold;
 }
 
-.subtitle {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #555;
+.cart-residuos {
+  font-size: 1.2rem;
+  background: #e6ffe6;
+  padding: 6px 14px;
+  border-radius: 20px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
-/* ==== FOOTER ==== */
-footer {
-  background-color: #1f3d28;
-  color: #fff;
+#cart-residuos-count {
+  background: #1d7a32;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 50%;
+  margin-left: 5px;
+}
+
+/* --- BUSCADOR --- */
+.search-bar {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 30px;
+}
+
+.search-bar input {
+  width: 40%;
+  padding: 10px;
+  border-radius: 8px 0 0 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.search-bar button {
+  padding: 10px 20px;
+  border: none;
+  background: #1d7a32;
+  color: white;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+}
+
+/* --- PRODUCTOS --- */
+.productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+}
+
+.card {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
   text-align: center;
-  padding: 15px;
-  font-size: 13px;
+  transition: transform 0.3s ease;
 }
 
-/* ==== RESPONSIVE ==== */
-@media (max-width: 900px) {
-  .dashboard-container {
-    flex-direction: column;
-  }
+.card:hover {
+  transform: translateY(-5px);
+}
 
-  .sidebar {
-    width: 100%;
-    flex-direction: row;
-    justify-content: space-around;
-  }
+.card img {
+  width: 100%;
+  height: 180px;
+  border-radius: 10px;
+  object-fit: cover;  /* Recorta pero mantiene toda la tarjeta igual */
+  object-position: center; /* Centra la imagen recortada */
+}
 
-  .info-container {
-    flex-direction: column;
-  }
 
-  .points-box {
-    order: -1;
-  }
+
+.card h3 {
+  color: #1d7a32;
+  margin: 10px 0 5px;
+}
+
+.card p {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.puntos {
+  display: block;
+  font-weight: bold;
+  color: #1d7a32;
+  margin-bottom: 10px;
+}
+
+.add-cart {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #ffb800;
+  color: #000;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.add-cart:hover {
+  background: #e6a700;
 }

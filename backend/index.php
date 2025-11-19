@@ -61,6 +61,12 @@ switch ($route) {
         $controller->actualizar();
         break;
 
+    case "premio.catalogo":
+        require_once __DIR__ . "/app/controllers/PremioController.php";
+        $controller = new PremioController();
+        $controller->catalogo();
+        break;
+
     case "empresa.listar":
         require_once __DIR__ . "/app/controllers/EmpresaController.php";
         $controller = new EmpresaController();
@@ -115,7 +121,12 @@ case "residuo.obtener":
     $controller = new ResiduoController();
     $controller->obtener();
     break;
-
+    
+ case "residuo.catalogo":
+        require_once __DIR__ . "/app/controllers/ResiduoController.php";
+        $controller = new ResiduoController();
+        $controller->listarActivos();
+        break;
 
     default:
         echo json_encode([

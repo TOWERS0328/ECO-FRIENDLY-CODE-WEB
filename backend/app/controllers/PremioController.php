@@ -4,30 +4,29 @@ require_once __DIR__ . '/../models/Premio.php';
 
 class PremioController {
 
-    // Listar todos los premios
     public function listar() {
         header("Content-Type: application/json");
         $premioModel = new Premio();
         echo json_encode($premioModel->getAllPremios());
     }
 
-    // Crear un premio
     public function crear() {
         header("Content-Type: application/json");
 
-        $codigo = $_POST['codigo'] ?? null;
         $nombre = $_POST['nombre'] ?? null;
         $puntos = $_POST['puntos_requeridos'] ?? null;
         $stock = $_POST['stock'] ?? 0;
         $id_empresa = $_POST['id_empresaP'] ?? null;
 
-        // Validaciones básicas
         if (!$nombre || !$puntos || !$id_empresa) {
-            echo json_encode(["status" => "error", "message" => "Campos obligatorios faltantes"]);
+            echo json_encode([
+                "status" => "error",
+                "message" => "Campos obligatorios faltantes"
+            ]);
             return;
         }
 
-        // Manejar imagen
+        // Imagen
         $imagenPath = null;
         if (!empty($_FILES['imagen']['name'])) {
             $uploadDir = __DIR__ . '/../../uploads/premios/';
@@ -43,14 +42,14 @@ class PremioController {
         }
 
         $premioModel = new Premio();
-        $ok = $premioModel->crearPremio($codigo, $nombre, $puntos, $stock, $imagenPath, $id_empresa);
+        $ok = $premioModel->crearPremio($nombre, $puntos, $stock, $imagenPath, $id_empresa);
 
-        echo json_encode($ok
-            ? ["status" => "success", "message" => "Premio registrado"]
-            : ["status" => "error", "message" => "Error al registrar"]);
+        echo json_encode($ok ?
+            ["status" => "success", "message" => "Premio registrado"] :
+            ["status" => "error", "message" => "Error al registrar"]
+        );
     }
 
-    // Actualizar un premio existente
     public function actualizar() {
         header("Content-Type: application/json");
 
@@ -74,7 +73,7 @@ class PremioController {
         $id_empresa = $_POST['id_empresaP'] ?? $premio['id_empresaP'];
         $estado = $_POST['estado'] ?? $premio['estado'];
 
-        // Imagen nueva (opcional)
+        // Imagen opcional
         $imagenPath = null;
         if (!empty($_FILES['imagen']['name'])) {
             $uploadDir = __DIR__ . '/../../uploads/premios/';
@@ -91,15 +90,25 @@ class PremioController {
 
         $ok = $premioModel->actualizarPremio($id, $nombre, $puntos, $stock, $imagenPath, $id_empresa, $estado);
 
-        echo json_encode($ok
-            ? ["status" => "success", "message" => "Premio actualizado"]
-            : ["status" => "error", "message" => "Error al actualizar"]);
+        echo json_encode($ok ?
+            ["status" => "success", "message" => "Premio actualizado"] :
+            ["status" => "error", "message" => "Error al actualizar"]
+        );
     }
 
-    // Obtener empresas activas para el select (para JS)
     public function listarEmpresas() {
         header("Content-Type: application/json");
         $empresaModel = new Empresa();
         echo json_encode($empresaModel->getEmpresasActivas());
     }
+
+    public function catalogo() {
+    header("Content-Type: application/json");
+
+    $premioModel = new Premio();
+    $data = $premioModel->getCatalogoEstudiante();
+
+    echo json_encode($data);
+}
+
 }

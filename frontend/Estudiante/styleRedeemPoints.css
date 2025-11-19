@@ -2,6 +2,7 @@
 .catalogo {
   text-align: center;
   padding: 30px 40px;
+  position: relative; /* Para que el carrito pueda posicionarse */
 }
 
 .header-catalogo {
@@ -10,6 +11,7 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 20px;
+  position: relative; /* Necesario para posicionar el carrito */
 }
 
 .catalogo h1 {
@@ -22,27 +24,43 @@
   color: #555;
 }
 
+.header-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
 .points {
   background: #d9fcd1;
   color: #157d1c;
   padding: 8px 16px;
   border-radius: 20px;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.cart {
+/* --- CARRITO PREMIOS EN ESQUINA --- */
+.cart-premios {
   font-size: 1.2rem;
   background: #e6ffe6;
   padding: 6px 14px;
   border-radius: 20px;
+  position: absolute; /* Lo coloca en esquina */
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-#cart-count {
+#cart-premios-count {
   background: #1d7a32;
   color: white;
   padding: 2px 8px;
   border-radius: 50%;
-  margin-left: 5px;
 }
 
 /* --- BUSCADOR --- */
@@ -94,6 +112,7 @@
   height: 180px;
   border-radius: 10px;
   object-fit: cover;
+  object-position: center;
 }
 
 .card h3 {

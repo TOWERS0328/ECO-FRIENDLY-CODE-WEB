@@ -270,7 +270,6 @@ qs("formRegistrar").addEventListener("submit", async e => {
   e.preventDefault();
 
   const formData = new FormData();
-  formData.append("codigo", qs("regCodigo").value.trim());
   formData.append("nombre", qs("regNombre").value.trim());
   formData.append("puntos_requeridos", qs("regPuntos").value.trim());
   formData.append("stock", qs("regStock").value.trim());

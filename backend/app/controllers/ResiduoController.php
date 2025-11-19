@@ -14,13 +14,12 @@ class ResiduoController {
     public function crear() {
         header("Content-Type: application/json");
 
-        $codigo = $_POST['codigo'] ?? null;
         $nombre = $_POST['nombre'] ?? null;
         $tipo = $_POST['tipo'] ?? null;
         $puntos = $_POST['puntos'] ?? null;
         $estado = $_POST['estado'] ?? "Activo";
 
-        if (!$codigo || !$nombre || !$tipo || !$puntos) {
+        if (!$nombre || !$tipo || !$puntos) {
             echo json_encode(["status" => "error", "message" => "Campos obligatorios faltantes"]);
             return;
         }
@@ -41,7 +40,7 @@ class ResiduoController {
         }
 
         $residuoModel = new Residuo();
-        $ok = $residuoModel->crearResiduo($codigo, $nombre, $tipo, $puntos, $imagenPath, $estado);
+        $ok = $residuoModel->crearResiduo($nombre, $tipo, $puntos, $imagenPath, $estado);
 
         echo json_encode($ok
             ? ["status" => "success", "message" => "Residuo registrado"]
@@ -93,7 +92,7 @@ class ResiduoController {
             : ["status" => "error", "message" => "Error al actualizar"]);
     }
 
-    // Obtener residuo por id (para edición)
+    // Obtener residuo por id
     public function obtener() {
         header("Content-Type: application/json");
         $id = $_GET['id_residuo'] ?? null;
@@ -112,5 +111,13 @@ class ResiduoController {
             echo json_encode(["status" => "error", "message" => "Residuo no encontrado"]);
         }
     }
+
+    public function listarActivos() {
+    header("Content-Type: application/json");
+    $residuoModel = new Residuo();
+    echo json_encode($residuoModel->getResiduosActivos());
+}
+
+
 }
 ?>

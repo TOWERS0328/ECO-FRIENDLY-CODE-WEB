@@ -70,17 +70,17 @@ function abrirModalEditar(residuo) {
   const modalEdit = qs("modalEditarResiduo");
   const previewContainer = modalEdit.querySelector(".preview-container");
 
-  // Mostrar modal
   modalEdit.style.display = "flex";
 
-  // Llenar campos
+  // NUEVO: mostrar código
+  qs("editCodigo").value = residuo.codigo;
+
   qs("editId").value = residuo.id_residuo;
   qs("editTipo").value = residuo.tipo ?? "";
   qs("editNombre").value = residuo.nombre ?? "";
   qs("editPuntos").value = residuo.puntos ?? "";
   qs("editEstado").value = residuo.estado ?? "";
 
-  // Preview de imagen
   previewContainer.innerHTML = "";
   if (residuo.imagen) {
     const img = document.createElement("img");
@@ -89,6 +89,7 @@ function abrirModalEditar(residuo) {
     previewContainer.appendChild(img);
   }
 }
+
 
 function cerrarModalEditarResiduo() {
   const modalEdit = qs("modalEditarResiduo");
