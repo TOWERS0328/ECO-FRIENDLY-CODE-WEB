@@ -1,11 +1,13 @@
 <?php
 require_once __DIR__ . '/../config/Database.php';
 
-class Premio {
+class Premio
+{
     private $conn;
     private $table = "tb_premios";
 
-    public function __construct() {
+    public function __construct()
+    {
         $db = new Database();
         $this->conn = $db->getConnection();
     }
@@ -13,7 +15,8 @@ class Premio {
     // =============================
     // GENERAR CÓDIGO AUTOMÁTICO P###
     // =============================
-    private function generarCodigo() {
+    private function generarCodigo()
+    {
         $sql = "SELECT codigo FROM {$this->table} ORDER BY id_premio DESC LIMIT 1";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
@@ -28,7 +31,8 @@ class Premio {
     }
 
 
-    public function getAllPremios() {
+    public function getAllPremios()
+    {
         $sql = "SELECT 
                     p.id_premio,
                     p.codigo,
@@ -51,7 +55,8 @@ class Premio {
     // ====================================
     // CREAR PREMIO (con código automático)
     // ====================================
-    public function crearPremio($nombre, $puntos, $stock, $imagen, $id_empresa) {
+    public function crearPremio($nombre, $puntos, $stock, $imagen, $id_empresa)
+    {
         $codigo = $this->generarCodigo();
 
         $sql = "INSERT INTO {$this->table} 
@@ -70,7 +75,8 @@ class Premio {
     }
 
     // Obtener un premio por ID
-    public function getById($id_premio) {
+    public function getById($id_premio)
+    {
         $sql = "SELECT * FROM {$this->table} WHERE id_premio = :id LIMIT 1";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([':id' => $id_premio]);
@@ -81,7 +87,8 @@ class Premio {
     // ACTUALIZAR PREMIO
     // (sin modificar codigo)
     // ====================================
-    public function actualizarPremio($id_premio, $nombre, $puntos, $stock, $imagen, $id_empresa, $estado) {
+    public function actualizarPremio($id_premio, $nombre, $puntos, $stock, $imagen, $id_empresa, $estado)
+    {
         if ($imagen !== null) {
             $sql = "UPDATE {$this->table} SET 
                         nombre = :nombre,
@@ -121,8 +128,9 @@ class Premio {
         }
     }
 
-    public function getCatalogoEstudiante() {
-    $sql = "SELECT 
+    public function getCatalogoEstudiante()
+    {
+        $sql = "SELECT 
                 id_premio,
                 codigo,
                 nombre,
@@ -133,9 +141,18 @@ class Premio {
             WHERE estado = 'activo'
               AND stock > 0";
 
-    $stmt = $this->conn->prepare($sql);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
+    public function actualizarStock($id_premio, $nuevoStock)
+    {
+        $sql = "UPDATE {$this->table} SET stock = :stock WHERE id_premio = :id";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([
+            ':stock' => $nuevoStock,
+            ':id' => $id_premio
+        ]);
+    }
 }

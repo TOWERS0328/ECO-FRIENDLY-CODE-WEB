@@ -12,6 +12,36 @@ class Estudiante
         $this->conn = $db->getConnection();
     }
 
+    public function getPuntos($id_estudiante)
+    {
+        $sql = "SELECT puntos_acumulados FROM {$this->table} WHERE id_estudiante = :id_estudiante LIMIT 1";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':id_estudiante' => $id_estudiante]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['puntos_acumulados'] ?? 0;
+    }
+
+    // 🔹 Sumar puntos (por acopios validados)
+    public function sumarPuntos($id_estudiante, $puntos)
+    {
+        $sql = "UPDATE {$this->table} SET puntos_acumulados = puntos_acumulados + :puntos WHERE id_estudiante = :id_estudiante";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([
+            ':puntos' => $puntos,
+            ':id_estudiante' => $id_estudiante
+        ]);
+    }
+
+    // 🔹 Restar puntos (por canjes)
+    public function restarPuntos($id_estudiante, $puntos)
+    {
+        $sql = "UPDATE {$this->table} SET puntos_acumulados = puntos_acumulados - :puntos WHERE id_estudiante = :id_estudiante";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([
+            ':puntos' => $puntos,
+            ':id_estudiante' => $id_estudiante
+        ]);
+    }
     public function existeCedula($cedula)
     {
         $sql = "SELECT id_estudiante FROM {$this->table} WHERE cedula = :cedula LIMIT 1";

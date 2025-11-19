@@ -43,7 +43,7 @@ class Acopio {
         $existe = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($existe) {
-            // Actualizar cantidad y puntos
+            // Si ya existe, actualizar cantidad y puntos
             $nuevaCantidad = $existe['cantidad'] + $cantidad;
             $nuevosPuntos = $existe['puntos'] + $puntos;
             $sqlUpdate = "UPDATE {$this->tableDetalle} SET cantidad = :cantidad, puntos = :puntos WHERE id_detalle = :id_detalle";
@@ -85,7 +85,7 @@ class Acopio {
         return $stmt->execute([':id_detalle' => $id_detalle]);
     }
 
-    // Actualizar puntos totales del acopio
+    // Actualizar puntos totales del acopio (solo suman para el acopio, no al estudiante aún)
     public function actualizarPuntosTotales($id_acopio) {
         $sql = "SELECT SUM(puntos) as total FROM {$this->tableDetalle} WHERE id_acopioD = :id_acopio";
         $stmt = $this->conn->prepare($sql);
@@ -101,11 +101,54 @@ class Acopio {
         return $total;
     }
 
-    // Finalizar acopio (cambia estado a pendiente para validar)
+    // Finalizar acopio (solo cambia a pendiente para validación, el asistente validará después)
     public function finalizarAcopio($id_acopio) {
         $sql = "UPDATE {$this->tableAcopio} SET estado = 'pendiente' WHERE id_acopio = :id_acopio";
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute([':id_acopio' => $id_acopio]);
+    }
+
+    // Validar acopio (solo el asistente ambiental puede cambiar a 'validado')
+    public function validarAcopio($id_acopio) {
+        // Primero obtenemos el total de puntos
+        $sqlTotal = "SELECT puntos_totales, id_estudianteA FROM {$this->tableAcopio} WHERE id_acopio = :id_acopio";
+        $stmtTotal = $this->conn->prepare($sqlTotal);
+        $stmtTotal->execute([':id_acopio' => $id_acopio]);
+        $acopio = $stmtTotal->fetch(PDO::FETCH_ASSOC);
+
+        if (!$acopio) return false;
+
+        // Actualizar el estado a 'validado'
+        $sqlUpdate = "UPDATE {$this->tableAcopio} SET estado = 'validado' WHERE id_acopio = :id_acopio";
+        $stmtUpdate = $this->conn->prepare($sqlUpdate);
+        $ok = $stmtUpdate->execute([':id_acopio' => $id_acopio]);
+
+        // Si se validó correctamente, sumar puntos al estudiante
+        if ($ok) {
+            $sqlEstudiante = "UPDATE tb_estudiantes 
+                              SET puntos_acumulados = puntos_acumulados + :puntos 
+                              WHERE id_estudiante = :id_estudiante";
+            $stmtEst = $this->conn->prepare($sqlEstudiante);
+            $stmtEst->execute([
+                ':puntos' => $acopio['puntos_totales'],
+                ':id_estudiante' => $acopio['id_estudianteA']
+            ]);
+        }
+
+        return $ok;
+    }
+
+    // Listar acopios de un estudiante (pendientes o validados)
+    public function listarAcopiosPorEstado($id_estudiante, $estado = null) {
+        $sql = "SELECT * FROM {$this->tableAcopio} WHERE id_estudianteA = :id_estudiante";
+        if ($estado) {
+            $sql .= " AND estado = :estado";
+        }
+        $stmt = $this->conn->prepare($sql);
+        $params = [':id_estudiante' => $id_estudiante];
+        if ($estado) $params[':estado'] = $estado;
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
 ?>
