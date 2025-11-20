@@ -1,0 +1,199 @@
+/* =============================
+   ESTILO DEL ENCABEZADO
+============================= */
+*{
+    box-sizing: border-box;
+}
+.carrito-header {
+    text-align: center;
+    padding: 35px 20px 45px;
+    background: #f5f5f5;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    position: relative;
+}
+
+.carrito-header h1 {
+    margin: 0;
+    font-size: 2rem;
+    color: #1d7a32;
+}
+
+.carrito-header p {
+    color: #555;
+    margin-top: 5px;
+}
+
+.btn-volver {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+
+    background: #e6e6e6;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-volver:hover {
+    background: #dcdcdc;
+}
+
+/* =============================
+   ITEM DEL CARRITO
+============================= */
+.item-carrito {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 100px 1fr max-content max-content;
+    align-items: center;
+    gap: 15px;
+
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 18px;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.08);
+    position: relative;
+}
+
+.item-carrito img {
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.item-carrito .info h3 {
+    margin: 0;
+    color: #1d7a32;
+}
+
+.item-carrito .info p {
+    margin: 3px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.cantidad {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cantidad button {
+    padding: 5px 10px;
+    background: #d9fcd1;
+    border: 1px solid #1d7a32;
+    color: #1d7a32;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.cantidad button:hover {
+    background: #c8f7be;
+}
+
+.total p {
+    margin: 0;
+    color: #1d7a32;
+    font-weight: bold;
+}
+
+.btn-eliminar {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+
+    border: none;
+    background: none;
+    font-size: 20px;
+    color: #b00000;
+    cursor: pointer;
+}
+
+/* =============================
+   TOTAL + BOTÓN FINAL
+============================= */
+.acciones-carrito {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column; /* 🔥 uno encima del otro */
+    align-items: flex-end;  /* 🔥 pegados a la derecha */
+    gap: 8px;               /* separación bonita */
+    padding: 0 15px;
+}
+
+
+
+/* Total puntos */
+.total-puntos {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #d9fcd1;
+    padding: 8px 14px;
+    border-radius: 12px;
+    color: #1d7a32;
+    font-weight: bold;
+    border: 1px solid #1d7a32;
+}
+
+/* Botón de acopio */
+.btn-acopio {
+    margin-left: auto;
+    padding: 10px 16px;
+    background: #1d7a32;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-acopio:hover {
+    background: #166628;
+}
+
+/* =============================
+   RESPONSIVE
+============================= */
+@media (max-width: 500px) {
+    .item-carrito {
+        grid-template-columns: 100px 1fr;
+        grid-template-rows: auto auto auto;
+        padding-bottom: 45px;
+    }
+
+    .btn-eliminar {
+        right: 10px;
+        top: 10px;
+    }
+
+    .acciones-carrito {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn-acopio {
+        width: 100%;
+    }
+
+    .total-puntos {
+        width: 100%;
+        justify-content: center;
+    }
+}

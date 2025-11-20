@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Canasta</title>
+    <link rel="stylesheet" href="cartRecycle.css">
+
+    <!-- Iconos Flaticon -->
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+</head>
+
+<body>
+
+    <!-- ENCABEZADO -->
+    <div class="carrito-header">
+        <h1><i class="fi fi-rr-basket"></i> Mi Canasta</h1>
+        <p>Revisa los residuos seleccionados antes de realizar el acopio.</p>
+
+        <button class="btn-volver" onclick="window.location.href='recycle.html'">
+            <i class="fi fi-rr-arrow-left"></i> Volver
+        </button>
+    </div>
+
+    <!-- CONTENEDOR DE ITEMS -->
+    <div id="cart-items"></div>
+
+    <!-- TOTAL + BOTÓN FINAL -->
+    <div class="acciones-carrito">
+        <div class="total-puntos">
+            <i class="fi fi-rr-badge-check"></i>
+            <span id="totalPuntos">0 pts</span>
+        </div>
+
+        <button class="btn-acopio" id="btnFinalizarAcopio">
+            <i class="fi fi-rr-check"></i> Realizar acopio
+        </button>
+    </div>
+
+    <!-- JS -->
+    <script src="cartRecycle.js"></script>
+
+</body>
+</html>

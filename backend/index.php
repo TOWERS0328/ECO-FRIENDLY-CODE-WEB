@@ -8,130 +8,26 @@ header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Methods: POST, GET");
 header("Content-Type: application/json");
 
+$routes = []; // array global que contendrá todas las rutas
+
+// Cargar rutas por módulo
+require_once __DIR__ . "/routes/estudiante.php";
+require_once __DIR__ . "/routes/premio.php";
+require_once __DIR__ . "/routes/empresa.php";
+require_once __DIR__ . "/routes/residuo.php";
+require_once __DIR__ . "/routes/actor.php";
+require_once __DIR__ . "/routes/acopio.php";
+
 $route = $_GET['route'] ?? null;
 
-switch ($route) {
-    case "estudiante.registrar":
-        require_once __DIR__ . "/app/controllers/EstudianteController.php";
-        $controller = new EstudianteController();
-        $controller->registrar();
-        break;
-
-    case "estudiante.listar":
-        require_once __DIR__ . "/app/controllers/EstudianteController.php";
-        $controller = new EstudianteController();
-        $controller->listar();
-        break;
-
-    case "estudiante.actualizar":
-        require_once __DIR__ . "/app/controllers/EstudianteController.php";
-        $controller = new EstudianteController();
-        $controller->actualizar();
-        break;
-
-    case "estudiante.restablecer":
-        require_once __DIR__ . "/app/controllers/EstudianteController.php";
-        $controller = new EstudianteController();
-        $controller->restablecer();
-        break;
-
-
-    case "actor.login":
-        require_once __DIR__ . "/app/controllers/LoginController.php";
-        $controller = new LoginController();
-        $controller->login();
-        break;
-
-    // PREMIOS
-    case "premio.listar":
-        require_once __DIR__ . "/app/controllers/PremioController.php";
-        $controller = new PremioController();
-        $controller->listar();
-        break;
-
-    case "premio.crear":
-        require_once __DIR__ . "/app/controllers/PremioController.php";
-        $controller = new PremioController();
-        $controller->crear();
-        break;
-
-    case "premio.actualizar":
-        require_once __DIR__ . "/app/controllers/PremioController.php";
-        $controller = new PremioController();
-        $controller->actualizar();
-        break;
-
-    case "premio.catalogo":
-        require_once __DIR__ . "/app/controllers/PremioController.php";
-        $controller = new PremioController();
-        $controller->catalogo();
-        break;
-
-    case "empresa.listar":
-        require_once __DIR__ . "/app/controllers/EmpresaController.php";
-        $controller = new EmpresaController();
-        $controller->listar();
-        break;
-
-    case "empresa.listarActivas":
-        require_once __DIR__ . "/app/controllers/EmpresaController.php";
-        $controller = new EmpresaController();
-        $controller->listarActivas();
-        break;
-
-    case "empresa.registrar":
-        require_once __DIR__ . "/app/controllers/EmpresaController.php";
-        $controller = new EmpresaController();
-        $controller->registrar();
-        break;
-
-    case "empresa.actualizar":
-        require_once __DIR__ . "/app/controllers/EmpresaController.php";
-        $controller = new EmpresaController();
-        $controller->actualizar();
-        break;
-
-    case "empresa.obtener":
-        require_once __DIR__ . "/app/controllers/EmpresaController.php";
-        $controller = new EmpresaController();
-        $controller->obtener();
-        break;
-
-    // RESIDUOS
-case "residuo.listar":
-    require_once __DIR__ . "/app/controllers/ResiduoController.php";
-    $controller = new ResiduoController();
-    $controller->listar();
-    break;
-
-case "residuo.crear":
-    require_once __DIR__ . "/app/controllers/ResiduoController.php";
-    $controller = new ResiduoController();
-    $controller->crear();
-    break;
-
-case "residuo.actualizar":
-    require_once __DIR__ . "/app/controllers/ResiduoController.php";
-    $controller = new ResiduoController();
-    $controller->actualizar();
-    break;
-
-case "residuo.obtener":
-    require_once __DIR__ . "/app/controllers/ResiduoController.php";
-    $controller = new ResiduoController();
-    $controller->obtener();
-    break;
-    
- case "residuo.catalogo":
-        require_once __DIR__ . "/app/controllers/ResiduoController.php";
-        $controller = new ResiduoController();
-        $controller->listarActivos();
-        break;
-
-    default:
-        echo json_encode([
-            "status" => "error",
-            "message" => "Ruta no encontrada"
-        ]);
-        break;
+if(isset($routes[$route])) {
+    [$controllerName, $method] = $routes[$route];
+    require_once __DIR__ . "/app/controllers/$controllerName.php";
+    $controller = new $controllerName();
+    $controller->$method();
+} else {
+    echo json_encode([
+        "status" => "error",
+        "message" => "Ruta no encontrada"
+    ]);
 }

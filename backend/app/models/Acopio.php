@@ -3,152 +3,163 @@ require_once __DIR__ . '/../config/Database.php';
 
 class Acopio {
     private $conn;
+
+    // TABLAS REALES
+    private $tableCanasta = "tb_canasta_temp";
+    private $tableResiduo = "tb_residuos";
     private $tableAcopio = "tb_acopio";
     private $tableDetalle = "tb_detalle_acopio";
 
     public function __construct() {
-        $db = new Database();
-        $this->conn = $db->getConnection();
+        $database = new Database();
+        $this->conn = $database->getConnection();
     }
 
-    // Obtener acopio pendiente de un estudiante
-    public function getPendiente($id_estudiante) {
-        $sql = "SELECT * FROM {$this->tableAcopio} 
-                WHERE id_estudianteA = :id_estudiante AND estado = 'pendiente' LIMIT 1";
+    // ================================
+    // 1. LISTAR CANASTA TEMPORAL
+    // ================================
+    public function listarCanasta($id_estudiante) {
+        $sql = "SELECT c.id_detalle_temp, c.id_residuoCa AS id_residuo, c.cantidad,
+                       r.nombre, r.tipo, r.puntos AS puntos_unitarios, r.imagen
+                FROM $this->tableCanasta c
+                INNER JOIN $this->tableResiduo r ON c.id_residuoCa = r.id_residuo
+                WHERE c.id_estudianteCa = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute([':id_estudiante' => $id_estudiante]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->execute([$id_estudiante]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Crear un acopio pendiente nuevo
-    public function crearAcopio($id_estudiante) {
-        $sql = "INSERT INTO {$this->tableAcopio} (id_estudianteA, puntos_totales) VALUES (:id_estudiante, 0)";
+    // ================================
+    // 2. AGREGAR RESIDUO A CANASTA
+    // ================================
+    public function agregarCanasta($id_estudiante, $id_residuo, $cantidad) {
+
+        // Verificar si ya existe en canasta
+        $sql = "SELECT * FROM $this->tableCanasta
+                WHERE id_estudianteCa = ? AND id_residuoCa = ?";
         $stmt = $this->conn->prepare($sql);
-        if ($stmt->execute([':id_estudiante' => $id_estudiante])) {
-            return $this->conn->lastInsertId();
+        $stmt->execute([$id_estudiante, $id_residuo]);
+
+        if ($stmt->rowCount() > 0) {
+            // Si ya existe → solo aumentar cantidad
+            $sqlUpdate = "UPDATE $this->tableCanasta
+                          SET cantidad = cantidad + ?
+                          WHERE id_estudianteCa = ? AND id_residuoCa = ?";
+            $stmt2 = $this->conn->prepare($sqlUpdate);
+            return $stmt2->execute([$cantidad, $id_estudiante, $id_residuo]);
+
+        } else {
+            // Insertar nuevo
+            $sqlInsert = "INSERT INTO $this->tableCanasta
+                          (id_estudianteCa, id_residuoCa, cantidad)
+                          VALUES (?, ?, ?)";
+            $stmt2 = $this->conn->prepare($sqlInsert);
+            return $stmt2->execute([$id_estudiante, $id_residuo, $cantidad]);
         }
+    }
+
+    // ================================
+    // 3. LIMPIAR CANASTA
+    // ================================
+    public function limpiarCanasta($id_estudiante) {
+        $sql = "DELETE FROM $this->tableCanasta
+                WHERE id_estudianteCa = ?";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([$id_estudiante]);
+    }
+
+    // ================================
+    // 4. CREAR ACOPIO
+    // ================================
+    public function crearAcopio($id_estudiante, $puntosTotales) {
+        $sql = "INSERT INTO $this->tableAcopio
+                (id_estudianteA, fecha, estado, puntos_totales)
+                VALUES (?, NOW(), 'pendiente', ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$id_estudiante, $puntosTotales]);
+        return $this->conn->lastInsertId();
+    }
+
+    // ================================
+    // 5. INSERTAR DETALLE DEL ACOPIO
+    // ================================
+    public function insertarDetalle($id_acopio, $id_residuo, $cantidad, $puntos) {
+        $sql = "INSERT INTO $this->tableDetalle
+                (id_acopioD, id_residuoD, cantidad, puntos)
+                VALUES (?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([$id_acopio, $id_residuo, $cantidad, $puntos]);
+    }
+
+    // ================================
+    // 6. OBTENER PUNTOS UNITARIOS
+    // ================================
+    public function obtenerPuntosResiduo($id_residuo) {
+        $sql = "SELECT puntos FROM $this->tableResiduo WHERE id_residuo = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$id_residuo]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row ? (int)$row["puntos"] : 0;
+    }
+    // ================================
+// 7. ACTUALIZAR CANTIDAD DE UN ITEM
+// ================================
+public function actualizarCantidad($id_estudiante, $id_residuo, $cantidad) {
+
+    if ($cantidad <= 0) {
+        // si la cantidad es 0 o menos, eliminar el item
+        return $this->eliminarItem($id_estudiante, $id_residuo);
+    }
+
+    $sql = "UPDATE $this->tableCanasta
+            SET cantidad = ?
+            WHERE id_estudianteCa = ? AND id_residuoCa = ?";
+    $stmt = $this->conn->prepare($sql);
+    return $stmt->execute([$cantidad, $id_estudiante, $id_residuo]);
+}
+
+// ================================
+// 8. ELIMINAR ITEM DE LA CANASTA
+// ================================
+public function eliminarItem($id_estudiante, $id_residuo) {
+    $sql = "DELETE FROM $this->tableCanasta
+            WHERE id_estudianteCa = ? AND id_residuoCa = ?";
+    $stmt = $this->conn->prepare($sql);
+    return $stmt->execute([$id_estudiante, $id_residuo]);
+}
+
+// ================================
+// CAMBIAR ESTADO DEL ACOPIO
+// ================================
+public function actualizarEstado($id_acopio, $nuevo_estado) {
+    // Validar que el estado sea uno de los permitidos
+    $estados_validos = ['pendiente', 'validado', 'rechazado'];
+    if (!in_array($nuevo_estado, $estados_validos)) {
         return false;
     }
 
-    // Agregar residuo al detalle del acopio
-    public function agregarDetalle($id_acopio, $id_residuo, $cantidad, $puntos) {
-        // Revisar si ya existe el residuo en el detalle
-        $sqlCheck = "SELECT * FROM {$this->tableDetalle} 
-                     WHERE id_acopioD = :id_acopio AND id_residuoD = :id_residuo LIMIT 1";
-        $stmt = $this->conn->prepare($sqlCheck);
-        $stmt->execute([
-            ':id_acopio' => $id_acopio,
-            ':id_residuo' => $id_residuo
-        ]);
-        $existe = $stmt->fetch(PDO::FETCH_ASSOC);
+    // 1. Obtener datos del acopio
+    $sql = "SELECT id_estudianteAc, puntos_totales, estado FROM $this->tableAcopio WHERE id_acopio = ?";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute([$id_acopio]);
+    $acopio = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($existe) {
-            // Si ya existe, actualizar cantidad y puntos
-            $nuevaCantidad = $existe['cantidad'] + $cantidad;
-            $nuevosPuntos = $existe['puntos'] + $puntos;
-            $sqlUpdate = "UPDATE {$this->tableDetalle} SET cantidad = :cantidad, puntos = :puntos WHERE id_detalle = :id_detalle";
-            $stmtUpdate = $this->conn->prepare($sqlUpdate);
-            return $stmtUpdate->execute([
-                ':cantidad' => $nuevaCantidad,
-                ':puntos' => $nuevosPuntos,
-                ':id_detalle' => $existe['id_detalle']
-            ]);
-        } else {
-            // Insertar nuevo detalle
-            $sqlInsert = "INSERT INTO {$this->tableDetalle} (id_acopioD, id_residuoD, cantidad, puntos)
-                          VALUES (:id_acopio, :id_residuo, :cantidad, :puntos)";
-            $stmtInsert = $this->conn->prepare($sqlInsert);
-            return $stmtInsert->execute([
-                ':id_acopio' => $id_acopio,
-                ':id_residuo' => $id_residuo,
-                ':cantidad' => $cantidad,
-                ':puntos' => $puntos
-            ]);
-        }
-    }
+    if (!$acopio) return false;
 
-    // Listar todos los detalles de un acopio
-    public function getDetalles($id_acopio) {
-        $sql = "SELECT da.id_detalle, da.id_residuoD, da.cantidad, da.puntos, r.nombre, r.tipo, r.imagen
-                FROM {$this->tableDetalle} da
-                INNER JOIN tb_residuos r ON da.id_residuoD = r.id_residuo
-                WHERE da.id_acopioD = :id_acopio";
+    // 2. Actualizar el estado
+    $sql = "UPDATE $this->tableAcopio SET estado = ? WHERE id_acopio = ?";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute([$nuevo_estado, $id_acopio]);
+
+    // 3. Otorgar puntos solo si pasa a "validado" y antes no estaba validado
+    if ($nuevo_estado === 'validado' && $acopio['estado'] !== 'validado') {
+        $sql = "UPDATE tb_estudiantes SET puntos = puntos + ? WHERE id_estudiante = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute([':id_acopio' => $id_acopio]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->execute([$acopio['puntos_totales'], $acopio['id_estudianteAc']]);
     }
 
-    // Eliminar un residuo de la canasta
-    public function eliminarDetalle($id_detalle) {
-        $sql = "DELETE FROM {$this->tableDetalle} WHERE id_detalle = :id_detalle";
-        $stmt = $this->conn->prepare($sql);
-        return $stmt->execute([':id_detalle' => $id_detalle]);
-    }
-
-    // Actualizar puntos totales del acopio (solo suman para el acopio, no al estudiante aún)
-    public function actualizarPuntosTotales($id_acopio) {
-        $sql = "SELECT SUM(puntos) as total FROM {$this->tableDetalle} WHERE id_acopioD = :id_acopio";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute([':id_acopio' => $id_acopio]);
-        $total = $stmt->fetch(PDO::FETCH_ASSOC)['total'] ?? 0;
-
-        $sqlUpdate = "UPDATE {$this->tableAcopio} SET puntos_totales = :total WHERE id_acopio = :id_acopio";
-        $stmtUpdate = $this->conn->prepare($sqlUpdate);
-        $stmtUpdate->execute([
-            ':total' => $total,
-            ':id_acopio' => $id_acopio
-        ]);
-        return $total;
-    }
-
-    // Finalizar acopio (solo cambia a pendiente para validación, el asistente validará después)
-    public function finalizarAcopio($id_acopio) {
-        $sql = "UPDATE {$this->tableAcopio} SET estado = 'pendiente' WHERE id_acopio = :id_acopio";
-        $stmt = $this->conn->prepare($sql);
-        return $stmt->execute([':id_acopio' => $id_acopio]);
-    }
-
-    // Validar acopio (solo el asistente ambiental puede cambiar a 'validado')
-    public function validarAcopio($id_acopio) {
-        // Primero obtenemos el total de puntos
-        $sqlTotal = "SELECT puntos_totales, id_estudianteA FROM {$this->tableAcopio} WHERE id_acopio = :id_acopio";
-        $stmtTotal = $this->conn->prepare($sqlTotal);
-        $stmtTotal->execute([':id_acopio' => $id_acopio]);
-        $acopio = $stmtTotal->fetch(PDO::FETCH_ASSOC);
-
-        if (!$acopio) return false;
-
-        // Actualizar el estado a 'validado'
-        $sqlUpdate = "UPDATE {$this->tableAcopio} SET estado = 'validado' WHERE id_acopio = :id_acopio";
-        $stmtUpdate = $this->conn->prepare($sqlUpdate);
-        $ok = $stmtUpdate->execute([':id_acopio' => $id_acopio]);
-
-        // Si se validó correctamente, sumar puntos al estudiante
-        if ($ok) {
-            $sqlEstudiante = "UPDATE tb_estudiantes 
-                              SET puntos_acumulados = puntos_acumulados + :puntos 
-                              WHERE id_estudiante = :id_estudiante";
-            $stmtEst = $this->conn->prepare($sqlEstudiante);
-            $stmtEst->execute([
-                ':puntos' => $acopio['puntos_totales'],
-                ':id_estudiante' => $acopio['id_estudianteA']
-            ]);
-        }
-
-        return $ok;
-    }
-
-    // Listar acopios de un estudiante (pendientes o validados)
-    public function listarAcopiosPorEstado($id_estudiante, $estado = null) {
-        $sql = "SELECT * FROM {$this->tableAcopio} WHERE id_estudianteA = :id_estudiante";
-        if ($estado) {
-            $sql .= " AND estado = :estado";
-        }
-        $stmt = $this->conn->prepare($sql);
-        $params = [':id_estudiante' => $id_estudiante];
-        if ($estado) $params[':estado'] = $estado;
-        $stmt->execute($params);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    return true;
 }
-?>
+
+
+}
