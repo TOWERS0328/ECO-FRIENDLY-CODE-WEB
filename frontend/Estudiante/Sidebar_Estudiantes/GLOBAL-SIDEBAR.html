@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAVBAR + SIDEBAR</title>
+
+    <!-- Flaticon Icons -->
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="GLOBAL-SIDEBAR.css">
+</head>
+
+<body>
+
+<header>
+    <div class="left">
+
+        <!-- Botón Hamburguesa -->
+        <div class="menu-container">
+            <div class="menu" id="menu">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
+        <!-- LOGO IGUAL AL DASHBOARD -->
+        <div class="brand">
+            <a href="/ECO-FRIENDLY-CODE-WEB/frontend/home/index.html" class="logo">
+                <h1><span>ECO</span> FRIENDLY</h1>
+                <p>CODE</p>
+            </a>
+        </div>
+
+    </div>
+
+    <div class="right">
+        <a href="recycle.html" class="btn-reciclar">
+            <i class="fi fi-rr-recycle"></i> Registrar Reciclaje
+        </a>
+
+       <img src="../../Img/9434619.jpg" alt="img-user" class="user">
+
+
+
+    </div>
+</header>
+
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+    <nav>
+        <ul>
+
+            <li>
+                <a href="#">
+                    <i class="fi fi-rr-home"></i>
+                    <span class="text">Inicio</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fi fi-rr-gift"></i>
+                    <span class="text">Canjear Premios</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fi fi-rr-time-past"></i>
+                    <span class="text">Historial de reciclaje</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fi fi-rr-user"></i>
+                    <span class="text">Perfil</span>
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+</div>
+    <main class="main">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat veritatis quam porro quaerat perferendis deleniti fugit, et iste aperiam temporibus assumenda ad voluptas, libero, minus voluptate officiis laborum ipsam nemo.</p>
+    </main>
+
+<!-- MODAL DE PREVISIÓN DE IMAGEN -->
+<div id="preview-modal" class="preview-modal">
+    <span class="close-modal">&times;</span>
+    <img class="preview-content" id="preview-img">
+</div>
+
+
+
+<script src="GLOBAL-SIDEBAR.js"></script>
+
+</body>
+</html>

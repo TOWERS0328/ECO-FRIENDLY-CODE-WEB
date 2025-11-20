@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eco Friendly Code - Panel de Usuario</title>
-  <link rel="stylesheet" href="../GOBAL-CSS/logoEcoBtnInicio.css">
+
   <link rel="stylesheet" href="styleviewinicial.css">
-  <link rel="stylesheet" href="../GOBAL-CSS/style-dashboard.css">
+  <link rel="stylesheet" href="../Estudiante/Sidebar_Estudiantes/GLOBAL-SIDEBAR.css">
 
   <!-- Íconos Flaticon -->
   <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
@@ -14,36 +14,51 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
-  <div class="dashboard-container">
 
-    <!-- Sidebar fija -->
-    <aside class="sidebar">
-      <a href="../home/index.html" class="logo">
-        <h1><span>ECO</span> FRIENDLY</h1>
-        <p>CODE</p>
-      </a>
+    <!-- NAV + SIDEBAR NUEVO -->
+    <header>
+        <div class="left">
+            <div class="menu-container">
+                <div class="menu" id="menu">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
 
-      <div class="user-info">
-        <img src="../Img/9434619.jpg" alt="Usuario" class="avatar">
-        <h3 class="username">Ana López</h3>
-        <p class="email">ana.lopez@email.com</p>
-      </div>
+            <div class="brand">
+                <a href="/ECO-FRIENDLY-CODE-WEB/frontend/home/index.html" class="logo">
+                    <h1><span>ECO</span> FRIENDLY</h1>
+                    <p>CODE</p>
+                </a>
+            </div>
+        </div>
 
-      <nav class="menu">
-        <a href="viewinicial.html" class="active"><i class="fi fi-rr-dashboard"></i> Panel</a>
-        <a href="redeemPoints.html"><i class="fi fi-rr-gift"></i> Canjear Premios</a>
-        <a href="historial.html"><i class="fi fi-rr-list-check"></i> Historial</a>
-        <a href="information.html"><i class="fi fi-rr-user"></i> Perfil</a>
-      </nav>
-    </aside>
+        <div class="right">
+            <a href="recycle.html" class="btn-reciclar">
+                <i class="fi fi-rr-recycle"></i> Registrar Reciclaje
+            </a>
 
-    <!-- Contenido principal -->
+            <img src="../Img/9434619.jpg" alt="img-user" class="user">
+        </div>
+    </header>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar" id="sidebar">
+        <nav>
+            <ul>
+                <li><a href="viewinicial.html"><i class="fi fi-rr-home"></i><span class="text">Inicio</span></a></li>
+                <li><a href="redeemPoints.html"><i class="fi fi-rr-gift"></i><span class="text">Canjear Premios</span></a></li>
+                <li><a href="historial.html"><i class="fi fi-rr-time-past"></i><span class="text">Historial</span></a></li>
+                <li><a href="information.html"><i class="fi fi-rr-user"></i><span class="text">Perfil</span></a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
     <main class="main-content">
-
-      <header class="top-bar">
-        <a href="recycle.html" class="btn-reciclar"><i class="fi fi-rr-add"></i> Registrar Reciclaje</a>
-      </header>
 
       <!-- Métricas -->
       <section class="stats">
@@ -66,8 +81,6 @@
         <h3><i class="fi fi-rr-chart-histogram"></i> Tu Impacto (Últimos 6 meses)</h3>
         <canvas id="impactChart"></canvas>
       </section>
-
-    
 
       <!-- Historial -->
       <section class="historial">
@@ -95,14 +108,24 @@
       </section>
 
     </main>
-  </div>
+
+    <!-- MODAL DE PREVISIÓN DE IMAGEN -->
+<div id="preview-modal" class="preview-modal">
+    <span class="close-modal">&times;</span>
+    <img class="preview-content" id="preview-img">
+</div>
 
   <footer>
     © 2025 Eco Friendly Code. Todos los derechos reservados.
   </footer>
 
+  <!-- SIDEBAR SCRIPT -->
+  <script src="../Estudiante/Sidebar_Estudiantes/GLOBAL-SIDEBAR.js"></script>
+
+  <!-- CHART + AVATAR -->
   <script>
     const ctx = document.getElementById('impactChart');
+
     new Chart(ctx, {
       type: 'bar',
       data: {
@@ -123,11 +146,13 @@
       }
     });
 
+    // Cargar avatar guardado
     window.addEventListener('load', () => {
-      const avatar = document.querySelector('.avatar');
+      const avatar = document.querySelector('.user');
       const savedImage = localStorage.getItem('userAvatar');
       if (savedImage) avatar.src = savedImage;
     });
   </script>
+
 </body>
 </html>

@@ -1,7 +1,9 @@
-/* 🌍 CONTENIDO CATÁLOGO */
+/* 🌍 CONTENIDO CATÁLOGO - SIN SIDEBAR */
 .catalogo {
   text-align: center;
-  padding: 30px 40px;
+  padding: 40px 40px;
+  max-width: 1200px;
+  margin: auto;
 }
 
 .header-catalogo {
@@ -69,13 +71,15 @@
   cursor: pointer;
 }
 
-/* --- PRODUCTOS --- */
+/* --- CUADRÍCULA PRODUCTOS --- */
 .productos {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 25px;
+  width: 100%;
 }
 
+/* TARJETAS */
 .card {
   background: white;
   border-radius: 15px;

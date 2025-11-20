@@ -5,139 +5,202 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Eco Friendly Code - Información del Usuario</title>
 
-  <!-- Estilos Globales -->
-  <link rel="stylesheet" href="../GOBAL-CSS/logoEcoBtnInicio.css">
+  <!-- Estilos -->
   <link rel="stylesheet" href="styleinformation.css" />
-  <link rel="stylesheet" href="../GOBAL-CSS/style-dashboard.css">
+  <link rel="stylesheet" href="../Estudiante/Sidebar_Estudiantes/GLOBAL-SIDEBAR.css">
 
-  <!-- ICONOS FLATICON -->
+  <!-- ICONOS -->
   <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
   <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css">
-
 </head>
+
 <body>
-  <div class="dashboard-container">
 
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <a href="index.html" class="logo">
-        <h1><span>ECO</span> FRIENDLY</h1>
-        <p>CODE</p>
-      </a>
-
-      <div class="user-info">
-        <img src="Img/9434619.jpg" alt="Usuario" class="avatar" id="user-avatar" />
-        <h3 class="username">Ana López</h3>
-        <p class="email">ana.lopez@email.com</p>
-        <button class="change-photo-btn" id="change-photo-btn"><i class="fi fi-rr-picture"></i> Cambiar foto</button>
-        <input type="file" id="file-input" accept="image/*" style="display: none;" />
+  <!-- NAV + SIDEBAR -->
+  <header>
+    <div class="left">
+      <div class="menu-container">
+        <div class="menu" id="menu">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </div>
 
-      <nav class="menu">
-        <a href="viewinicial.html"><i class="fi fi-rr-dashboard"></i> Panel</a>
-        <a href="redeemPoints.html"><i class="fi fi-rr-gift"></i> Canjear Puntos</a>
-        <a href="historial.html"><i class="fi fi-rr-list-check"></i> Historial</a>
-        <a href="information.html" class="active"><i class="fi fi-rr-user"></i> Perfil</a>
-      </nav>
-    </aside>
+      <div class="brand">
+        <a href="/ECO-FRIENDLY-CODE-WEB/frontend/home/index.html" class="logo">
+          <h1><span>ECO</span> FRIENDLY</h1>
+          <p>CODE</p>
+        </a>
+      </div>
+    </div>
 
-    <!-- Contenido principal -->
-    <main class="main-content">
-      <header class="top-bar">
-        <h2><i class="fi fi-rr-id-badge"></i> Información del Usuario</h2>
-      </header>
+    <div class="right">
+      <a href="recycle.html" class="btn-reciclar">
+        <i class="fi fi-rr-recycle"></i> Registrar Reciclaje
+      </a>
 
-      <section class="info-container">
-        <div class="info-box">
-          <form>
-            <div class="form-group">
-              <label for="cedula"><i class="fi fi-rr-credit-card"></i> Cédula</label>
-              <input type="text" id="cedula" placeholder="Ingresa tu cédula">
-            </div>
+      <!-- Avatar -->
+      <img src="../Img/9434619.jpg" alt="img-user" class="user" id="header-avatar" style="cursor:pointer;">
+      <input type="file" id="header-file" accept="image/*" style="display:none;">
 
-            <div class="form-group">
-              <label for="id"><i class="fi fi-rr-hashtag"></i> ID</label>
-              <input type="text" id="id" placeholder="Ingresa tu ID">
-            </div>
+      <!-- Cerrar sesión -->
+      <button id="logout-btn" class="logout-btn">
+        <i class="fi fi-rr-exit"></i>
+      </button>
+    </div>
+  </header>
 
-            <div class="form-group">
-              <label for="name"><i class="fi fi-rr-user"></i> Nombre</label>
-              <input type="text" id="name" placeholder="Ingresa tu nombre">
-            </div>
-
-            <div class="form-group">
-              <label for="lastname"><i class="fi fi-rr-user"></i> Apellido</label>
-              <input type="text" id="lastname" placeholder="Ingresa tu apellido">
-            </div>
-
-            <div class="form-group">
-              <label for="career"><i class="fi fi-rr-graduation-cap"></i> Carrera</label>
-              <select id="career" required>
-                <option value="">Selecciona tu carrera</option>
-                <option value="bilingual_english">Licenciatura en Bilingüismo con énfasis en Inglés</option>
-                <option value="administration">Administración de Empresas</option>
-                <option value="tourism_management">Administración de Empresas Turísticas y Hoteleras</option>
-                <option value="public_accounting">Contaduría Pública</option>
-                <option value="law">Derecho</option>
-                <option value="systems_engineering">Ingeniería de Sistemas</option>
-                <option value="industrial_engineering">Ingeniería Industrial</option>
-                <option value="tech_tourism_services">Tecnología en Gestión de Servicios Turísticos y Hoteleros</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="email"><i class="fi fi-rr-envelope"></i> Correo Electrónico</label>
-              <input type="email" id="email" placeholder="Ingresa tu correo electrónico">
-            </div>
-
-            <div class="form-group">
-              <label for="password"><i class="fi fi-rr-lock"></i> Contraseña</label>
-              <input type="password" id="password" placeholder="Ingresa tu contraseña">
-            </div>
-
-            <button type="submit" class="btn green"><i class="fi fi-rr-edit"></i> Modificar</button>
-          </form>
-        </div>
-
-        <div class="points-box">
-          <h3><i class="fi fi-rr-trophy"></i> Tus Puntos</h3>
-          <p class="points">0</p>
-          <p class="subtitle">¡Acumula puntos reciclando!</p>
-        </div>
-      </section>
-    </main>
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <nav>
+      <ul>
+        <li><a href="viewinicial.html"><i class="fi fi-rr-home"></i><span class="text">Inicio</span></a></li>
+        <li><a href="redeemPoints.html"><i class="fi fi-rr-gift"></i><span class="text">Canjear Premios</span></a></li>
+        <li><a href="historial.html"><i class="fi fi-rr-time-past"></i><span class="text">Historial</span></a></li>
+        <li><a href="information.html"><i class="fi fi-rr-user"></i><span class="text">Perfil</span></a></li>
+      </ul>
+    </nav>
   </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <div class="page-title">
+      <h2><i class="fi fi-rr-id-badge"></i> Información del Usuario</h2>
+    </div>
+
+    <section class="info-container">
+
+      <div class="info-box">
+        <form>
+
+          <!-- CAMBIO DE FOTO -->
+          <div class="form-group" style="text-align:center; width:100%;">
+            <label><i class="fi fi-rr-camera"></i> Foto de Perfil</label>
+
+            <img id="profile-preview" 
+                 src="../Img/9434619.jpg" 
+                 alt="Foto de perfil"
+                 style="width:130px; height:130px; border-radius:50%; border:3px solid #00b050; object-fit:cover; margin-bottom:10px; cursor:pointer;">
+
+            <br>
+
+            <button type="button" class="btn green" id="profile-btn">
+              <i class="fi fi-rr-picture"></i> Cambiar Foto
+            </button>
+
+            <input type="file" id="profile-file" accept="image/*" style="display:none;">
+          </div>
+
+          <div class="form-group">
+            <label for="cedula"><i class="fi fi-rr-credit-card"></i> Cédula</label>
+            <input type="text" id="cedula" placeholder="Ingresa tu cédula">
+          </div>
+
+          
+
+          <div class="form-group">
+            <label for="name"><i class="fi fi-rr-user"></i> Nombre</label>
+            <input type="text" id="name" placeholder="Ingresa tu nombre">
+          </div>
+
+          <div class="form-group">
+            <label for="lastname"><i class="fi fi-rr-user"></i> Apellido</label>
+            <input type="text" id="lastname" placeholder="Ingresa tu apellido">
+          </div>
+
+          <div class="form-group">
+            <label for="career"><i class="fi fi-rr-graduation-cap"></i> Carrera</label>
+            <select id="career" required>
+              <option value="">Selecciona tu carrera</option>
+              <option value="bilingual_english">Licenciatura en Bilingüismo con énfasis en Inglés</option>
+              <option value="administration">Administración de Empresas</option>
+              <option value="tourism_management">Administración de Empresas Turísticas y Hoteleras</option>
+              <option value="public_accounting">Contaduría Pública</option>
+              <option value="law">Derecho</option>
+              <option value="systems_engineering">Ingeniería de Sistemas</option>
+              <option value="industrial_engineering">Ingeniería Industrial</option>
+              <option value="tech_tourism_services">Tecnología en Gestión de Servicios Turísticos y Hoteleros</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="email"><i class="fi fi-rr-envelope"></i> Correo Electrónico</label>
+            <input type="email" id="email" placeholder="Ingresa tu correo electrónico">
+          </div>
+
+          <div class="form-group">
+            <label for="password"><i class="fi fi-rr-lock"></i> Contraseña</label>
+            <input type="password" id="password" placeholder="Ingresa tu contraseña">
+          </div>
+
+          <button type="submit" class="btn green"><i class="fi fi-rr-edit"></i> Modificar</button>
+        </form>
+      </div>
+
+      <div class="points-box">
+        <h3><i class="fi fi-rr-trophy"></i> Tus Puntos</h3>
+        <p class="points">0</p>
+        <p class="subtitle">¡Acumula puntos reciclando!</p>
+      </div>
+
+    </section>
+  </main>
 
   <footer>
     © 2025 Eco Friendly Code. Todos los derechos reservados.
   </footer>
 
+  <script src="../Estudiante/Sidebar_Estudiantes/GLOBAL-SIDEBAR.js"></script>
+
   <script>
-    // Cambiar y guardar imagen
-    const avatar = document.getElementById('user-avatar');
-    const fileInput = document.getElementById('file-input');
-    const changeBtn = document.getElementById('change-photo-btn');
+    // ELEMENTOS
+    const headerAvatar = document.getElementById("header-avatar");
+    const headerInput = document.getElementById("header-file");
 
-    avatar.addEventListener('click', () => fileInput.click());
-    changeBtn.addEventListener('click', () => fileInput.click());
+    const preview = document.getElementById("profile-preview");
+    const profileBtn = document.getElementById("profile-btn");
+    const profileInput = document.getElementById("profile-file");
 
-    fileInput.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          avatar.src = reader.result;
-          localStorage.setItem('userAvatar', reader.result);
-        };
-        reader.readAsDataURL(file);
+    // --- ABRIR INPUT DESDE AMBOS ---
+    headerAvatar.addEventListener("click", () => headerInput.click());
+    preview.addEventListener("click", () => profileInput.click());
+    profileBtn.addEventListener("click", () => profileInput.click());
+
+    // --- GUARDAR IMAGEN ---
+    function saveImage(file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const img = reader.result;
+
+        headerAvatar.src = img;
+        preview.src = img;
+
+        localStorage.setItem("userAvatar", img);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    headerInput.addEventListener("change", e => saveImage(e.target.files[0]));
+    profileInput.addEventListener("change", e => saveImage(e.target.files[0]));
+
+    // --- CARGAR IMAGEN AL ENTRAR ---
+    window.addEventListener("load", () => {
+      const saved = localStorage.getItem("userAvatar");
+      if (saved) {
+        headerAvatar.src = saved;
+        preview.src = saved;
       }
     });
 
-    window.addEventListener('load', () => {
-      const savedImage = localStorage.getItem('userAvatar');
-      if (savedImage) avatar.src = savedImage;
+    // --- CERRAR SESIÓN ---
+    document.getElementById("logout-btn").addEventListener("click", () => {
+      localStorage.clear();
+      window.location.href = "/ECO-FRIENDLY-CODE-WEB/frontend/login/login.html";
     });
   </script>
 
 </body>
 </html>
+

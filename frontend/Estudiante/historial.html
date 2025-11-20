@@ -8,62 +8,69 @@
   <!-- ÍCONOS FLATICON -->
   <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
 
-  <link rel="stylesheet" href="../GOBAL-CSS/logoEcoBtnInicio.css">
-  <link rel="stylesheet" href="../GOBAL-CSS/style-dashboard.css">
+ <link rel="stylesheet" href="../Estudiante/Sidebar_Estudiantes/GLOBAL-SIDEBAR.css">
   <link rel="stylesheet" href="stylehistorial.css">
 </head>
 <body>
-
-  <div class="dashboard-container">
-
-    <!-- === SIDEBAR === -->
-    <aside class="sidebar">
-
-      <div class="logo">
-        <h1><span>ECO</span> FRIENDLY</h1>
-        <p>CODE</p>
+ <!-- NAV + SIDEBAR -->
+  <header>
+    <div class="left">
+      <div class="menu-container">
+        <div class="menu" id="menu">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </div>
 
-      <div class="user-info">
-        <img src="Img/9434619.jpg" alt="Usuario" class="avatar" id="user-avatar">
-        <h3 class="username">Ana López</h3>
-        <p class="email">ana.lopez@email.com</p>
+      <div class="brand">
+        <a href="/ECO-FRIENDLY-CODE-WEB/frontend/home/index.html" class="logo">
+          <h1><span>ECO</span> FRIENDLY</h1>
+          <p>CODE</p>
+        </a>
       </div>
+    </div>
 
-      <nav class="menu">
-        <a href="viewinicial.html"><i class="fi fi-rr-dashboard"></i> Panel</a>
-        <a href="recycle.html"><i class="fi fi-rr-recycle"></i> Reciclar</a>
-        <a href="redeemPoints.html"><i class="fi fi-rr-gift"></i> Canjear Premios</a>
-        <a href="historial.html" class="active"><i class="fi fi-rr-list-check"></i> Historial</a>
-        <a href="information.html"><i class="fi fi-rr-user"></i> Perfil</a>
-      </nav>
+    <div class="right">
+      <a href="recycle.html" class="btn-reciclar">
+        <i class="fi fi-rr-recycle"></i> Registrar Reciclaje
+      </a>
+      <img src="../Img/9434619.jpg" alt="img-user" class="user">
+    </div>
+  </header>
 
-    </aside>
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <nav>
+      <ul>
+        <li><a href="viewinicial.html"><i class="fi fi-rr-home"></i><span class="text">Inicio</span></a></li>
+        <li><a href="redeemPoints.html"><i class="fi fi-rr-gift"></i><span class="text">Canjear Premios</span></a></li>
+        <li><a href="historial.html"><i class="fi fi-rr-time-past"></i><span class="text">Historial</span></a></li>
+        <li><a href="information.html"><i class="fi fi-rr-user"></i><span class="text">Perfil</span></a></li>
+      </ul>
+    </nav>
+  </div>
 
-    <!-- === CONTENIDO PRINCIPAL === -->
-    <main class="main-content">
-      <header class="top-bar">
-        <h2>Historial de Reciclaje</h2>
-      </header>
+   <!-- MAIN CONTENT -->
+<main class="main-content">
 
-      <section class="records">
-        <table id="reciclaje-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Material</th>
-              <th>Descripción</th>
-              <th>Cantidad (kg)</th>
-              <th>Puntos Ganados</th>
-              <th>Fecha</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </section>
+  <!-- 🔥 TÍTULO MOVIDO ARRIBA DEL FORMULARIO -->
+  <div class="page-title">
+    <h2><i class="fi fi-rr-time-past"></i> Historial de Reciclaje</h2>
+  </div>
+
     </main>
 
+     <!-- MODAL -->
+  <div id="preview-modal" class="preview-modal">
+    <span class="close-modal">&times;</span>
+    <img class="preview-content" id="preview-img">
   </div>
+
+  </div>
+  <!-- SIDEBAR SCRIPT -->
+  <script src="../Estudiante/Sidebar_Estudiantes/GLOBAL-SIDEBAR.js"></script>
+
 
   <script>
     // Mostrar avatar guardado en LocalStorage
