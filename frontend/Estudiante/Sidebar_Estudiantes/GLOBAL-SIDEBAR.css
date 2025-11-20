@@ -400,3 +400,38 @@ main.menu-toggle {
 /* ===== FIX – ICONOS ESTABLES ===== */
 .sidebar i { transition: none; }
 .sidebar a:hover i { transform: none; }
+
+/* =====================================================
+   🔥 FIX: ELIMINAR LAG DEL MENÚ HAMBURGUESA
+===================================================== */
+
+/* Sidebar suave, sin afectar el contenido */
+.sidebar {
+  transition: width 0.25s ease-in-out, transform 0.25s ease-in-out !important;
+}
+
+main {
+  transition: none !important;
+}
+
+/* Cuando el menú está expandido, cambiar instantáneo */
+main.menu-toggle {
+  margin-left: 19rem;
+}
+
+/* En tablet ajustar transición ligera */
+@media (min-width: 768px) and (max-width: 991px) {
+  main,
+  main.menu-toggle {
+    transition: none !important;
+  }
+}
+
+/* En móviles desactivar toda transición */
+@media (max-width: 767px) {
+  .sidebar,
+  main {
+    transition: none !important;
+  }
+}
+
