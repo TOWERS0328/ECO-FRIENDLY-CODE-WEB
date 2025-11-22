@@ -6,9 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Eco Friendly Code - Canjear Puntos</title>
 
-  <!-- Estilos globales del dashboard -->
+  <!-- Estilos -->
   <link rel="stylesheet" href="../GOBAL-CSS/logoEcoBtnInicio.css">
   <link rel="stylesheet" href="../GOBAL-CSS/style-dashboard.css" />
+  <link rel="stylesheet" href="../Estudiante/Sidebar_Estudiantes/GLOBAL-SIDEBAR.css">
   <link rel="stylesheet" href="styleRedeemPoints.css" />
 
   <!-- Iconos Flaticon -->
@@ -17,66 +18,78 @@
 </head>
 
 <body>
-  <div class="dashboard-container">
 
-    <!-- PANEL IZQUIERDO -->
-    <aside class="sidebar">
-      <a href="index.html" class="logo">
-        <h1><span>ECO</span> FRIENDLY</h1>
-        <p>CODE</p>
-      </a>
-
-      <div class="user-info">
-        <img src="Img/9434619.jpg" alt="Usuario" class="avatar" id="user-avatar" />
-        <h3 class="username">Nombre Usuario</h3>
-        <p class="email">correo@example.com</p>
+  <!-- HEADER -->
+  <header>
+    <div class="left">
+      <div class="menu-container">
+        <div class="menu">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </div>
 
-      <nav class="menu">
-        <a href="viewinicial.html"><i class="fi fi-rr-dashboard"></i> Panel</a>
-        <a href="information.html"><i class="fi fi-rr-user"></i> Mi Perfil</a>
-        <a href="redeemPoints.html"><i class="fi fi-rr-gift"></i> Canjear Puntos</a>
-        <a href="recycle.html"><i class="fi fi-rr-recycle"></i> Reciclar</a>
-      </nav>
 
-      <footer>© 2025 Eco Friendly Code</footer>
-    </aside>
+      <div class="brand">
+        <a href="/ECO-FRIENDLY-CODE-WEB/frontend/home/index.html" class="logo">
+          <h1><span>ECO</span> FRIENDLY</h1>
+          <p>CODE</p>
+        </a>
+      </div>
+    </div>
 
-    <!-- CONTENIDO PRINCIPAL -->
-    <main class="main-content">
-      <section class="catalogo">
-        <div class="header-catalogo">
-          <h1><i class="fi fi-rr-gift"></i> Catálogo de Premios y Recompensas</h1>
-          <p>Usa tus puntos acumulados para canjear estos productos.</p>
-
-          <div class="points">
-            <i class="fi fi-rr-badge-check"></i> <span id="userPoints">0</span> pts
-          </div>
-
-          <div class="cart-premios">
-            <i class="fi fi-rr-shopping-cart"></i>
-            <span id="cart-premios-count">0</span>
-          </div>
+    <div class="right">
+      <!-- Botón reciclar + puntos + carrito -->
+      <div class="user-points-cart">
+        <div class="points">
+          <i class="fi fi-rr-badge-check"></i>
+          <span id="userPoints">0</span> pts
         </div>
-
-
-        <!-- BARRA DE BÚSQUEDA -->
-        <div class="search-bar">
-          <input id="searchPremio" type="text" placeholder="Buscar premio por nombre..." />
-          <button id="btnBuscarPremio"><i class="fi fi-rr-search"></i></button>
+        <div class="cart-residuos" id="cart-residuos">
+          <i class="fi fi-rr-shopping-cart"></i>
+          <span id="cart-residuos-count">0</span>
         </div>
+      </div>
+      <img src="../Img/9434619.jpg" alt="img-user" class="user">
+    </div>
+  </header>
 
-        <!-- CONTENEDOR DE PRODUCTOS (DINÁMICO DESDE JS) -->
-        <div class="productos" id="contenedorPremios">
-          <!-- JS renderiza aquí -->
-        </div>
-
-      </section>
-    </main>
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <nav>
+      <ul>
+        <li><a href="viewinicial.html"><i class="fi fi-rr-home"></i><span class="text">Inicio</span></a></li>
+        <li><a href="redeemPoints.html"><i class="fi fi-rr-gift"></i><span class="text">Canjear Premios</span></a></li>
+        <li><a href="recycle.html"><i class="fi fi-rr-recycle"></i><span class="text">Reciclar</span></a></li>
+        <li><a href="historial.html"><i class="fi fi-rr-time-past"></i><span class="text">Historial</span></a></li>
+        <li><a href="information.html"><i class="fi fi-rr-user"></i><span class="text">Perfil</span></a></li>
+      </ul>
+    </nav>
   </div>
 
-  <!-- ARCHIVO JS -->
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main-content">
+    <section class="catalogo">
+      <div class="header-catalogo">
+        <h1><i class="fi fi-rr-gift"></i> Catálogo de Premios y Recompensas</h1>
+        <p>Usa tus puntos acumulados para canjear estos productos.</p>
+      </div>
+
+      <!-- Búsqueda -->
+      <div class="search-bar">
+        <input id="searchPremio" type="text" placeholder="Buscar premio por nombre..." />
+        <button id="btnBuscarPremio"><i class="fi fi-rr-search"></i></button>
+      </div>
+
+      <!-- Render dinámico -->
+      <div class="productos" id="contenedorPremios"></div>
+    </section>
+  </main>
+
+  <!-- JS -->
   <script src="redeemPoints.js"></script>
+  <script src="../Estudiante/Sidebar_Estudiantes/GLOBAL-SIDEBAR.js"></script>
 </body>
 
 </html>

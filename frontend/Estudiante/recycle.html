@@ -5,10 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Eco Friendly Code - Reciclar</title>
 
-  <!-- Estilos globales del dashboard -->
+  <!-- Estilos globales -->
   <link rel="stylesheet" href="../GOBAL-CSS/logoEcoBtnInicio.css">
-  <link rel="stylesheet" href="../GOBAL-CSS/style-dashboard.css" />
-  <link rel="stylesheet" href="styleRecycle.css" />
+  <link rel="stylesheet" href="../GOBAL-CSS/style-dashboard.css">
+  <link rel="stylesheet" href="../Estudiante/Sidebar_Estudiantes/GLOBAL-SIDEBAR.css">
+  
+  <!-- Estilos específicos -->
+  <link rel="stylesheet" href="styleRecycle.css">
 
   <!-- Iconos Flaticon -->
   <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
@@ -16,68 +19,73 @@
 </head>
 
 <body>
-  <div class="dashboard-container">
+  <!-- HEADER -->
+  <header>
+    <div class="left">
+      <div class="menu-container" id="menu">
+  <div class="menu">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
 
-    <!-- PANEL IZQUIERDO -->
-    <aside class="sidebar">
-      <a href="index.html" class="logo">
-        <h1><span>ECO</span> FRIENDLY</h1>
-        <p>CODE</p>
-      </a>
-
-      <div class="user-info">
-        <img src="Img/9434619.jpg" alt="Usuario" class="avatar" id="user-avatar" />
-        <h3 class="username" id="username">Nombre Usuario</h3>
-        <p class="email" id="user-email">correo@example.com</p>
+      <div class="brand">
+        <a href="/ECO-FRIENDLY-CODE-WEB/frontend/home/index.html" class="logo">
+          <h1><span>ECO</span> FRIENDLY</h1>
+          <p>CODE</p>
+        </a>
       </div>
+    </div>
 
-      <nav class="menu">
-        <a href="viewinicial.html"><i class="fi fi-rr-dashboard"></i> Panel</a>
-        <a href="information.html"><i class="fi fi-rr-user"></i> Mi Perfil</a>
-        <a href="redeemPoints.html"><i class="fi fi-rr-gift"></i> Canjear Puntos</a>
-        <a href="recycle.html"><i class="fi fi-rr-recycle"></i> Reciclar</a>
-      </nav>
-
-      <footer>© 2025 Eco Friendly Code</footer>
-    </aside>
-
-    <!-- CONTENIDO PRINCIPAL -->
-    <main class="main-content">
-
-      <section class="catalogo">
-
-        <!-- ENCABEZADO DEL CATÁLOGO -->
-        <div class="header-catalogo">
-          <h1><i class="fi fi-rr-recycle"></i> Catálogo de Residuos Reciclables</h1>
-          <p>Selecciona los residuos que puedes reciclar y gana puntos.</p>
-
-          <div class="points">
-            <i class="fi fi-rr-badge-check"></i> <span id="userPoints">0</span> pts
-          </div>
-
-          <div class="cart-residuos" id="cart-residuos">
-            <i class="fi fi-rr-basket"></i>
-            <span id="cart-residuos-count">0</span>
-          </div>
+    <div class="right">
+      <div class="user-points-cart">
+        <div class="points">
+          <i class="fi fi-rr-badge-check"></i> <span id="userPoints">0</span> pts
         </div>
-
-        <!-- BARRA DE BÚSQUEDA -->
-        <div class="search-bar">
-          <input id="searchResiduo" type="text" placeholder="Buscar residuo por nombre..." />
-          <button id="btnBuscarResiduo"><i class="fi fi-rr-search"></i></button>
+        <div class="cart-residuos" id="cart-residuos">
+          <i class="fi fi-rr-basket"></i>
+          <span id="cart-residuos-count">0</span>
         </div>
+      </div>
+      <img src="../Img/9434619.jpg" alt="img-user" class="user">
+    </div>
+  </header>
 
-        <!-- CONTENEDOR DE PRODUCTOS (DINÁMICO DESDE JS) -->
-        <div class="productos" id="contenedorResiduos">
-          <!-- JS renderiza aquí -->
-        </div>
-
-      </section>
-
-    </main>
+  <!-- SIDEBAR GLOBAL -->
+  <div class="sidebar" id="sidebar">
+    <nav>
+      <ul>
+        <li><a href="viewinicial.html"><i class="fi fi-rr-home"></i><span class="text">Inicio</span></a></li>
+        <li><a href="redeemPoints.html"><i class="fi fi-rr-gift"></i><span class="text">Canjear Premios</span></a></li>
+        <li><a href="recycle.html"><i class="fi fi-rr-recycle"></i><span class="text">Reciclar</span></a></li>
+        <li><a href="historial.html"><i class="fi fi-rr-time-past"></i><span class="text">Historial de reciclaje</span></a></li>
+        <li><a href="information.html"><i class="fi fi-rr-user"></i><span class="text">Perfil</span></a></li>
+      </ul>
+    </nav>
   </div>
 
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main-content">
+    <section class="catalogo">
+      <div class="header-catalogo">
+        <h1><i class="fi fi-rr-recycle"></i> Catálogo de Residuos Reciclables</h1>
+        <p>Selecciona los residuos que puedes reciclar y gana puntos.</p>
+      </div>
+
+      <div class="search-bar">
+        <input id="searchResiduo" type="text" placeholder="Buscar residuo por nombre..." />
+        <button id="btnBuscarResiduo"><i class="fi fi-rr-search"></i></button>
+      </div>
+
+      <div class="productos" id="contenedorResiduos"></div>
+    </section>
+  </main>
+
+  <footer>© 2025 Eco Friendly Code</footer>
+
   <!-- JS -->
+  <script src="../Estudiante/Sidebar_Estudiantes/GLOBAL-SIDEBAR.js"></script>
   <script src="recycle.js"></script>
 </body>
 </html>

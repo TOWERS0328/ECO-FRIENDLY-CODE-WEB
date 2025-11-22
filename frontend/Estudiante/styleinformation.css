@@ -11,121 +11,27 @@ body {
   overflow-x: hidden;
 }
 
-/* Estructura principal */
-.dashboard-container {
-  display: flex;
-  min-height: 100vh;
-}
-
-/* Sidebar fija */
-.sidebar {
-  width: 230px;
-  background-color: #fff;
-  border-right: 2px solid #e6f5ea;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  position: fixed;
-  height: 100vh;
-  top: 0;
-  left: 0;
-}
-
+/* Contenido principal */
 .main-content {
-  flex: 1;
-  margin-left: 230px;
   padding: 25px;
   background-color: #f8fef9;
 }
 
-/* Logo */
-.logo h1 {
-  color: #00b050;
-  font-size: 24px;
-  line-height: 1;
-}
-.logo span { color: #333; }
-.logo p { font-size: 13px; color: #555; font-weight: bold; }
-
-
-/* Usuario */
-.user-info {
-  background: rgba(255,255,255,0.9);
-  padding: 15px;
-  border-radius: 15px;
-  text-align: center;
-  width: 100%;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: 3px solid #1d7a32;
-  object-fit: cover;
-  cursor: pointer;
-}
-
-.username {
-  margin-top: 8px;
-  font-size: 16px;
-  color: #00b050;
-}
-
-.email {
-  font-size: 12px;
-  color: #666;
-}
-
-.change-photo-btn {
-  margin-top: 8px;
-  background: #00b050;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 13px;
-}
-
-/* Menú */
-.menu {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
-  margin-top: 15px;
-}
-
-.menu a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 600;
-  padding: 8px;
-  border-radius: 8px;
-  transition: 0.3s;
-}
-
-.menu a:hover, .menu a.active {
-  background-color: #e6f5ea;
-  color: #00b050;
-}
-
-/* Contenido principal */
+/* Título principal */
 .top-bar h2 {
   color: #00b050;
   font-size: 22px;
   margin-bottom: 20px;
 }
 
+/* Contenedor general */
 .info-container {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
 }
 
+/* Caja principal del formulario */
 .info-box {
   flex: 2;
   background-color: white;
@@ -140,10 +46,58 @@ body {
   gap: 15px;
 }
 
+/* Sección de foto de perfil - centrada */
+.form-group[style*="text-align:center"] {
+  flex: 1 1 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+/* Formulario */
 .form-group {
   flex: 1 1 45%;
   display: flex;
   flex-direction: column;
+}
+
+/* Campo cédula - ancho completo y primero después de la foto */
+#cedula {
+  width: 100%;
+}
+
+.form-group:has(#cedula) {
+  flex: 1 1 100%;
+  order: 1;
+}
+
+/* Reordenar campos */
+.form-group:has(#name) {
+  order: 2;
+}
+
+.form-group:has(#lastname) {
+  order: 3;
+}
+
+.form-group:has(#career) {
+  order: 4;
+}
+
+.form-group:has(#email) {
+  order: 5;
+}
+
+.form-group:has(#password) {
+  order: 6;
+}
+
+/* Botón modificar al final */
+.btn.green[type="submit"] {
+  order: 7;
+  flex: 1 1 100%;
 }
 
 label {
@@ -222,19 +176,6 @@ footer {
 
 /* Responsivo */
 @media (max-width: 900px) {
-  .sidebar {
-    position: relative;
-    width: 100%;
-    height: auto;
-    flex-direction: row;
-    justify-content: space-around;
-  }
-
-  .main-content {
-    margin-left: 0;
-    padding: 15px;
-  }
-
   .info-container {
     flex-direction: column;
   }
@@ -242,4 +183,34 @@ footer {
   .form-group {
     flex: 1 1 100%;
   }
+}
+
+.page-title {
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.page-title h2 {
+  color: #090909;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.logout-btn {
+  background-color: #00b050;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 10px;
+  margin-left: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.logout-btn i {
+  font-size: 18px;
+  color: white;
+}
+
+.logout-btn:hover {
+  background-color: #00913d;
 }

@@ -8,38 +8,115 @@
   <!-- 🌿 Estilos -->
   <link rel="stylesheet" href="manage-students.css" />
 
+  <!-- Sidebar + Navbar -->
+  <link rel="stylesheet" href="Sidebar_coordi/Sidebar_coordi.css">
+
   <!-- 🧩 Iconos de Flaticon -->
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
 </head>
 
 <body>
-  <div class="dashboard-container">
-    <!-- 🌱 Sidebar -->
-    <aside class="sidebar">
-      <a href="../home/index.html" class="logo">
-        <h1><span>ECO</span> FRIENDLY</h1>
-        <p>CODE</p>
-      </a>
-      <div class="user-info">
-        <img src="../Img/9434619.jpg" class="avatar" alt="Coordinador" />
-        <h3 class="username">Coordinador</h3>
-        <p class="email">coordinador@eco.com</p>
-      </div>
-      <nav class="menu">
-        <a href="coordinator_dashboard.html"><i class="fi fi-rr-chart-pie"></i> Panel</a>
-        <a href="manage-students.html" class="active"><i class="fi fi-rr-graduation-cap"></i> Estudiantes</a>
-        <a href="manage-recyclables.html"><i class="fi fi-rr-recycle"></i> Residuos</a>
-        <a href="manage-rewards.html"><i class="fi fi-rr-gift"></i> Premios</a>
-      </nav>
-    </aside>
+  <!-- ===================== NAVBAR ===================== -->
+<header>
+    <div class="left">
+
+        <!-- Botón Hamburguesa -->
+        <div class="menu-container">
+            <div class="menu" id="menu">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
+        <!-- LOGO -->
+        <div class="brand">
+            <a href="/ECO-FRIENDLY-CODE-WEB/frontend/home/index.html" class="logo">
+                <h1><span>ECO</span> FRIENDLY</h1>
+                <p>CODE</p>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- ICONOS DERECHA -->
+    <div class="right">
+        <a href="messages.html" class="btn-mensajes">
+            <i class="fi fi-rr-comment-alt"></i>
+        </a>
+
+        <a href="#" class="btn-cerrar-sesion">
+            <i class="fi fi-rr-exit"></i>
+        </a>
+
+        <img src="../../Img/9434619.jpg" alt="img-user" class="user">
+    </div>
+
+</header>
+
+<!-- ===================== SIDEBAR ===================== -->
+<div class="sidebar" id="sidebar">
+    <nav>
+        <ul>
+
+            <li>
+                <a href="coordinator_dashboard.html">
+                    <i class="fi fi-rr-home"></i>
+                    <span class="text">Inicio</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="manage-students.html">
+                    <i class="fi fi-rr-graduation-cap"></i>
+                    <span class="text">Estudiantes</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="manage-recyclables.html">
+                    <i class="fi fi-rr-recycle"></i>
+                    <span class="text">Residuos</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="manage-rewards.html">
+                    <i class="fi fi-rr-gift"></i>
+                    <span class="text">Premios</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="reports.html">
+                    <i class="fi fi-rr-document"></i>
+                    <span class="text">Reportes</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="settings.html">
+                    <i class="fi fi-rr-settings"></i>
+                    <span class="text">Configuración</span>
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+</div>
+  
 
     <!-- 🌿 Contenido principal -->
     <main class="main-content">
-      <header class="top-bar">
-        <h2><i class="fi fi-rr-users-alt"></i> Gestión de Estudiantes</h2>
-        <button class="btn add" id="btnNuevo"><i class="fi fi-rr-plus-small"></i> Nuevo Estudiante</button>
-      </header>
+
+      <div class="subtitulo">
+    <h2><i class="fi fi-rr-users-alt"></i> Gestión de Estudiantes</h2>
+    <button class="btn add" id="btnNuevo">
+        <i class="fi fi-rr-plus-small"></i> Nuevo Estudiante
+    </button>
+</div>
+
 
       <!-- 🔍 Buscador -->
       <section class="buscador">
@@ -216,6 +293,8 @@
 
   <!-- JS -->
   <script src="manage_students.js"></script>
+
+  <script src="Sidebar_coordi/Sidebar_coordi.js"></script>
 </body>
 </html>
 

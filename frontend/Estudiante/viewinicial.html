@@ -4,130 +4,80 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eco Friendly Code - Panel de Usuario</title>
-  <link rel="stylesheet" href="../GOBAL-CSS/logoEcoBtnInicio.css">
-  <link rel="stylesheet" href="styleviewinicial.css">
-  <link rel="stylesheet" href="../GOBAL-CSS/style-dashboard.css">
 
-  <!-- Íconos Flaticon -->
+  <!-- Estilos globales -->
+  <link rel="stylesheet" href="../GOBAL-CSS/logoEcoBtnInicio.css">
+  <link rel="stylesheet" href="../GOBAL-CSS/style-dashboard.css">
+  <link rel="stylesheet" href="../Estudiante/Sidebar_Estudiantes/GLOBAL-SIDEBAR.css">
+
+  <!-- Estilos específicos -->
+  <link rel="stylesheet" href="styleviewinicial.css">
+
+  <!-- Iconos Flaticon -->
   <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
   <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css">
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
-  <div class="dashboard-container">
-
-    <!-- Sidebar fija -->
-    <aside class="sidebar">
-      <a href="../home/index.html" class="logo">
-        <h1><span>ECO</span> FRIENDLY</h1>
-        <p>CODE</p>
-      </a>
-
-      <div class="user-info">
-        <img src="../Img/9434619.jpg" alt="Usuario" class="avatar">
-        <h3 class="username">Ana López</h3>
-        <p class="email">ana.lopez@email.com</p>
+  <!-- HEADER -->
+  <header>
+    <div class="left">
+      <div class="menu-container" id="menu">
+        <div class="menu">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </div>
 
-      <nav class="menu">
-        <a href="viewinicial.html" class="active"><i class="fi fi-rr-dashboard"></i> Panel</a>
-        <a href="redeemPoints.html"><i class="fi fi-rr-gift"></i> Canjear Premios</a>
-        <a href="historial.html"><i class="fi fi-rr-list-check"></i> Historial</a>
-        <a href="information.html"><i class="fi fi-rr-user"></i> Perfil</a>
-      </nav>
-    </aside>
+      <div class="brand">
+        <a href="/ECO-FRIENDLY-CODE-WEB/frontend/home/index.html" class="logo">
+          <h1><span>ECO</span> FRIENDLY</h1>
+          <p>CODE</p>
+        </a>
+      </div>
+    </div>
 
-    <!-- Contenido principal -->
-    <main class="main-content">
+    <div class="right">
+      <a href="recycle.html" class="btn-reciclar">
+        <i class="fi fi-rr-recycle"></i> Registrar Reciclaje
+      </a>
+      <img src="../Img/9434619.jpg" alt="img-user" class="user">
+    </div>
+  </header>
 
-      <header class="top-bar">
-        <a href="recycle.html" class="btn-reciclar"><i class="fi fi-rr-add"></i> Registrar Reciclaje</a>
-      </header>
-
-      <!-- Métricas -->
-      <section class="stats">
-        <div class="card">
-          <h4><i class="fi fi-rr-coins"></i> Tus Puntos</h4>
-          <p class="value green">0</p>
-        </div>
-        <div class="card">
-          <h4><i class="fi fi-rr-weight"></i> Total Reciclado (Kg)</h4>
-          <p class="value">0</p>
-        </div>
-        <div class="card">
-          <h4><i class="fi fi-rr-badge"></i> Nivel de Reciclador</h4>
-          <p class="value green">Principiante</p>
-        </div>
-      </section>
-
-      <!-- Impacto -->
-      <section class="impacto">
-        <h3><i class="fi fi-rr-chart-histogram"></i> Tu Impacto (Últimos 6 meses)</h3>
-        <canvas id="impactChart"></canvas>
-      </section>
-
-    
-
-      <!-- Historial -->
-      <section class="historial">
-        <h3><i class="fi fi-rr-time-past"></i> Historial de Reciclaje Reciente</h3>
-        <table>
-          <thead>
-            <tr>
-              <th><i class="fi fi-rr-calendar"></i> Fecha</th>
-              <th><i class="fi fi-rr-recycle"></i> Tipo de Residuo</th>
-              <th><i class="fi fi-rr-coins"></i> Puntos Ganados</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td colspan="3" style="text-align:center;">Sin registros</td></tr>
-          </tbody>
-        </table>
-      </section>
-
-      <!-- Insignias -->
-      <section class="insignias">
-        <h3><i class="fi fi-rr-star"></i> Insignias Obtenidas</h3>
-        <div class="badges">
-          <div class="badge"><i class="fi fi-rr-seedling"></i> <p>Nuevo Recolector</p></div>
-        </div>
-      </section>
-
-    </main>
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <nav>
+      <ul>
+        <li><a href="viewinicial.html"><i class="fi fi-rr-home"></i><span class="text">Inicio</span></a></li>
+        <li><a href="redeemPoints.html"><i class="fi fi-rr-gift"></i><span class="text">Canjear Premios</span></a></li>
+        <li><a href="recycle.html"><i class="fi fi-rr-recycle"></i><span class="text">Reciclar</span></a></li>
+        <li><a href="historial.html"><i class="fi fi-rr-time-past"></i><span class="text">Historial de reciclaje</span></a></li>
+        <li><a href="information.html"><i class="fi fi-rr-user"></i><span class="text">Perfil</span></a></li>
+      </ul>
+    </nav>
   </div>
 
-  <footer>
-    © 2025 Eco Friendly Code. Todos los derechos reservados.
-  </footer>
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main-content">
+    <!-- Tu contenido aquí (estadísticas, charts, historial, etc.) -->
+  </main>
 
+  <!-- MODAL PREVIEW AVATAR -->
+  <div id="preview-modal" class="preview-modal">
+    <span class="close-modal">&times;</span>
+    <img class="preview-content" id="preview-img">
+  </div>
+
+  <footer>© 2025 Eco Friendly Code. Todos los derechos reservados.</footer>
+
+  <!-- JS Sidebar -->
+  <script src="../Estudiante/Sidebar_Estudiantes/GLOBAL-SIDEBAR.js"></script>
   <script>
-    const ctx = document.getElementById('impactChart');
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Plástico', 'Vidrio', 'Papel', 'Metal', 'Orgánico', 'Otros'],
-        datasets: [{
-          label: 'Kg reciclados',
-          data: [0, 0, 0, 0, 0, 0],
-          backgroundColor: '#00b05080',
-          borderColor: '#00b050',
-          borderWidth: 1,
-          borderRadius: 6
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display: false } },
-        scales: { y: { beginAtZero: true } }
-      }
-    });
-
-    window.addEventListener('load', () => {
-      const avatar = document.querySelector('.avatar');
-      const savedImage = localStorage.getItem('userAvatar');
-      if (savedImage) avatar.src = savedImage;
-    });
+    // Chart + Avatar code
   </script>
 </body>
 </html>
