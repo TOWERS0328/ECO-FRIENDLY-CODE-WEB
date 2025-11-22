@@ -1,0 +1,435 @@
+/* ============================================
+   PALETA ECO FRIENDLY
+============================================ */
+:root {
+  --eco-green: #00b050;
+  --eco-green-dark: #1d7a32;
+  --eco-green-light: #e6f5ea;
+
+  --eco-bg-light: #f7fdf8;
+  --eco-bg-content: #ffffff;
+
+  --text-dark: #333;
+  --text-gray: #555;
+
+  --border-light: #e6f5ea;
+
+  --shadow-soft: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* ============================================
+   GLOBAL
+============================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: var(--eco-bg-light);
+  overflow-x: hidden;
+}
+
+/* ============================================
+   HEADER
+============================================ */
+header {
+  width: 100%;
+  height: 95px;
+  background: #fff;
+  border-bottom: 2px solid var(--border-light);
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 200;
+  box-shadow: var(--shadow-soft);
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+/* LOGO */
+.logo {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.logo h1 {
+  color: var(--eco-green);
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.logo h1 span {
+  color: var(--text-dark);
+}
+
+.logo p {
+  font-size: 15px;
+  color: var(--text-gray);
+  font-weight: 600;
+  margin-top: -3px;
+}
+
+/* ============================================
+   BOTÓN HAMBURGUESA
+============================================ */
+.menu-container {
+  cursor: pointer;
+}
+
+.menu {
+  width: 34px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.menu div {
+  height: 4px;
+  border-radius: 2px;
+  background-color: var(--text-dark);
+  transition: 0.3s;
+}
+
+/* Animación */
+.menu-container.active div:nth-child(1) {
+  transform: translateY(11px) rotate(45deg);
+}
+
+.menu-container.active div:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-container.active div:nth-child(3) {
+  transform: translateY(-11px) rotate(-45deg);
+}
+
+/* ============================================
+   BOTONES DERECHA
+============================================ */
+.right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* === ICONOS MENSAJE Y CERRAR SESIÓN === */
+.btn-mensajes,
+.btn-cerrar-sesion {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  transition: 0.25s;
+}
+
+.btn-mensajes i,
+.btn-cerrar-sesion i {
+  font-size: 22px;
+  color: var(--text-dark);
+}
+
+.btn-mensajes:hover,
+.btn-cerrar-sesion:hover {
+  background: var(--eco-green);
+}
+
+.btn-mensajes:hover i,
+.btn-cerrar-sesion:hover i {
+  color: #fff;
+}
+
+
+
+
+.btn-reciclar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  background-color: var(--eco-green);
+  color: white;
+  padding: 11px 22px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 15px;
+  transition: 0.25s;
+}
+
+.btn-reciclar:hover {
+  background-color: var(--eco-green-dark);
+}
+
+.btn-reciclar i {
+  font-size: 18px;
+}
+
+.user {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--eco-green-dark);
+  cursor: pointer;
+}
+
+/* ============================================
+   SIDEBAR BASE
+============================================ */
+.sidebar {
+  width: 90px;
+  position: fixed;
+  top: 95px;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  border-right: 2px solid var(--border-light);
+  padding: 30px 8px;
+  overflow-y: auto;
+  box-shadow: inset -1px 0 5px rgba(0,0,0,0.02);
+  transition: width 0.4s ease, transform 0.35s ease;
+  z-index: 150;
+}
+
+/* Sidebar expandido */
+.sidebar.expand {
+  width: 300px;
+  padding: 30px 15px;
+}
+
+/* Listas */
+.sidebar ul,
+.sidebar li {
+  list-style: none;
+}
+
+/* Links */
+.sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px;
+  height: 65px;
+  text-decoration: none;
+  color: var(--text-dark);
+  border-radius: 10px;
+  margin-bottom: 8px;
+  transition: 0.25s ease;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.sidebar a:hover {
+  background-color: var(--eco-green-light);
+  color: var(--eco-green-dark);
+  transform: translateX(4px);
+}
+
+/* ICONOS */
+.sidebar i {
+  font-size: 30px;
+  min-width: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+
+/* Modo colapsado */
+.sidebar:not(.expand) a span {
+  display: none;
+}
+
+.sidebar:not(.expand) a {
+  justify-content: center;
+  padding: 18px 10px;
+}
+
+/* ============================================
+   MODAL PREVIEW
+============================================ */
+.preview-modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  padding-top: 80px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(4px);
+}
+
+.preview-content {
+  margin: auto;
+  display: block;
+  max-width: 50%;
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(255,255,255,0.3);
+  animation: fadeIn 0.3s;
+}
+
+.close-modal {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  color: white;
+  font-size: 45px;
+  cursor: pointer;
+}
+
+.close-modal:hover {
+  color: var(--eco-green);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ============================================
+   MAIN CONTENT
+============================================ */
+main {
+  margin-top: 6.5rem;
+  margin-left: 6rem;
+  padding: 2rem;
+  transition: margin-left 0.35s ease;
+}
+
+main.menu-toggle {
+  margin-left: 19rem;
+}
+
+/* ============================================
+   MEDIA QUERIES
+============================================ */
+
+/* ===== DESKTOP GRANDE ===== */
+@media (min-width: 1200px) {
+  .sidebar.expand { width: 300px; }
+}
+
+/* ===== LAPTOP – 992px–1199px ===== */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .sidebar.expand { width: 270px; }
+  main.menu-toggle { margin-left: 17rem; }
+}
+
+/* ===== TABLETS (SIDEBAR FIJO EXPANDIDO) ===== */
+@media (min-width: 768px) and (max-width: 991px) {
+  .sidebar {
+    width: 260px;
+    padding: 30px 15px;
+    transform: none;
+  }
+
+  .sidebar a span { display: inline-block !important; }
+
+  main,
+  main.menu-toggle {
+    margin-left: 16.5rem;
+  }
+}
+
+/* ===== MÓVILES (<768px) ===== */
+@media (max-width: 767px) {
+
+  /* Sidebar móvil, una sola versión */
+  .sidebar {
+    width: 250px;
+    padding: 25px 12px;
+    transform: translateX(-100%);
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    top: 95px;
+  }
+
+  .sidebar.show {
+    transform: translateX(0);
+  }
+
+  /* Ítems dentro del sidebar */
+  .sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 16px;
+  }
+
+  .sidebar i {
+    width: 40px;
+    min-width: 40px;
+    text-align: center;
+  }
+
+  .sidebar a span {
+    display: inline-block;
+  }
+
+  /* Main */
+  main,
+  main.menu-toggle {
+    margin-left: 0 !important;
+    margin-top: 6rem;
+    padding: 1.5rem;
+  }
+}
+
+
+
+/* ===== MÓVILES MEDIANOS ===== */
+@media (min-width: 425px) and (max-width: 767px) {
+  .user { width: 46px; height: 46px; }
+  .menu { width: 30px; }
+}
+
+/* ===== MÓVILES PEQUEÑOS ===== */
+@media (max-width: 424px) {
+  .sidebar { width: 240px; }
+  .logo h1 { font-size: 24px; }
+  .btn-reciclar { font-size: 13px; padding: 8px 14px; }
+}
+
+/* ===== MUY PEQUEÑOS (<375px) ===== */
+@media (max-width: 374px) {
+  .sidebar { width: 220px; }
+  .logo h1 { font-size: 22px; }
+  .btn-reciclar { font-size: 12px; }
+}
+
+/* ===== ESPECIALES: 500–580px ===== */
+@media (min-width: 500px) and (max-width: 580px) {
+  .user { width: 44px; height: 44px; }
+  .menu { width: 30px; }
+}
+
+/* ===== PANTALLAS PLEGABLES ===== */
+@media (max-width: 350px) {
+  .sidebar { width: 200px; }
+}
+
+/* ===== ALTURA BAJA ===== */
+@media (max-height: 600px) {
+  header { height: 75px; }
+  main { margin-top: 5rem; }
+  .sidebar { top: 75px; }
+}
+
+/* ===== FIX – ICONOS ESTABLES ===== */
+.sidebar i { transition: none; }
+.sidebar a:hover i { transform: none; }

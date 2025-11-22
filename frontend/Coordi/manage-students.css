@@ -14,111 +14,49 @@ body {
 
 /* 🔹 CONTENEDOR GENERAL */
 .dashboard-container {
-  display: flex;
   min-height: 100vh;
+  padding: 20px;
 }
 
-/* 🌱 SIDEBAR */
-.sidebar {
-  width: 240px;
-  background-color: #fff;
-  border-right: 2px solid #e6f5ea;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 25px 15px;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-}
-
-/* ✳️ LOGO */
-.logo {
-  text-decoration: none;
-  color: inherit;
-  text-align: left;
-  width: 100%;
-  transition: 0.3s;
-}
-.logo:hover { transform: scale(1.03); }
-.logo h1 {
-  color: #00b050;
-  font-size: 26px;
-  margin: 0;
-  line-height: 1;
-  letter-spacing: 1px;
-}
-.logo span { color: #333; }
-.logo p { font-size: 13px; font-weight: bold; color: #555; }
-
-/* 👤 USUARIO */
-.user-info {
-  background: rgba(255,255,255,0.9);
-  padding: 15px;
-  border-radius: 12px;
-  text-align: center;
-  width: 100%;
-  margin-top: 15px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
-
-.avatar {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  border: 3px solid #00b050;
-  object-fit: cover;
-  display: block;
-  margin: 0 auto;            
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.username { margin-top: 8px; font-size: 16px; color: #00b050; font-weight: 600; }
-.email { font-size: 12px; color: #666; }
-
-/* 📋 MENÚ */
-.menu {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
+/* 🌾 SUBTÍTULO (título de página) */
+.subtitulo {
   margin-top: 20px;
-}
-.menu a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 600;
-  padding: 10px 12px;
-  border-radius: 8px;
-  transition: 0.3s;
-}
-.menu a:hover,
-.menu a.active {
-  background-color: #e6f5ea;
-  color: #00b050;
-}
-
-/* 🌿 CONTENIDO PRINCIPAL */
-.main-content {
-  flex: 1;
-  margin-left: 240px;
-  padding: 30px;
-  background-color: #f8fef9;
-  transition: margin-left 0.3s ease;
-}
-
-/* 🌾 BARRA SUPERIOR */
-.top-bar {
+  margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 25px;
+  padding: 15px 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
 }
-.top-bar h2 {
-  font-size: 22px;
-  color: #007a3d;
-  font-weight: 600;
+
+.subtitulo h2 {
+  font-size: 24px;
+  color: #010f07;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 🌿 CONTENIDO PRINCIPAL (AJUSTADO Y SIN CONFLICTO CON SIDEBAR) */
+.main-content {
+  position: relative;
+  margin-top: 6.5rem;          /* Altura del navbar */
+  margin-left: 6rem;           /* Sidebar colapsado */
+  padding: 30px;
+  background-color: #f8fef9;
+  min-height: 100vh;
+  transition: margin-left 0.3s ease;
+
+  width: calc(100% - 6rem); 
+  max-width: none;          
+}
+
+/* Sidebar expandido */
+.sidebar.expand ~ .main-content {
+  margin-left: 19rem;
+  width: calc(100% - 19rem);
 }
 
 /* 🔘 BOTONES */
@@ -130,6 +68,7 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
 }
+
 .btn.green {
   background-color: #00b050;
   color: #fff;
@@ -169,6 +108,7 @@ body {
   gap: 10px;
   margin-bottom: 20px;
 }
+
 .buscador input {
   flex: 1;
   padding: 10px 14px;
@@ -177,6 +117,7 @@ body {
   outline: none;
   transition: 0.3s;
 }
+
 .buscador input:focus {
   border-color: #00b050;
   box-shadow: 0 0 5px rgba(0, 176, 80, 0.3);
@@ -191,27 +132,31 @@ body {
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
+
 .historial th, .historial td {
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #e6f5ea;
 }
+
 .historial th {
   background-color: #e6f5ea;
   color: #007a3d;
   font-weight: 600;
 }
+
 .historial tr:hover {
   background-color: #f5fbf6;
   transition: 0.2s;
 }
+
 .empty {
   text-align: center;
   color: #777;
   padding: 20px;
 }
 
-/* 🟩 MODALES (OPTIMIZADOS) */
+/* 🟩 MODALES */
 .modal {
   position: fixed;
   inset: 0;
@@ -249,12 +194,13 @@ body {
   border-radius: 8px;
   outline: none;
 }
+
 .modal-content input:focus,
 .modal-content select:focus {
   border-color: #00b050;
 }
 
-/*** Header del modal (TÍTULO + X) ***/
+/* Header modal */
 .modal-header {
   display: flex;
   align-items: center;
@@ -262,7 +208,7 @@ body {
   margin-bottom: 12px;
 }
 
-/*** Botón de cerrar (X) ***/
+/* Botón X cerrar */
 .close-btn {
   background: transparent;
   border: none;
@@ -285,8 +231,6 @@ body {
   margin-top: 10px;
 }
 
-
-
 /* 🦶 FOOTER */
 footer {
   text-align: center;
@@ -299,19 +243,9 @@ footer {
 
 /* 📱 RESPONSIVO */
 @media (max-width: 768px) {
-  .sidebar {
-    position: fixed;
-    width: 220px;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-    z-index: 100;
-  }
-  .sidebar.show { transform: translateX(0); }
   .main-content {
     margin-left: 0;
+    width: 100%;
     padding: 20px;
   }
 }
-
-
-
