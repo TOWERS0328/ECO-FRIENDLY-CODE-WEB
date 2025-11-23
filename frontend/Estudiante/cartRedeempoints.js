@@ -4,25 +4,54 @@
 const API = "http://localhost/ECO-FRIENDLY-CODE-WEB/backend/index.php?route=";
 const usuario = JSON.parse(sessionStorage.getItem("usuario"));
 
-if (!usuario) window.location.href = "../Login/login.html";
+// Validación de sesión y rol estudiante
+if (!usuario || !usuario.perfil?.id_estudiante || usuario.rol !== "estudiante") {
+    window.location.href = "../Login/login.html";
+}
 
 function qs(id) { return document.getElementById(id); }
 
 let itemsCarrito = [];
+let puntosEstudiante = 0; // puntos reales del estudiante
+
+// ============================
+// CARGAR PUNTOS DEL ESTUDIANTE
+// ============================
+async function cargarPuntosEstudiante() {
+    const idEstudiante = usuario.perfil.id_estudiante;
+    try {
+        const res = await fetch(`${API}estudiante.obtener&id_estudiante=${idEstudiante}`);
+        const data = await res.json();
+
+        if (data.status === "success") {
+            puntosEstudiante = Number(data.data.puntos_acumulados || 0);
+            qs("puntosEstudiante").textContent = `${puntosEstudiante} pts`;
+            // actualizar sessionStorage
+            usuario.perfil.puntos_acumulados = puntosEstudiante;
+            sessionStorage.setItem("usuario", JSON.stringify(usuario));
+        } else {
+            console.warn("No se pudieron obtener los puntos del estudiante");
+        }
+    } catch (err) {
+        console.error("Error cargarPuntosEstudiante:", err);
+    }
+}
 
 // ============================
 // CARGAR CARRITO DE PREMIOS
 // ============================
 async function cargarCarrito() {
+    const idEstudiante = usuario.perfil.id_estudiante;
     try {
-        const res = await fetch(`${API}canje.listar&id_estudiante=${usuario.id_estudiante}`);
+        const res = await fetch(`${API}canje.listar&id_estudiante=${idEstudiante}`);
         const data = await res.json();
 
         if (data.status === "success") {
             itemsCarrito = data.carrito;
             renderCarrito();
         } else {
-            qs("cart-items").innerHTML = "<p>No hay premios en el carrito.</p>";
+            qs("cart-items").innerHTML = "<p>Tu carrito está vacío.</p>";
+            qs("totalPuntos").textContent = "0 pts";
         }
     } catch (e) {
         console.error("Error cargarCarrito:", e);
@@ -41,7 +70,7 @@ function renderCarrito() {
     }
 
     let html = "";
-    let totalGeneral = 0;
+    let totalCarrito = 0;
 
     itemsCarrito.forEach(item => {
         const img = item.imagen
@@ -49,7 +78,7 @@ function renderCarrito() {
             : "https://via.placeholder.com/120";
 
         const puntosTotal = item.puntos_unitarios * item.cantidad;
-        totalGeneral += puntosTotal;
+        totalCarrito += puntosTotal;
 
         html += `
             <div class="item-carrito" data-id="${item.id_premio}">
@@ -60,7 +89,7 @@ function renderCarrito() {
                 <div class="info">
                     <h3>${item.nombre}</h3>
                     <p>Puntos por unidad: ${item.puntos_unitarios}</p>
-                    <p>Subtotal: ${puntosTotal} pts</p>
+                    <p>Stock disponible: ${item.stock}</p>
                 </div>
 
                 <div class="cantidad">
@@ -75,13 +104,13 @@ function renderCarrito() {
     });
 
     cont.innerHTML = html;
-    qs("totalPuntos").textContent = `${totalGeneral} pts`;
+    qs("totalPuntos").textContent = `${totalCarrito} pts`;
 
     activarBotones();
 }
 
 // ============================
-// ACTIVAR BOTONES
+// ACTIVAR BOTONES DEL CARRITO
 // ============================
 function activarBotones() {
     // Aumentar cantidad
@@ -118,8 +147,13 @@ async function actualizarCantidad(id_premio, cambio) {
     const nuevaCantidad = item.cantidad + cambio;
     if (nuevaCantidad < 1) return eliminarItem(id_premio);
 
+    if (nuevaCantidad > item.stock) {
+        alert(`No hay suficiente stock para "${item.nombre}". Disponible: ${item.stock}`);
+        return;
+    }
+
     const payload = {
-        id_estudiante: usuario.id_estudiante,
+        id_estudiante: usuario.perfil.id_estudiante,
         id_premio: id_premio,
         cantidad: nuevaCantidad
     };
@@ -134,15 +168,19 @@ async function actualizarCantidad(id_premio, cambio) {
         if (data.status === "success") {
             item.cantidad = nuevaCantidad;
             renderCarrito();
-        } else alert("No se pudo actualizar la cantidad");
-    } catch (e) { console.error("actualizarCantidad error:", e); }
+        } else {
+            alert(data.message || "No se pudo actualizar la cantidad");
+        }
+    } catch (e) {
+        console.error("actualizarCantidad error:", e);
+    }
 }
 
 // ============================
 // ELIMINAR ITEM
 // ============================
 async function eliminarItem(id_premio) {
-    const payload = { id_estudiante: usuario.id_estudiante, id_premio };
+    const payload = { id_estudiante: usuario.perfil.id_estudiante, id_premio };
 
     try {
         const res = await fetch(`${API}canje.eliminarItem`, {
@@ -155,8 +193,10 @@ async function eliminarItem(id_premio) {
         if (data.status === "success") {
             itemsCarrito = itemsCarrito.filter(i => i.id_premio != id_premio);
             renderCarrito();
-        } else alert("Error eliminando item");
-    } catch (e) { console.error("eliminarItem error:", e); }
+        } else alert(data.message || "Error eliminando item");
+    } catch (e) {
+        console.error("eliminarItem error:", e);
+    }
 }
 
 // ============================
@@ -168,19 +208,23 @@ async function finalizarCanje() {
         return;
     }
 
+    const totalCarrito = itemsCarrito.reduce((acc, item) => acc + item.puntos_unitarios * item.cantidad, 0);
+    if (totalCarrito > puntosEstudiante) {
+        alert("No tienes suficientes puntos para este canje");
+        return;
+    }
+
     try {
         const res = await fetch(`${API}canje.finalizar`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id_estudiante: usuario.id_estudiante })
+            body: JSON.stringify({ id_estudiante: usuario.perfil.id_estudiante })
         });
 
-        // Verificar si la respuesta es JSON válida
         const text = await res.text();
         let data;
-        try {
-            data = JSON.parse(text);
-        } catch (e) {
+        try { data = JSON.parse(text); } 
+        catch (e) {
             console.error("Respuesta del servidor no es JSON:", text);
             alert("Error interno del servidor. Revisa la consola.");
             return;
@@ -189,6 +233,7 @@ async function finalizarCanje() {
         if (data.status === "success") {
             alert(`¡Canje realizado! Puntos usados: ${data.puntos_usados}`);
             itemsCarrito = [];
+            await cargarPuntosEstudiante();
             renderCarrito();
         } else {
             alert(data.message || "Error al finalizar canje");
@@ -200,12 +245,11 @@ async function finalizarCanje() {
     }
 }
 
-
-
 // ============================
 // INICIALIZACIÓN
 // ============================
 document.addEventListener("DOMContentLoaded", () => {
+    cargarPuntosEstudiante();
     cargarCarrito();
     const btnFinalizar = qs("btnFinalizarCanje");
     if (btnFinalizar) btnFinalizar.addEventListener("click", finalizarCanje);

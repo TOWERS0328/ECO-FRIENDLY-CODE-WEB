@@ -1,0 +1,235 @@
+/* ===================== 🌿 BASE ===================== */
+body, input, select, button, table {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f7fdf8;
+    color: #333;
+}
+
+/* ===================== TITULOS ===================== */
+.titulo {
+    font-size: 2.3rem;
+    font-weight: 700;
+    color: #01180d;
+}
+
+.subtitulo {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+/* ===================== MAIN RESPONSIVE ===================== */
+main {
+    margin-top: 6.5rem;
+    margin-left: 6rem; /* ancho del sidebar colapsado */
+    padding: 2rem;
+    transition: margin-left 0.35s ease;
+}
+
+main.menu-toggle {
+    margin-left: 19rem; /* cuando sidebar expandido */
+}
+
+/* ===================== TABLA ===================== */
+.tabla-container {
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+.tabla-container table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    min-width: 700px;
+    font-family: 'Poppins', sans-serif;
+}
+.tabla-container th, .tabla-container td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e6f5ea;
+    font-size: 14px;
+}
+.tabla-container th {
+    background-color: #e6f5ea;
+    color: #007a3d;
+    font-weight: 600;
+}
+.tabla-container tr:hover {
+    background-color: #f5fbf6;
+}
+
+/* ===================== BOTONES ===================== */
+button {
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: 0.3s;
+}
+.btn-entregar {
+    background-color: #00b050;
+    color: #fff;
+}
+.btn-entregar:hover {
+    background-color: #007a3d;
+}
+.btn-detalles {
+    background-color: #e6f5ea;
+    color: #007a3d;
+}
+.btn-detalles:hover {
+    background-color: #00b050;
+    color: #fff;
+}
+
+/* ===================== MODAL ===================== */
+.modal {
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.4);
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px 25px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: 'Poppins', sans-serif;
+    
+    /* Centramos el modal */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Cerrar con X en la esquina */
+.modal-content .btn-cerrar-x {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #999;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.modal-content .btn-cerrar-x:hover {
+    color: #007a3d;
+}
+
+.modal-content h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #01180d;
+    margin-bottom: 5px;
+    text-align: center;
+}
+.modal-buttons {
+    display: flex;
+    justify-content: center; /* centra horizontalmente */
+    gap: 15px; /* espacio entre botones */
+    margin-top: 15px;
+}
+
+.modal-buttons button {
+    flex: 0 0 auto; /* que no se expandan más de lo necesario */
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.btn-entregar {
+    background-color: #00b050;
+    color: #fff;
+}
+.btn-entregar:hover {
+    background-color: #007a3d;
+}
+
+
+/* ===================== BUSCADOR ===================== */
+.buscador-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+.buscador-container input {
+    width: 100%;
+    padding: 10px 40px 10px 12px;
+    border: 1px solid #cce6d2;
+    border-radius: 8px;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+}
+.buscador-container i {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #007a3d;
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 1024px) {
+    main {
+        margin-left: 3rem;
+        width: calc(100% - 3rem);
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    main, main.menu-toggle {
+        margin-left: 0;
+        padding: 1.5rem;
+    }
+    .tabla-container table {
+        font-size: 13px;
+        min-width: 500px;
+    }
+    .titulo { font-size: 2rem; }
+    .subtitulo { font-size: 0.95rem; }
+    .buscador-container input {
+        font-size: 13px;
+        padding: 8px 36px 8px 10px;
+    }
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+    .modal-content h2 { font-size: 1.3rem; }
+    .modal-buttons button {
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tabla-container table {
+        font-size: 12px;
+        min-width: 400px;
+    }
+    .titulo { font-size: 1.7rem; }
+    .subtitulo { font-size: 0.9rem; }
+    button { font-size: 12px; padding: 6px 10px; }
+    .buscador-container input { font-size: 12px; padding: 6px 32px 6px 10px; }
+}

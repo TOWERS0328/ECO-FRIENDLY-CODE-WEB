@@ -1,26 +1,28 @@
-// manage_students.js
-const API_BASE = "http://localhost/ECO-FRIENDLY-CODE-WEB/backend/index.php?route="; // AJUSTA según tu proyecto
+const API_BASE = "http://localhost/ECO-FRIENDLY-CODE-WEB/backend/index.php?route=";
 
 let estudiantes = [];
+let asistentes = [];
 
 // ---------- UTIL ----------
 function qs(id) { return document.getElementById(id); }
 
-// ---------- CARGAR ----------
+// ===================== ESTUDIANTES =====================
+
+// ---------- CARGAR ESTUDIANTES ----------
 async function cargarEstudiantes() {
   try {
     const res = await fetch(API_BASE + "estudiante.listar");
     if (!res.ok) throw new Error("HTTP " + res.status);
     const data = await res.json();
     estudiantes = Array.isArray(data) ? data : [];
-    renderTabla(estudiantes);
+    renderTablaEstudiantes(estudiantes);
   } catch (err) {
     console.error("Error al cargar estudiantes:", err);
     qs('resultadoTabla').innerHTML = `<tr><td colspan="8" class="empty">Error cargando estudiantes.</td></tr>`;
   }
 }
 
-function renderTabla(lista) {
+function renderTablaEstudiantes(lista) {
   const tabla = qs('resultadoTabla');
   if (!lista || !lista.length) {
     tabla.innerHTML = `<tr><td colspan="8" class="empty">No hay resultados.</td></tr>`;
@@ -44,23 +46,22 @@ function renderTabla(lista) {
   `).join('');
 }
 
-// ---------- BUSCAR ----------
+// ---------- BUSCAR ESTUDIANTES ----------
 qs('btnBuscar')?.addEventListener('click', () => {
   const q = qs('searchId').value.trim().toLowerCase();
-  if (!q) return renderTabla(estudiantes);
+  if (!q) return renderTablaEstudiantes(estudiantes);
   const filtered = estudiantes.filter(e =>
     (e.cedula && e.cedula.toLowerCase().includes(q)) ||
     ((e.nombre + " " + e.apellido).toLowerCase().includes(q))
   );
-  renderTabla(filtered);
+  renderTablaEstudiantes(filtered);
 });
 
-// Enter en input de búsqueda
 qs('searchId')?.addEventListener('keyup', (ev) => {
   if (ev.key === 'Enter') qs('btnBuscar').click();
 });
 
-// ---------- MODAL REGISTRAR ----------
+// ---------- MODAL ESTUDIANTES ----------
 qs('btnNuevo')?.addEventListener('click', abrirModalRegistrar);
 
 function abrirModalRegistrar() {
@@ -72,8 +73,7 @@ function cerrarModalRegistrar() {
   qs('modalRegistrar').style.display = 'none';
 }
 
-// Registrar envio
-qs('formRegistrar').addEventListener('submit', async (e) => {
+qs('formRegistrar')?.addEventListener('submit', async (e) => {
   e.preventDefault();
   const payload = {
     cedula: qs('regCedula').value.trim(),
@@ -86,12 +86,8 @@ qs('formRegistrar').addEventListener('submit', async (e) => {
     confirmar: qs('regConfirm').value
   };
 
-  if (!payload.cedula || !payload.nombre || !payload.apellido) {
-    return alert("Completa los campos obligatorios.");
-  }
-  if (payload.contrasena !== payload.confirmar) {
-    return alert("Las contraseñas no coinciden.");
-  }
+  if (!payload.cedula || !payload.nombre || !payload.apellido) return alert("Completa los campos obligatorios.");
+  if (payload.contrasena !== payload.confirmar) return alert("Las contraseñas no coinciden.");
 
   try {
     const res = await fetch(API_BASE + "estudiante.registrar", {
@@ -113,7 +109,6 @@ qs('formRegistrar').addEventListener('submit', async (e) => {
   }
 });
 
-// ---------- MODAL EDITAR ----------
 function abrirModalEditar(id_estudiante) {
   const est = estudiantes.find(x => Number(x.id_estudiante) === Number(id_estudiante));
   if (!est) return alert("Estudiante no encontrado");
@@ -135,14 +130,13 @@ function cerrarModalEditar() {
   delete qs('formEditar').dataset.editId;
 }
 
-// Guardar cambios (editar)
-qs('formEditar').addEventListener('submit', async (e) => {
+qs('formEditar')?.addEventListener('submit', async (e) => {
   e.preventDefault();
   const id_estudiante = Number(qs('formEditar').dataset.editId);
   if (!id_estudiante) return alert("ID inválido");
 
   const payload = {
-    id_estudiante: id_estudiante,
+    id_estudiante,
     nombre: qs('editName').value.trim(),
     apellido: qs('editLastname').value.trim(),
     genero: qs('editGender').value,
@@ -171,11 +165,9 @@ qs('formEditar').addEventListener('submit', async (e) => {
   }
 });
 
-// ---------- RESTABLECER CONTRASEÑA (botón dentro del modal editar) ----------
 qs('btnRestablecer')?.addEventListener('click', async () => {
   const id_estudiante = Number(qs('formEditar').dataset.editId);
   if (!id_estudiante) return alert("ID inválido");
-
   if (!confirm("¿Generar y asignar una contraseña temporal para este estudiante?")) return;
 
   try {
@@ -187,7 +179,6 @@ qs('btnRestablecer')?.addEventListener('click', async () => {
     const json = await res.json();
     if (json.status === "success") {
       alert("Contraseña temporal generada: " + json.temp_password);
-      // opcional: mostrar en la UI de forma temporal o copiar al portapapeles
     } else {
       alert(json.message || "Error al restablecer");
     }
@@ -197,9 +188,169 @@ qs('btnRestablecer')?.addEventListener('click', async () => {
   }
 });
 
-// ---------- INICIAL ----------
-document.addEventListener('DOMContentLoaded', () => {
-  cargarEstudiantes();
+// ===================== ASISTENTES =====================
+async function cargarAsistentes() {
+  try {
+    const res = await fetch(API_BASE + "asistente.listar");
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const data = await res.json();
+    asistentes = Array.isArray(data) ? data : [];
+    renderTablaAsistentes(asistentes);
+  } catch (err) {
+    console.error("Error al cargar asistentes:", err);
+    qs('resultadoTablaAyudantes').innerHTML = `<tr><td colspan="6" class="empty">Error cargando asistentes.</td></tr>`;
+  }
+}
+
+function renderTablaAsistentes(lista) {
+  const tabla = qs('resultadoTablaAyudantes');
+  if (!lista || !lista.length) {
+    tabla.innerHTML = `<tr><td colspan="7" class="empty">No hay resultados.</td></tr>`;
+    return;
+  }
+  tabla.innerHTML = lista.map(a => `
+    <tr>
+      <td>${a.id_asistente}</td>
+      <td>${a.cedula}</td>
+      <td>${a.nombre} ${a.apellido}</td>
+      <td>${a.genero}</td>
+      <td>${a.area}</td>
+      <td>${a.correo || ''}</td>
+      <td style="display:flex; gap:6px;">
+        <button class="btn small" onclick='abrirModalEditarAsistente(${a.id_asistente})'>
+          <i class="fi fi-rr-pencil"></i> Editar
+        </button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+
+qs('btnNuevoAyudante')?.addEventListener('click', abrirModalRegistrarAsistente);
+function abrirModalRegistrarAsistente() {
+  qs('modalRegistrarAsistente').style.display = 'flex';
+  qs('formRegistrarAsistente').reset();
+}
+function cerrarModalRegistrarAsistente() {
+  qs('modalRegistrarAsistente').style.display = 'none';
+}
+qs('formRegistrarAsistente')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const payload = {
+    cedula: qs('regCedulaA').value.trim(),
+    nombre: qs('regNameA').value.trim(),
+    apellido: qs('regLastnameA').value.trim(),
+    genero: qs('regGenderA').value,
+    area: qs('regAreaA').value,
+    correo: qs('regEmailA').value.trim(),
+    contrasena: qs('regPasswordA').value,
+    confirmar: qs('regConfirmA').value
+  };
+
+  if (!payload.cedula || !payload.nombre || !payload.area) return alert("Completa los campos obligatorios.");
+  if (payload.contrasena !== payload.confirmar) return alert("Las contraseñas no coinciden.");
+
+  try {
+    const res = await fetch(API_BASE + "asistente.registrar", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    const json = await res.json();
+    if (json.status === "success") {
+      alert(json.message || "Registrado");
+      cerrarModalRegistrarAsistente();
+      await cargarAsistentes();
+    } else {
+      alert(json.message || "Error al registrar");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Error comunicándose con el servidor.");
+  }
 });
 
+function abrirModalEditarAsistente(id_asistente) {
+  const a = asistentes.find(x => Number(x.id_asistente) === Number(id_asistente));
+  if (!a) return alert("Asistente no encontrado");
 
+  qs('modalEditarAsistente').style.display = 'flex';
+  qs('formEditarAsistente').dataset.editId = id_asistente;
+
+  qs('editIdA').value = a.id_asistente;
+  qs('editCedulaA').value = a.cedula || '';
+  qs('editNameA').value = a.nombre || '';
+  qs('editLastnameA').value = a.apellido || '';
+  qs('editGenderA').value = a.genero || '';
+  qs('editAreaA').value = a.area || '';
+  qs('editEmailA').value = a.correo || '';
+}
+
+function cerrarModalEditarAsistente() {
+  qs('modalEditarAsistente').style.display = 'none';
+  delete qs('formEditarAsistente').dataset.editId;
+}
+
+qs('formEditarAsistente')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const id_asistente = Number(qs('formEditarAsistente').dataset.editId);
+  if (!id_asistente) return alert("ID inválido");
+
+  const payload = {
+    id_asistente,
+    cedula: qs('editCedulaA').value.trim(),
+    nombre: qs('editNameA').value.trim(),
+    apellido: qs('editLastnameA').value.trim(),
+    genero: qs('editGenderA').value,
+    area: qs('editAreaA').value,
+    correo: qs('editEmailA').value.trim()
+  };
+
+  try {
+    const res = await fetch(API_BASE + "asistente.actualizar", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    const json = await res.json();
+    if (json.status === "success") {
+      alert(json.message || "Actualizado");
+      cerrarModalEditarAsistente();
+      await cargarAsistentes();
+    } else {
+      alert(json.message || "Error al actualizar");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Error comunicándose con el servidor.");
+  }
+});
+
+qs('btnRestablecerA')?.addEventListener('click', async () => {
+  const id_asistente = Number(qs('formEditarAsistente').dataset.editId);
+  if (!id_asistente) return alert("ID inválido");
+  if (!confirm("¿Generar y asignar una contraseña temporal para este asistente?")) return;
+
+  try {
+    const res = await fetch(API_BASE + "asistente.restablecer", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id_asistente })
+    });
+    const json = await res.json();
+    if (json.status === "success") {
+      alert("Contraseña temporal generada: " + json.temp_password);
+    } else {
+      alert(json.message || "Error al restablecer");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Error comunicándose con el servidor.");
+  }
+});
+
+// ===================== INICIAL =====================
+document.addEventListener('DOMContentLoaded', () => {
+  cargarEstudiantes();
+  cargarAsistentes();
+});

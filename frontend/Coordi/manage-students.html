@@ -1,131 +1,110 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gestión de Estudiantes | Eco Friendly Code</title>
-
-  <!-- 🌿 Estilos -->
-  <link rel="stylesheet" href="manage-students.css" />
+  <title>Gestión de Ayudantes y Estudiantes | Eco Friendly Code</title>
 
   <!-- Sidebar + Navbar -->
   <link rel="stylesheet" href="Sidebar_coordi/Sidebar_coordi.css">
 
-  <!-- 🧩 Iconos de Flaticon -->
-  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="manage-students.css">
+
+  <!-- Iconos Flaticon -->
+  <link rel='stylesheet'
+    href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
 </head>
 
 <body>
   <!-- ===================== NAVBAR ===================== -->
-<header>
+  <header>
     <div class="left">
-
-        <!-- Botón Hamburguesa -->
-        <div class="menu-container">
-            <div class="menu" id="menu">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
+      <div class="menu-container">
+        <div class="menu" id="menu">
+          <div></div>
+          <div></div>
+          <div></div>
         </div>
-
-        <!-- LOGO -->
-        <div class="brand">
-            <a href="/ECO-FRIENDLY-CODE-WEB/frontend/home/index.html" class="logo">
-                <h1><span>ECO</span> FRIENDLY</h1>
-                <p>CODE</p>
-            </a>
-        </div>
-
+      </div>
+      <div class="brand">
+        <a href="/ECO-FRIENDLY-CODE-WEB/frontend/home/index.html" class="logo">
+          <h1><span>ECO</span> FRIENDLY</h1>
+          <p>CODE</p>
+        </a>
+      </div>
     </div>
-
-    <!-- ICONOS DERECHA -->
     <div class="right">
-        <a href="messages.html" class="btn-mensajes">
-            <i class="fi fi-rr-comment-alt"></i>
-        </a>
-
-        <a href="#" class="btn-cerrar-sesion">
-            <i class="fi fi-rr-exit"></i>
-        </a>
-
-        <img src="../../Img/9434619.jpg" alt="img-user" class="user">
+      <a href="messages.html" class="btn-mensajes"><i class="fi fi-rr-comment-alt"></i></a>
+      <a href="#" class="btn-cerrar-sesion"><i class="fi fi-rr-exit"></i></a>
+      <img src="../../Img/9434619.jpg" alt="img-user" class="user">
     </div>
+  </header>
 
-</header>
-
-<!-- ===================== SIDEBAR ===================== -->
-<div class="sidebar" id="sidebar">
+  <!-- ===================== SIDEBAR ===================== -->
+  <div class="sidebar" id="sidebar">
     <nav>
-        <ul>
-
-            <li>
-                <a href="coordinator_dashboard.html">
-                    <i class="fi fi-rr-home"></i>
-                    <span class="text">Inicio</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="manage-students.html">
-                    <i class="fi fi-rr-graduation-cap"></i>
-                    <span class="text">Estudiantes</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="manage-recyclables.html">
-                    <i class="fi fi-rr-recycle"></i>
-                    <span class="text">Residuos</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="manage-rewards.html">
-                    <i class="fi fi-rr-gift"></i>
-                    <span class="text">Premios</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="reports.html">
-                    <i class="fi fi-rr-document"></i>
-                    <span class="text">Reportes</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="settings.html">
-                    <i class="fi fi-rr-settings"></i>
-                    <span class="text">Configuración</span>
-                </a>
-            </li>
-
-        </ul>
+      <ul>
+        <li><a href="coordinator_dashboard.html"><i class="fi fi-rr-home"></i><span class="text">Inicio</span></a></li>
+        <li><a href="manage-students.html"><i class="fi fi-rr-graduation-cap"></i><span
+              class="text">Estudiantes</span></a></li>
+        <li><a href="manage-recyclables.html"><i class="fi fi-rr-recycle"></i><span class="text">Residuos</span></a>
+        </li>
+        <li><a href="manage-rewards.html"><i class="fi fi-rr-gift"></i><span class="text">Premios</span></a></li>
+        <li><a href="reports.html"><i class="fi fi-rr-document"></i><span class="text">Reportes</span></a></li>
+        <li><a href="settings.html"><i class="fi fi-rr-settings"></i><span class="text">Configuración</span></a></li>
+      </ul>
     </nav>
-</div>
-  
+  </div>
 
-    <!-- 🌿 Contenido principal -->
-    <main class="main-content">
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <main class="main-content">
 
-      <div class="subtitulo">
-    <h2><i class="fi fi-rr-users-alt"></i> Gestión de Estudiantes</h2>
-    <button class="btn add" id="btnNuevo">
-        <i class="fi fi-rr-plus-small"></i> Nuevo Estudiante
-    </button>
-</div>
+    <!-- 🌿 TABLA DE AYUDANTES -->
+    <section class="ayudantes-section">
+      <div class="ayudantes-header">
+        <h2><i class="fi fi-rr-user"></i> Gestión de Ayudantes</h2>
+        <button class="btn add" id="btnNuevoAyudante"><i class="fi fi-rr-plus-small"></i> Nuevo Ayudante</button>
+      </div>
 
+      <div class="tabla-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Cédula</th>
+              <th>Nombre</th>
+              <th>Género</th>
+              <th>Área</th>
+              <th>Correo</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="resultadoTablaAyudantes">
+            <tr>
+              <td colspan="7" class="empty">Cargando ayudantes...</td>
+            </tr>
+          </tbody>
+        </table>
 
-      <!-- 🔍 Buscador -->
-      <section class="buscador">
+      </div>
+    </section>
+
+    <!-- 🌿 TABLA DE ESTUDIANTES -->
+    <section class="estudiantes-section">
+      <div class="estudiantes-header">
+        <h2><i class="fi fi-rr-users-alt"></i> Gestión de Estudiantes</h2>
+        <button class="btn add" id="btnNuevo"><i class="fi fi-rr-plus-small"></i> Nuevo Estudiante</button>
+      </div>
+
+      <div class="buscador-estudiantes">
         <input type="text" id="searchId" placeholder="Buscar estudiante por cédula o nombre..." />
         <button class="btn green" id="btnBuscar"><i class="fi fi-rr-search"></i> Buscar</button>
-      </section>
+      </div>
 
-      <!-- 📋 Tabla -->
-      <section class="historial">
+      <div class="tabla-container">
         <table>
           <thead>
             <tr>
@@ -140,161 +119,150 @@
             </tr>
           </thead>
           <tbody id="resultadoTabla">
-            <tr><td colspan="8" class="empty">Cargando estudiantes...</td></tr>
+            <tr>
+              <td colspan="8" class="empty">Cargando estudiantes...</td>
+            </tr>
           </tbody>
         </table>
-      </section>
-    </main>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal Registrar Asistente -->
+  <div class="modal" id="modalRegistrarAsistente">
+    <div class="modal-content">
+      <button type="button" class="close-btn" onclick="cerrarModalRegistrarAsistente()">✕</button>
+      <h3>Registrar Nuevo Asistente</h3>
+      <form id="formRegistrarAsistente">
+        <div class="form-row">
+          <input type="text" id="regCedulaA" placeholder="Cédula" required>
+          <input type="text" id="regNameA" placeholder="Nombre" required>
+        </div>
+        <div class="form-row">
+          <input type="text" id="regLastnameA" placeholder="Apellido" required>
+          <input type="text" id="regAreaA" placeholder="Área" required>
+        </div>
+        <div class="form-row">
+          <input type="email" id="regEmailA" placeholder="Correo">
+          <select id="regGenderA" required>
+            <option value="">Género</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <input type="password" id="regPasswordA" placeholder="Contraseña" required>
+          <input type="password" id="regConfirmA" placeholder="Confirmar contraseña" required>
+        </div>
+        <button type="submit" class="btn green btn-full">Registrar</button>
+      </form>
+    </div>
   </div>
+
+  <!-- Modal Editar Asistente -->
+<div class="modal" id="modalEditarAsistente">
+  <div class="modal-content">
+    <button type="button" class="close-btn" onclick="cerrarModalEditarAsistente()">✕</button>
+    <h3>Editar Asistente</h3>
+    <form id="formEditarAsistente">
+      <input type="hidden" id="editIdA">
+      <div class="form-row">
+        <input type="text" id="editCedulaA" placeholder="Cédula" required>
+        <input type="text" id="editNameA" placeholder="Nombre" required>
+      </div>
+      <div class="form-row">
+        <input type="text" id="editLastnameA" placeholder="Apellido" required>
+        <input type="text" id="editAreaA" placeholder="Área" required>
+      </div>
+      <div class="form-row">
+        <input type="email" id="editEmailA" placeholder="Correo">
+        <select id="editGenderA" required>
+          <option value="">Género</option>
+          <option value="masculino">Masculino</option>
+          <option value="femenino">Femenino</option>
+        </select>
+      </div>
+      <button type="submit" class="btn green btn-full">Guardar cambios</button>
+      <button type="button" class="btn cancel" id="btnRestablecerA">Restablecer Contraseña</button>
+    </form>
+  </div>
+</div>
+
+
+
+  <!-- Modal Registrar Estudiante -->
+  <div class="modal" id="modalRegistrar">
+    <div class="modal-content">
+      <button type="button" class="close-btn" onclick="cerrarModalRegistrar()">✕</button>
+      <h3>Registrar Nuevo Estudiante</h3>
+      <form id="formRegistrar">
+        <div class="form-row">
+          <input type="text" id="regCedula" placeholder="Cédula" required>
+          <input type="text" id="regName" placeholder="Nombre" required>
+        </div>
+        <div class="form-row">
+          <input type="text" id="regLastname" placeholder="Apellido" required>
+          <input type="text" id="regCareer" placeholder="Carrera">
+        </div>
+        <div class="form-row">
+          <input type="email" id="regEmail" placeholder="Correo">
+          <select id="regGender" required>
+            <option value="">Género</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <input type="password" id="regPassword" placeholder="Contraseña" required>
+          <input type="password" id="regConfirm" placeholder="Confirmar contraseña" required>
+        </div>
+        <button type="submit" class="btn green btn-full">Registrar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Editar Estudiante -->
+  <div class="modal" id="modalEditar">
+    <div class="modal-content">
+      <button type="button" class="close-btn" onclick="cerrarModalEditar()">✕</button>
+      <h3>Editar Estudiante</h3>
+      <form id="formEditar">
+        <input type="hidden" id="editId">
+        <div class="form-row">
+          <input type="text" id="editCedula" placeholder="Cédula" required>
+          <input type="text" id="editName" placeholder="Nombre" required>
+        </div>
+        <div class="form-row">
+          <input type="text" id="editLastname" placeholder="Apellido" required>
+          <input type="text" id="editCareer" placeholder="Carrera">
+        </div>
+        <div class="form-row">
+          <input type="email" id="editEmail" placeholder="Correo">
+          <select id="editGender" required>
+            <option value="">Género</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <input type="password" id="editPassword" placeholder="Contraseña">
+          <input type="password" id="editConfirm" placeholder="Confirmar contraseña">
+        </div>
+        <button type="submit" class="btn green btn-full">Guardar cambios</button>
+        <button type="button" class="btn cancel" id="btnRestablecer">Restablecer Contraseña</button>
+      </form>
+    </div>
+  </div>
+
+
+
 
   <footer>© 2025 Eco Friendly Code. Todos los derechos reservados.</footer>
 
-<!-- MODAL REGISTRAR -->
-<div class="modal" id="modalRegistrar" style="display:none;">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3>Registrar Nuevo Estudiante</h3>
-      <button type="button" class="close-btn" onclick="cerrarModalRegistrar()">✕</button>
-    </div>
-
-    <form id="formRegistrar">
-      <div class="form-group">
-        <label>Cédula</label>
-        <input id="regCedula" type="text" required>
-      </div>
-
-      <div class="form-group">
-        <label>Nombre</label>
-        <input id="regName" type="text" required>
-      </div>
-
-      <div class="form-group">
-        <label>Apellido</label>
-        <input id="regLastname" type="text" required>
-      </div>
-
-      <div class="form-group">
-        <label>Género</label>
-        <select id="regGender" required>
-          <option value="">Selecciona</option>
-          <option value="masculino">Masculino</option>
-          <option value="femenino">Femenino</option>
-          <option value="otro">Otro</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Carrera</label>
-        <select id="regCareer" required>
-          <option value="">Selecciona tu carrera</option>
-          <option value="Licenciatura en Bilingüismo con énfasis en Inglés">Licenciatura en Bilingüismo con énfasis en Inglés</option>
-          <option value="Administración de Empresas">Administración de Empresas</option>
-          <option value="Administración de Empresas Turísticas y Hoteleras">Administración de Empresas Turísticas y Hoteleras</option>
-          <option value="Contaduría Pública">Contaduría Pública</option>
-          <option value="Derecho">Derecho</option>
-          <option value="Ingeniería de Sistemas">Ingeniería de Sistemas</option>
-          <option value="Ingeniería Industrial">Ingeniería Industrial</option>
-          <option value="Tecnología en Gestión de Servicios Turísticos y Hoteleros">Tecnología en Gestión de Servicios Turísticos y Hoteleros</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Correo institucional</label>
-        <input id="regEmail" type="email" required>
-      </div>
-
-      <div class="form-group">
-        <label>Contraseña</label>
-        <input id="regPassword" type="password" required>
-      </div>
-
-      <div class="form-group">
-        <label>Confirmar contraseña</label>
-        <input id="regConfirm" type="password" required>
-      </div>
-
-      <div class="modal-actions">
-        <button type="submit" class="btn green">Registrar</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-
-
-<!-- MODAL EDITAR -->
-<div class="modal" id="modalEditar" style="display:none;">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3>Editar Estudiante</h3>
-      <button type="button" class="close-btn" onclick="cerrarModalEditar()">✕</button>
-    </div>
-
-    <form id="formEditar">
-      <div class="form-group">
-        <label>ID</label>
-        <input id="editId" type="text" disabled>
-      </div>
-
-      <div class="form-group">
-        <label>Cédula</label>
-        <input id="editCedula" type="text" required>
-      </div>
-
-      <div class="form-group">
-        <label>Nombre</label>
-        <input id="editName" type="text" required>
-      </div>
-
-      <div class="form-group">
-        <label>Apellido</label>
-        <input id="editLastname" type="text" required>
-      </div>
-
-      <div class="form-group">
-        <label>Género</label>
-        <select id="editGender" required>
-          <option value="">Selecciona</option>
-          <option value="masculino">Masculino</option>
-          <option value="femenino">Femenino</option>
-          <option value="otro">Otro</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Carrera</label>
-        <select id="editCareer" required>
-          <option value="">Selecciona</option>
-          <option value="Licenciatura en Bilingüismo con énfasis en Inglés">Licenciatura en Bilingüismo con énfasis en Inglés</option>
-          <option value="Administración de Empresas">Administración de Empresas</option>
-          <option value="Administración de Empresas Turísticas y Hoteleras">Administración de Empresas Turísticas y Hoteleras</option>
-          <option value="Contaduría Pública">Contaduría Pública</option>
-          <option value="Derecho">Derecho</option>
-          <option value="Ingeniería de Sistemas">Ingeniería de Sistemas</option>
-          <option value="Ingeniería Industrial">Ingeniería Industrial</option>
-          <option value="Tecnología en Gestión de Servicios Turísticos y Hoteleros">Tecnología en Gestión de Servicios Turísticos y Hoteleros</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Correo institucional</label>
-        <input id="editEmail" type="email" required>
-      </div>
-
-      <div class="modal-actions" style="justify-content: space-between;">
-        <button type="submit" class="btn green">Guardar cambios</button>
-        <button type="button" class="btn yellow" id="btnRestablecer">Restablecer contraseña</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-
-
   <!-- JS -->
   <script src="manage_students.js"></script>
-
   <script src="Sidebar_coordi/Sidebar_coordi.js"></script>
 </body>
-</html>
 
+</html>

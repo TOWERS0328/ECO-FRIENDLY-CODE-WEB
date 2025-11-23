@@ -15,9 +15,17 @@
 
     <!-- ENCABEZADO -->
     <div class="carrito-header">
-        <h1><i class="fi fi-rr-basket"></i> Mi Carrito</h1>
-        <p>Revisa los premios seleccionados antes de finalizar tu canje.</p>
 
+        <!-- Puntos del estudiante -->
+        <div class="puntos-estudiante">
+            <i class="fi fi-rr-badge-check"></i>
+            <span id="puntosEstudiante">0 pts</span>
+        </div>
+
+        <!-- Título centrado -->
+        <h1>Mi Carrito</h1>
+
+        <!-- Botón volver -->
         <button class="btn-volver" onclick="window.location.href='redeemPoints.html'">
             <i class="fi fi-rr-arrow-left"></i> Volver
         </button>
@@ -26,9 +34,9 @@
     <!-- CONTENEDOR DE ITEMS -->
     <div id="cart-items"></div>
 
-    <!-- TOTAL + BOTÓN FINAL -->
+    <!-- TOTAL PUNTOS A GASTAR + BOTÓN FINAL -->
     <div class="acciones-carrito">
-        <div class="total-puntos">
+        <div class="total-puntos-carrito">
             <i class="fi fi-rr-badge-check"></i>
             <span id="totalPuntos">0 pts</span>
         </div>
@@ -39,7 +47,6 @@
     </div>
 
     <!-- JS -->
-
     <script src="cartRedeempoints.js"></script>
 
 </body>

@@ -1,4 +1,4 @@
-// cartRecycle.js
+// cartRecycle.js (CORREGIDO)
 // =========================================
 // CONFIGURACIÓN
 // =========================================
@@ -6,8 +6,8 @@ const API = "http://localhost/ECO-FRIENDLY-CODE-WEB/backend/index.php?route=";
 
 // Usuario en sesión
 const usuario = JSON.parse(sessionStorage.getItem("usuario"));
-if (!usuario) {
-    // Redirigir al login si no hay sesión
+if (!usuario || !usuario.perfil?.id_estudiante || usuario.rol !== "estudiante") {
+    // Redirigir al login si no hay sesión válida
     window.location.href = "../Login/login.html";
 }
 
@@ -21,8 +21,10 @@ let itemsCarrito = []; // Contendrá los items de la canasta
 // CARGAR CANASTA
 // =========================================
 async function cargarCarrito() {
+    if (!usuario?.perfil?.id_estudiante) return;
+
     try {
-        const res = await fetch(`${API}canasta.listar&id_estudiante=${usuario.id_estudiante}`);
+        const res = await fetch(`${API}canasta.listar&id_estudiante=${usuario.perfil.id_estudiante}`);
         const data = await res.json();
 
         if (data.status === "success") {
@@ -88,14 +90,13 @@ function renderCarrito() {
     cont.innerHTML = html;
     qs("totalPuntos").textContent = `${totalGeneral} pts`;
 
-    activarBotones(); // Volvemos a activar los listeners para los botones dinámicos
+    activarBotones();
 }
 
 // =========================================
 // ACTIVAR BOTONES DINÁMICOS
 // =========================================
 function activarBotones() {
-    // Aumentar cantidad
     document.querySelectorAll(".btn-mas").forEach(btn => {
         btn.addEventListener("click", () => {
             const id = btn.dataset.id;
@@ -103,7 +104,6 @@ function activarBotones() {
         });
     });
 
-    // Disminuir cantidad
     document.querySelectorAll(".btn-menos").forEach(btn => {
         btn.addEventListener("click", () => {
             const id = btn.dataset.id;
@@ -111,7 +111,6 @@ function activarBotones() {
         });
     });
 
-    // Eliminar item
     document.querySelectorAll(".btn-eliminar").forEach(btn => {
         btn.addEventListener("click", () => {
             eliminarItem(btn.dataset.id);
@@ -124,17 +123,14 @@ function activarBotones() {
 // =========================================
 async function actualizarCantidad(id_residuo, cambio) {
     const item = itemsCarrito.find(i => i.id_residuo == id_residuo);
-    if (!item) return;
+    if (!item || !usuario?.perfil?.id_estudiante) return;
 
     const nuevaCantidad = item.cantidad + cambio;
-
-    if (nuevaCantidad < 1) {
-        return eliminarItem(id_residuo);
-    }
+    if (nuevaCantidad < 1) return eliminarItem(id_residuo);
 
     const payload = {
-        id_estudiante: usuario.id_estudiante,
-        id_residuo: id_residuo,
+        id_estudiante: usuario.perfil.id_estudiante,
+        id_residuo,
         cantidad: nuevaCantidad
     };
 
@@ -151,7 +147,7 @@ async function actualizarCantidad(id_residuo, cambio) {
             renderCarrito();
             actualizarContadorCanasta();
         } else {
-            alert("No se pudo actualizar la cantidad");
+            alert(data.message || "No se pudo actualizar la cantidad");
         }
     } catch (e) {
         console.error("actualizarCantidad error:", e);
@@ -162,9 +158,11 @@ async function actualizarCantidad(id_residuo, cambio) {
 // ELIMINAR ITEM
 // =========================================
 async function eliminarItem(id_residuo) {
+    if (!usuario?.perfil?.id_estudiante) return;
+
     const payload = {
-        id_estudiante: usuario.id_estudiante,
-        id_residuo: id_residuo
+        id_estudiante: usuario.perfil.id_estudiante,
+        id_residuo
     };
 
     try {
@@ -180,7 +178,7 @@ async function eliminarItem(id_residuo) {
             renderCarrito();
             actualizarContadorCanasta();
         } else {
-            alert("Error eliminando item");
+            alert(data.message || "Error eliminando item");
         }
     } catch (e) {
         console.error("eliminarItem error:", e);
@@ -191,19 +189,21 @@ async function eliminarItem(id_residuo) {
 // ACTUALIZAR CONTADOR DE LA CANASTA
 // =========================================
 async function actualizarContadorCanasta() {
+    if (!usuario?.perfil?.id_estudiante) return;
+
     try {
-        const res = await fetch(`${API}canasta.listar&id_estudiante=${usuario.id_estudiante}`);
+        const res = await fetch(`${API}canasta.listar&id_estudiante=${usuario.perfil.id_estudiante}`);
         const data = await res.json();
 
+        const el = qs("cart-count");
         if (data.status === "success" && Array.isArray(data.canasta)) {
             let totalCantidad = data.canasta.reduce((acc, item) => acc + Number(item.cantidad), 0);
-            const el = qs("cart-count");
             if (el) el.textContent = `Items en la canasta: ${totalCantidad}`;
-        } else {
-            if (qs("cart-count")) qs("cart-count").textContent = "Items en la canasta: 0";
+        } else if (el) {
+            el.textContent = "Items en la canasta: 0";
         }
     } catch (err) {
-        console.error("actualizarContadorCanasta:", err);
+        console.error("actualizarContadorCarrito:", err);
     }
 }
 
@@ -216,8 +216,10 @@ async function finalizarAcopio() {
         return;
     }
 
+    if (!usuario?.perfil?.id_estudiante) return;
+
     const formData = new FormData();
-    formData.append("id_estudiante", usuario.id_estudiante);
+    formData.append("id_estudiante", usuario.perfil.id_estudiante);
 
     try {
         const res = await fetch(`${API}canasta.finalizar`, {
@@ -230,7 +232,7 @@ async function finalizarAcopio() {
             alert("Acopio realizado correctamente 🎉");
             window.location.href = "recycle.html";
         } else {
-            alert(data.message);
+            alert(data.message || "Error al finalizar acopio");
         }
     } catch (e) {
         console.error("finalizarAcopio error:", e);
@@ -244,7 +246,6 @@ document.addEventListener("DOMContentLoaded", () => {
     cargarCarrito();
     actualizarContadorCanasta();
 
-    const btnFinalizar = qs("btnFinalizarAcopio"); // coincide con el HTML
-if (btnFinalizar) btnFinalizar.addEventListener("click", finalizarAcopio);
-
+    const btnFinalizar = qs("btnFinalizarAcopio");
+    if (btnFinalizar) btnFinalizar.addEventListener("click", finalizarAcopio);
 });

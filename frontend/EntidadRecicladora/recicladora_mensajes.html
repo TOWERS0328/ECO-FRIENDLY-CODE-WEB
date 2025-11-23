@@ -7,149 +7,108 @@
 
   <!-- Estilos -->
   <link rel="stylesheet" href="recicladora_mensajes.css" />
-  <link rel="stylesheet" href="../GOBAL-CSS/logoEcoBtnInicio.css" />
+  <link rel="stylesheet" href="Sidebar_EntidadRecicladora/SiderbarEntidad.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
   <!-- Iconos -->
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
 </head>
-
 <body>
 
-  <div class="dashboard-container">
-
-    <!-- 🌱 SIDEBAR -->
-    <aside class="sidebar">
-      <a href="../home/index.html" class="logo">
-        <h1><span>ECO</span> FRIENDLY</h1>
-        <p>CODE</p>
-      </a>
-
-      <div class="user-info">
-        <img src="Img/recicladora.jpg" class="avatar" alt="Recicladora" />
-        <h3 class="username">Entidad Recicladora</h3>
-        <p class="email">recicladora@eco.com</p>
+  <!-- HEADER + NAVBAR -->
+  <header>
+    <div class="left">
+      <div class="menu-container">
+        <div class="menu" id="menu">
+          <div></div><div></div><div></div>
+        </div>
       </div>
-
-      <nav class="menu">
-        <a href="EntidadRecicladora_dashboard.html"><i class="fi fi-rr-dashboard"></i> Panel</a>
-
-        <a href="recicladora_mensajes.html" class="active">
-          <i class="fi fi-rr-comment-alt"></i> Mensajes
-          <span class="msg-badge">3</span>
+      <div class="brand">
+        <a href="/ECO-FRIENDLY-CODE-WEB/frontend/home/index.html" class="logo">
+          <h1><span>ECO</span> FRIENDLY</h1>
+          <p>CODE</p>
         </a>
+      </div>
+    </div>
 
-    
-      </nav>
-    </aside>
+    <div class="right">
+      <a href="#" class="btn-mensajes"><i class="fi fi-rr-comment-alt"></i></a>
+      <a href="#" class="btn-cerrar-sesion"><i class="fi fi-rr-exit"></i></a>
+      <img src="../../Img/9434619.jpg" alt="img-user" class="user">
+    </div>
+  </header>
 
-    <!-- 💬 MAIN CONTENT -->
-    <main class="main-content">
-      <!-- 🔍 Top Bar -->
-      <header class="top-bar">
-        <h2><i class="fi fi-rr-envelope"></i> Mensajes con el Coordinador</h2>
-        <input type="text" id="searchMessages" placeholder="Buscar mensajes..." />
-      </header>
-
-      <section class="messages-section">
-
-        <!-- 📋 Lista de conversaciones -->
-        <div class="conversation-list">
-
-          <div class="conversation active" onclick="openChat('Coordinador General', 'Img/coordinador.jpg')">
-            <img src="Img/coordinador.jpg" alt="Coordinador" />
-            <div class="conv-info">
-              <h4>Coordinador General</h4>
-              <p>Recibimos los últimos residuos. Todo OK.</p>
-            </div>
-            <span class="time">10:25 AM</span>
-          </div>
-
-          <div class="conversation" onclick="openChat('Supervisor de Planta', 'Img/supervisor.jpg')">
-            <img src="Img/supervisor.jpg" alt="Supervisor" />
-            <div class="conv-info">
-              <h4>Supervisor de Planta</h4>
-              <p>¿Ya confirmaron el transporte?</p>
-            </div>
-            <span class="time">Ayer</span>
-          </div>
-
-        </div>
-
-        <!-- 💌 Área de Chat -->
-        <div class="chat-area">
-
-          <!-- Encabezado -->
-          <div class="chat-header">
-            <img src="Img/coordinador.jpg" id="chatAvatar" />
-            <div>
-              <h4 id="chatName">Coordinador General</h4>
-              <p>En línea</p>
-            </div>
-          </div>
-
-          <!-- Chat -->
-          <div class="chat-box" id="chatBox">
-            
-            <div class="message received">
-              <p>Recibimos los residuos. Todo en orden ✔️</p>
-              <span class="time">10:12 AM</span>
-            </div>
-
-            <div class="message sent">
-              <p>Perfecto 👍 Gracias por la confirmación.</p>
-              <span class="time">10:15 AM</span>
-            </div>
-
-          </div>
-
-          <!-- Input -->
-          <div class="message-input">
-            <input type="file" id="imageInput" accept="image/*" hidden>
-            <button class="img-btn" onclick="document.getElementById('imageInput').click();">
-              <i class="fi fi-rr-picture"></i>
-            </button>
-
-            <input type="text" id="messageText" placeholder="Escribe un mensaje..." />
-
-            <button onclick="sendMessage()"><i class="fi fi-rr-paper-plane"></i></button>
-          </div>
-
-        </div>
-
-      </section>
-
-    </main>
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <nav>
+      <ul>
+        <li><a href="EntidadRecicladora_dashboard.html"><i class="fi fi-rr-home"></i><span class="text">Inicio</span></a></li>
+        <li><a href="EntidadRecicladora_reports.html"><i class="fi fi-rr-document"></i><span class="text">Reportes</span></a></li>
+        <li><a href="settings.html"><i class="fi fi-rr-settings"></i><span class="text">Configuración</span></a></li>
+      </ul>
+    </nav>
   </div>
 
-<script>
-  function openChat(name, img) {
-    document.getElementById("chatName").textContent = name;
-    document.getElementById("chatAvatar").src = img;
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <!-- SUBTÍTULO -->
+    <div class="page-title">
+      <h2><i class="fi fi-rr-envelope"></i> Mensajes</h2>
+      <input type="text" id="searchMessages" placeholder="Buscar mensajes..." />
+    </div>
 
-    document.querySelectorAll('.conversation').forEach(c => c.classList.remove('active'));
-    event.currentTarget.classList.add('active');
-  }
+    <section class="messages-section">
+      <!-- Lista de conversaciones -->
+      <div class="conversation-list">
+        <div class="conversation active" onclick="openChat('Coordinador General', 'Img/coordinador.jpg')">
+          <img src="Img/coordinador.jpg" alt="Coordinador" />
+          <div class="conv-info">
+            <h4>Coordinador General</h4>
+            <p>Recibimos los últimos residuos. Todo OK.</p>
+          </div>
+          <span class="time">10:25 AM</span>
+        </div>
+        <div class="conversation" onclick="openChat('Supervisor de Planta', 'Img/supervisor.jpg')">
+          <img src="Img/supervisor.jpg" alt="Supervisor" />
+          <div class="conv-info">
+            <h4>Supervisor de Planta</h4>
+            <p>¿Ya confirmaron el transporte?</p>
+          </div>
+          <span class="time">Ayer</span>
+        </div>
+      </div>
 
-  function sendMessage() {
-    const input = document.getElementById("messageText");
-    const text = input.value.trim();
-    if (!text) return;
+      <!-- Chat -->
+      <div class="chat-area">
+        <div class="chat-header">
+          <img src="Img/coordinador.jpg" id="chatAvatar" />
+          <div>
+            <h4 id="chatName">Coordinador General</h4>
+            <p>En línea</p>
+          </div>
+        </div>
+        <div class="chat-box" id="chatBox">
+          <div class="message received">
+            <p>Recibimos los residuos. Todo en orden ✔️</p>
+            <span class="time">10:12 AM</span>
+          </div>
+          <div class="message sent">
+            <p>Perfecto 👍 Gracias por la confirmación.</p>
+            <span class="time">10:15 AM</span>
+          </div>
+        </div>
+        <div class="message-input">
+          <input type="file" id="imageInput" accept="image/*" hidden>
+          <button class="img-btn" onclick="document.getElementById('imageInput').click();"><i class="fi fi-rr-picture"></i></button>
+          <input type="text" id="messageText" placeholder="Escribe un mensaje..." />
+          <button onclick="sendMessage()"><i class="fi fi-rr-paper-plane"></i></button>
+        </div>
+      </div>
+    </section>
+  </main>
 
-    const box = document.getElementById("chatBox");
-
-    const msg = document.createElement("div");
-    msg.classList.add("message", "sent");
-    msg.innerHTML = `
-      <p>${text}</p>
-      <span class="time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
-    `;
-
-    box.appendChild(msg);
-    input.value = "";
-    box.scrollTop = box.scrollHeight;
-  }
-</script>
+  <script src="Sidebar_EntidadRecicladora/SiderbarEntidad.js"></script>
+  
 
 </body>
 </html>

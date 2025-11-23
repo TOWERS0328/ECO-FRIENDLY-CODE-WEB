@@ -98,26 +98,102 @@ class CanjeController {
         echo json_encode($res);
     }
 
-public function listarHistorial() {
-    $id_estudiante = $_GET["id_estudiante"] ?? null;
+    // ================================
+    // 6. LISTAR HISTORIAL DE UN ESTUDIANTE
+    // ================================
+    public function listarHistorial() {
+        $id_estudiante = $_GET["id_estudiante"] ?? null;
 
-    if (!$id_estudiante) {
+        if (!$id_estudiante) {
+            echo json_encode([
+                "status" => "error",
+                "message" => "ID estudiante requerido"
+            ]);
+            return;
+        }
+
+        $model = new Canje();
+        $historial = $model->listarTodosLosCanjes($id_estudiante);
+
         echo json_encode([
-            "status" => "error",
-            "message" => "ID estudiante requerido"
+            "status" => "success",
+            "historial" => $historial
         ]);
+    }
+
+    // ================================
+    // 7. LISTAR CANJES PARA ASISTENTE
+    // ================================
+    public function listarCanjesAsistente() {
+        $model = new Canje();
+        $canjes = $model->listarCanjesParaAsistente();
+
+        echo json_encode([
+            "status" => "success",
+            "canjes" => $canjes
+        ]);
+    }
+
+    // ================================
+    // 8. OBTENER DETALLES DE UN CANJE
+    // ================================
+    public function obtenerCanje() {
+        $id_canje = $_GET['id_canje'] ?? null;
+
+        if (!$id_canje) {
+            echo json_encode(["status" => "error", "message" => "ID canje requerido"]);
+            return;
+        }
+
+        $model = new Canje();
+        $canje = $model->obtenerCanje($id_canje);
+        $premios = $model->obtenerPremiosPorCanje($id_canje);
+
+        echo json_encode([
+            "status" => "success",
+            "canje" => $canje,
+            "premios" => $premios
+        ]);
+    }
+
+    // ================================
+    // 9. ENTREGAR CANJE DESDE ASISTENTE
+    // ================================
+    public function entregarCanjeAsistente() {
+        $data = json_decode(file_get_contents("php://input"), true);
+        $id_canje = $data['id_canje'] ?? null;
+
+        if (!$id_canje) {
+            echo json_encode(["status" => "error", "message" => "ID canje requerido"]);
+            return;
+        }
+
+        $model = new Canje();
+        $success = $model->entregarCanje($id_canje);
+
+        echo json_encode([
+            "status" => $success ? "success" : "error",
+            "message" => $success ? "Canje entregado" : "Error al entregar el canje"
+        ]);
+    }
+
+    public function obtenerDetallesCanje() {
+    $id_canje = $_GET['id_canje'] ?? null;
+    if (!$id_canje) {
+        echo json_encode(["status" => "error", "message" => "ID canje requerido"]);
         return;
     }
 
     $model = new Canje();
-    $historial = $model->listarTodosLosCanjes($id_estudiante);
+    $detalles = $model->obtenerDetallesCanje($id_canje);
 
-    echo json_encode([
-        "status" => "success",
-        "historial" => $historial
-    ]);
+    if (!$detalles) {
+        echo json_encode(["status" => "error", "message" => "Canje no encontrado"]);
+    } else {
+        echo json_encode(["status" => "success", "detalles" => $detalles]);
+    }
 }
 
-    
+
 }
 ?>

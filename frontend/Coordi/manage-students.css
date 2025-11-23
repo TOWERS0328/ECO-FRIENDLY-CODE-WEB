@@ -1,4 +1,4 @@
-/* 🌿 ESTILO BASE */
+/* ===================== 🌿 ESTILO BASE ===================== */
 * {
   margin: 0;
   padding: 0;
@@ -12,54 +12,76 @@ body {
   overflow-x: hidden;
 }
 
-/* 🔹 CONTENEDOR GENERAL */
-.dashboard-container {
-  min-height: 100vh;
-  padding: 20px;
-}
-
-/* 🌾 SUBTÍTULO (título de página) */
-.subtitulo {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-}
-
-.subtitulo h2 {
-  font-size: 24px;
-  color: #010f07;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* 🌿 CONTENIDO PRINCIPAL (AJUSTADO Y SIN CONFLICTO CON SIDEBAR) */
+/* ===================== CONTENIDO PRINCIPAL ===================== */
 .main-content {
   position: relative;
-  margin-top: 6.5rem;          /* Altura del navbar */
-  margin-left: 6rem;           /* Sidebar colapsado */
+  margin-top: 6.5rem;
+  margin-left: 6rem;
   padding: 30px;
   background-color: #f8fef9;
   min-height: 100vh;
+  width: calc(100% - 6rem);
   transition: margin-left 0.3s ease;
-
-  width: calc(100% - 6rem); 
-  max-width: none;          
 }
 
-/* Sidebar expandido */
 .sidebar.expand ~ .main-content {
   margin-left: 19rem;
   width: calc(100% - 19rem);
 }
 
-/* 🔘 BOTONES */
+/* ===================== TABLAS ===================== */
+.tabla-container {
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+.tabla-container table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  min-width: 700px;
+}
+
+.tabla-container th,
+.tabla-container td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e6f5ea;
+}
+
+.tabla-container th {
+  background-color: #e6f5ea;
+  color: #007a3d;
+  font-weight: 600;
+}
+
+.tabla-container tr:hover {
+  background-color: #f5fbf6;
+  transition: 0.2s;
+}
+
+.empty {
+  text-align: center;
+  color: #777;
+  padding: 20px;
+}
+
+/* TABLA AYUDANTES */
+.ayudantes-section .tabla-container {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+/* TABLA ESTUDIANTES (SIN LÍMITE) */
+.estudiantes-section .tabla-container {
+  max-height: none;
+  overflow-y: visible;
+}
+
+/* ===================== BOTONES ===================== */
 .btn {
   border: none;
   padding: 9px 16px;
@@ -91,147 +113,134 @@ body {
 }
 .btn.cancel:hover { background-color: #ddd; }
 
-.btn.purple {
-  background: #c7b5ff;
-  color: #3d2c7a;
-}
-.btn.purple:hover { background: #b39cff; }
+.btn.small { padding: 6px 8px; font-size: 14px; }
 
-.btn.small {
-  padding: 6px 8px;
-  font-size: 14px;
+.btn-full {
+  width: 100%;
+  margin-top: 15px;
+  padding: 12px;
+}
+.ayudantes-header,
+.estudiantes-header {
+  display: flex;
+  justify-content: space-between; /* Título a la izquierda, botón a la derecha */
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-/* 🔍 BUSCADOR */
-.buscador {
+
+
+/* ===================== MODAL ===================== */
+.modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.3);
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative;
+  background: #fff;
+  padding: 30px 25px;   /* más espacio alrededor del contenido */
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;            /* espacio vertical entre los elementos dentro del modal */
+}
+
+.modal-header h3 {
+  color: #007a3d;
+  margin-bottom: 15px;  /* espacio entre título y primeros campos */
+  text-align: center;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;            /* espacio horizontal entre inputs de la misma fila */
+}
+
+.form-row input,
+.form-row select {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #cce6d2;
+  border-radius: 8px;
+  outline: none;
+}
+
+/* Botón de registrar siempre separado */
+.btn-full {
+  margin-top: 15px;
+  width: 100%;
+}
+
+
+/* Botón cerrar X */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* Formulario dentro del modal */
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* separación vertical entre filas */
+}
+
+/* Filas de inputs */
+.form-row {
+  display: flex;
+  gap: 15px; /* separación horizontal */
+}
+
+.form-row input,
+.form-row select {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #cce6d2;
+  border-radius: 8px;
+  outline: none;
+}
+
+/* ===================== BUSCADOR ===================== */
+.buscador-estudiantes {
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
 }
 
-.buscador input {
+.buscador-estudiantes input {
   flex: 1;
-  padding: 10px 14px;
+  padding: 9px 14px;
+  font-size: 16px;
   border: 1px solid #cce6d2;
   border-radius: 8px;
   outline: none;
   transition: 0.3s;
 }
 
-.buscador input:focus {
+.buscador-estudiantes input:focus {
   border-color: #00b050;
-  box-shadow: 0 0 5px rgba(0, 176, 80, 0.3);
+  box-shadow: 0 0 5px rgba(0,176,80,0.3);
 }
 
-/* 📋 TABLA */
-.historial table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+.buscador-estudiantes button {
+  padding: 10px 18px;
 }
 
-.historial th, .historial td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #e6f5ea;
-}
-
-.historial th {
-  background-color: #e6f5ea;
-  color: #007a3d;
-  font-weight: 600;
-}
-
-.historial tr:hover {
-  background-color: #f5fbf6;
-  transition: 0.2s;
-}
-
-.empty {
-  text-align: center;
-  color: #777;
-  padding: 20px;
-}
-
-/* 🟩 MODALES */
-.modal {
-  position: fixed;
-  inset: 0;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0,0,0,0.35);
-  z-index: 1000;
-}
-
-.modal-content {
-  background: #fff;
-  padding: 25px;
-  border-radius: 16px;
-  width: 90%;
-  max-width: 500px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-.modal-content h3 {
-  color: #007a3d;
-  margin-bottom: 15px;
-}
-
-.modal-content form {
-  display: flex;
-  flex-direction: column;
-  gap: 13px;
-}
-
-.modal-content input,
-.modal-content select {
-  padding: 10px;
-  border: 1px solid #cce6d2;
-  border-radius: 8px;
-  outline: none;
-}
-
-.modal-content input:focus,
-.modal-content select:focus {
-  border-color: #00b050;
-}
-
-/* Header modal */
-.modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
-}
-
-/* Botón X cerrar */
-.close-btn {
-  background: transparent;
-  border: none;
-  font-size: 20px;
-  font-weight: bold;
-  color: #d9534f;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.close-btn:hover {
-  color: #b52b27;
-  transform: scale(1.15);
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
-}
-
-/* 🦶 FOOTER */
+/* ===================== FOOTER ===================== */
 footer {
   text-align: center;
   padding: 15px;
@@ -239,13 +248,4 @@ footer {
   color: #666;
   background-color: #f7fdf8;
   border-top: 1px solid #e6f5ea;
-}
-
-/* 📱 RESPONSIVO */
-@media (max-width: 768px) {
-  .main-content {
-    margin-left: 0;
-    width: 100%;
-    padding: 20px;
-  }
 }

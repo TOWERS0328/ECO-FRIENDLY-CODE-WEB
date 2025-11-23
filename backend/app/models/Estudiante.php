@@ -87,6 +87,18 @@ class Estudiante
         return $perfil;
     }
 
+    public function getPerfilS($id_usuario) {
+        $sql = "SELECT e.id_estudiante, e.nombre, e.apellido, e.genero, e.cedula, e.carrera, 
+                       e.puntos_acumulados, e.foto_perfil, u.correo
+                FROM {$this->table} e
+                JOIN tb_usuarios u ON u.id_usuario = e.id_usuarioE
+                WHERE e.id_usuarioE = :id_usuario
+                LIMIT 1";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':id_usuario' => $id_usuario]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     // 🔹 Obtener todos los estudiantes
     public function getAllEstudiantes()
     {

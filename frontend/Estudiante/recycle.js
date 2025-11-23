@@ -6,8 +6,8 @@ const API_BASE = "http://localhost/ECO-FRIENDLY-CODE-WEB/backend/index.php?route
 
 // Datos del usuario (de la sesión)
 const usuario = JSON.parse(sessionStorage.getItem("usuario"));
-if (!usuario) {
-    // si no hay sesión, redirigir al login
+if (!usuario || !usuario.perfil?.id_estudiante || usuario.rol !== "estudiante") {
+    // si no hay sesión o no es estudiante, redirigir al login
     window.location.href = "../Login/login.html";
 }
 
@@ -36,7 +36,6 @@ async function cargarCatalogo() {
         } else if (data && Array.isArray(data.data)) {
             residuos = data.data;
         } else {
-            // fallback: si backend devuelve objeto con propiedades distintas
             residuos = Array.isArray(data) ? data : (data.residuos || data.data || []);
         }
 
@@ -80,9 +79,8 @@ function renderResiduos(lista) {
         `;
     }).join('');
 
-    // Delegación/añadido de eventos: aseguramos que los botones existan
     contenedor.querySelectorAll(".add-cart").forEach(btn => {
-        btn.removeEventListener("click", onClickAdd); // evita duplicados si se vuelve a renderizar
+        btn.removeEventListener("click", onClickAdd);
         btn.addEventListener("click", onClickAdd);
     });
 }
@@ -93,25 +91,21 @@ function onClickAdd(e) {
 }
 
 // ===============================================
-// AGREGAR AL CARRITO (backend) - envia JSON
-// ===============================================
-// ===============================================
-// AGREGAR AL CARRITO (backend) - envia JSON
+// AGREGAR AL CARRITO (backend)
 // ===============================================
 async function agregarAlCarrito(idResiduo, cantidad = 1) {
-    if (!usuario || !usuario.id_estudiante) {
+    if (!usuario || !usuario.perfil?.id_estudiante) {
         alert("Sesión no válida");
         return;
     }
 
     const payload = {
-        id_estudiante: usuario.id_estudiante,
+        id_estudiante: usuario.perfil.id_estudiante,
         id_residuo: idResiduo,
         cantidad: cantidad
     };
 
     try {
-        // Usamos la ruta canasta.agregar (asegúrate de haberla creado en routes)
         const res = await fetch(`${API_BASE}canasta.agregar`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -119,10 +113,9 @@ async function agregarAlCarrito(idResiduo, cantidad = 1) {
         });
 
         const data = await res.json();
-        console.log("Respuesta agregarCanasta:", data); // DEBUG importante
+        console.log("Respuesta agregarCanasta:", data);
 
         if (data.status === "success") {
-            // actualizar contador y cache local
             await actualizarContadorCanasta();
             alert("Residuo agregado a la canasta ✅");
         } else {
@@ -135,35 +128,25 @@ async function agregarAlCarrito(idResiduo, cantidad = 1) {
     }
 }
 
-
 // ===============================================
-// ACTUALIZAR CONTADOR DE LA CANASTA (backend -> UI)
+// ACTUALIZAR CONTADOR DE LA CANASTA
 // ===============================================
 async function actualizarContadorCanasta() {
-    if (!usuario || !usuario.id_estudiante) return;
+    if (!usuario || !usuario.perfil?.id_estudiante) return;
 
     try {
-        const url = `${API_BASE}canasta.listar&id_estudiante=${encodeURIComponent(usuario.id_estudiante)}`;
-        console.log("Llamando a:", url); // DEBUG
-
+        const url = `${API_BASE}canasta.listar&id_estudiante=${encodeURIComponent(usuario.perfil.id_estudiante)}`;
         const res = await fetch(url);
         const data = await res.json();
-        console.log("Respuesta contar canasta:", data); // DEBUG
 
         let totalCantidad = 0;
-
         if (data && data.status === "success" && Array.isArray(data.canasta)) {
-            // 🔥 SUMA LA CANTIDAD REAL DE CADA RESIDUO
-            data.canasta.forEach(item => {
-                totalCantidad += Number(item.cantidad || 0);
-            });
-
+            data.canasta.forEach(item => totalCantidad += Number(item.cantidad || 0));
             carritoLocal = data.canasta;
         } else {
             carritoLocal = [];
         }
 
-        // 🔥 Actualiza el contador visual
         const el = qs("cart-residuos-count");
         if (el) el.textContent = totalCantidad;
 
@@ -172,60 +155,47 @@ async function actualizarContadorCanasta() {
     }
 }
 
-
-
 // ===============================================
-// ABRIR VISTA CANASTA (redirige a la página del carrito)
+// ABRIR VISTA CANASTA
 // ===============================================
 function abrirCanastaView() {
-    // redirige a la vista dedicada (cartRecycle.html)
-    // Ajusta la ruta si la estructura de carpetas es distinta
     window.location.href = "cartRecycle.html";
 }
 
 // ===============================================
-// BUSCADOR (filtra localmente)
+// BUSCADOR
 // ===============================================
 function activarBuscador() {
     const input = qs("searchResiduo");
     if (!input) return;
-    input.addEventListener("input", () => {
-        const q = input.value.trim().toLowerCase();
-        if (!q) {
-            renderResiduos(residuos);
-            return;
-        }
-        const filtrados = residuos.filter(r =>
-            (r.nombre || "").toString().toLowerCase().includes(q) ||
-            (r.tipo || "").toString().toLowerCase().includes(q)
-        );
-        renderResiduos(filtrados);
-    });
 
-    const btn = qs("btnBuscarResiduo");
-    if (btn) btn.addEventListener("click", () => {
+    const filtrar = () => {
         const q = input.value.trim().toLowerCase();
         if (!q) return renderResiduos(residuos);
         const filtrados = residuos.filter(r =>
-            (r.nombre || "").toString().toLowerCase().includes(q) ||
-            (r.tipo || "").toString().toLowerCase().includes(q)
+            (r.nombre || "").toLowerCase().includes(q) ||
+            (r.tipo || "").toLowerCase().includes(q)
         );
         renderResiduos(filtrados);
-    });
+    };
+
+    input.addEventListener("input", filtrar);
+    const btn = qs("btnBuscarResiduo");
+    if (btn) btn.addEventListener("click", filtrar);
 }
 
 // ===============================================
-// Mostrar puntos del usuario (intenta usar sessionStorage)
+// Mostrar puntos del usuario
 // ===============================================
 function actualizarUserPointsDisplay() {
     const el = qs("userPoints");
     if (!el) return;
-    const pts = usuario?.puntos_acumulados ?? usuario?.puntos ?? 0;
+    const pts = usuario?.perfil?.puntos_acumulados ?? 0;
     el.textContent = pts;
 }
 
 // ===============================================
-// ESCAPE HTML helper (seguridad mínima)
+// ESCAPE HTML helper
 // ===============================================
 function escapeHtml(str) {
     if (!str && str !== 0) return "";
@@ -237,20 +207,34 @@ function escapeHtml(str) {
         .replace(/'/g, "&#039;");
 }
 
+function actualizarImagenUsuario() {
+    const imgHeader = document.querySelector("header .user");
+    if (!imgHeader) return;
+
+    // Verifica que el usuario y su perfil existan
+    if (!usuario || !usuario.perfil) return;
+
+    // Si tiene foto guardada, usa la ruta completa; si no, la imagen por defecto
+    const fotoPerfil = usuario.perfil.foto_perfil
+        ? `http://localhost/ECO-FRIENDLY-CODE-WEB/backend/${usuario.perfil.foto_perfil}`
+        : "../Img/9434619.jpg";
+
+    imgHeader.src = fotoPerfil;
+}
+
 // ===============================================
-// INICIALIZACIÓN AL CARGAR LA PÁGINA
+// INICIALIZACIÓN
 // ===============================================
 document.addEventListener("DOMContentLoaded", () => {
     cargarCatalogo();
     activarBuscador();
+    actualizarImagenUsuario();
 
-    // comportamiento del icono carrito: buscar el wrapper exacto (#cart-residuos)
     const cartWrapper = qs("cart-residuos");
     if (cartWrapper) {
         cartWrapper.style.cursor = "pointer";
         cartWrapper.addEventListener("click", abrirCanastaView);
     } else {
-        // si no existe el wrapper, intentar por el contador (fallback)
         const counter = qs("cart-residuos-count");
         if (counter && counter.parentElement) {
             counter.parentElement.style.cursor = "pointer";

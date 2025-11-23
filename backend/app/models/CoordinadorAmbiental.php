@@ -27,7 +27,11 @@ class CoordinadorAmbiental {
 
     // Obtener perfil de coordinador por id_usuario
    public function getPerfil($id_usuario) {
-        $sql = "SELECT * FROM tb_coordinadores WHERE id_usuarioC = :id_usuario LIMIT 1";
+        $sql = "SELECT c.id_coordinador, c.nombre, c.apellido, c.cedula, c.telefono, u.correo
+                FROM {$this->table} c
+                JOIN tb_usuarios u ON u.id_usuario = c.id_usuarioC
+                WHERE c.id_usuarioC = :id_usuario
+                LIMIT 1";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([':id_usuario' => $id_usuario]);
         return $stmt->fetch(PDO::FETCH_ASSOC);

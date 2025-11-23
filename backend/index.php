@@ -20,6 +20,7 @@ require_once __DIR__ . "/routes/residuo.php";
 require_once __DIR__ . "/routes/actor.php";
 require_once __DIR__ . "/routes/acopio.php";
 require_once __DIR__ . "/routes/canje.php";
+require_once __DIR__ . "/routes/asistente.php";
 
 $route = $_GET['route'] ?? null;
 

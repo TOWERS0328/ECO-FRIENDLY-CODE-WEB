@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrega de Premios | Eco Friendly Code</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Flaticon Icons -->
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+    <!-- Sidebar -->
+    <link rel="stylesheet" href="./Asistente_Sidebar/Sidebar_Asistente.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="Asistente_Entrega_Premio.css">
+</head>
+<body>
+
+<!-- NAV SUPERIOR -->
+<header>
+    <div class="left">
+        <div class="menu-container">
+            <div class="menu" id="menu"><div></div><div></div><div></div></div>
+        </div>
+        <div class="brand">
+            <a href="../home/index.html" class="logo">
+                <h1><span>ECO</span> FRIENDLY</h1>
+                <p>CODE</p>
+            </a>
+        </div>
+    </div>
+    <div class="right">
+        <a href="#" class="btn-cerrar-sesion"><i class="fi fi-rr-exit"></i></a>
+        <img src="../../Img/9434619.jpg" class="user">
+    </div>
+</header>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+    <nav>
+        <ul>
+            <li><a href="Asistente_Dashboard.html"><i class="fi fi-rr-home"></i> <span>Inicio</span></a></li>
+            <li><a href="Asistente_Entrega_Premio.html" class="active"><i class="fi fi-rr-gift"></i> <span>Entrega de Premio</span></a></li>
+            <li><a href="Asistente_Verrificacion_Residuos.html"><i class="fi fi-rr-recycle"></i> <span>Verificar Residuos</span></a></li>
+            <li><a href="Asistente_Reportes.html"><i class="fi fi-rr-document"></i> <span>Reportes</span></a></li>
+            <li><a href="Asistente_Configuracion.html"><i class="fi fi-rr-settings"></i> <span>Configuración</span></a></li>
+        </ul>
+    </nav>
+</div>
+
+<main class="main">
+    <h1 class="titulo">Entrega de Premios</h1>
+    <p class="subtitulo">Premios pendientes por entregar a los estudiantes.</p>
+
+    <!-- BUSCADOR -->
+    <div class="buscador-container">
+        <input type="text" id="buscador" placeholder="Buscar estudiante o premio..." onkeyup="buscarPremios()">
+        <i class="fi fi-rr-search"></i>
+    </div>
+
+    <!-- FILTRO ESTADO -->
+    <div class="filtro-estado">
+        <select id="filtroEstado" onchange="filtrarTabla()">
+            <option value="todos">Todos</option>
+            <option value="pendiente">Pendiente</option> 
+            <option value="entregado">Entregado</option> 
+        </select>
+        <i class="fi fi-rr-angle-down"></i>
+    </div>
+
+    <!-- TABLA -->
+    <div class="tabla-container">
+        <table id="tabla-canjes">
+            <thead>
+                <tr>
+                    <th>ID Canje</th>
+                    <th>Estudiante</th>
+                    <th>Puntos Usados</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Se llenará dinámicamente desde JS -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- MODAL DETALLES / ENTREGA -->
+<div class="modal" id="modalCanje">
+    <div class="modal-content">
+        <button class="btn-cerrar-x" id="btnCerrarModal">&times;</button>
+        <h2>Detalles del Canje</h2>
+        <p><strong>Estudiante:</strong> <span id="modal-estudiante"></span></p>
+        <p><strong>Cédula:</strong> <span id="modal-cedula"></span></p>
+        <p><strong>Fecha:</strong> <span id="modal-fecha"></span></p>
+        <p><strong>Estado:</strong> <span id="modal-estado"></span></p>
+        <p><strong>Puntos Usados:</strong> <span id="modal-puntos"></span></p>
+        <p><strong>Premios:</strong> <span id="modal-premio"></span></p>
+        <p><strong>Cantidad total de premios:</strong> <span id="modal-cantidad"></span></p>
+        <div class="modal-buttons">
+            <button class="btn-entregar" id="btnEntregarModal">Entregar</button>
+        </div>
+    </div>
+</div>
+
+
+</main>
+
+<!-- Scripts -->
+<script src="Asistente_Entrega_Premio.js"></script>
+<script src="./Asistente_Sidebar/Sidebar_Asistente.js"></script>
+</body>
+</html>

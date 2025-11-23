@@ -1,5 +1,4 @@
 const form = document.getElementById("login-form");
-const message = document.getElementById("login-message");
 const popup = document.getElementById("popup-error");
 
 function showPopupError(text) {
@@ -31,16 +30,18 @@ form.addEventListener("submit", async (e) => {
     console.log("Respuesta del backend:", data);
 
     if (data.status === "success") {
-      // Guardar en sessionStorage el perfil completo
-      sessionStorage.setItem(
-        "usuario",
-        JSON.stringify({
-          id_estudiante: data.usuario.id_estudiante, // desde perfil
-          nombre: data.usuario.nombre,
-          rol: data.rol,
-          puntos: data.usuario.puntos_acumulados,
-        })
-      );
+      // Guardar sesión del usuario
+      const perfil = data.usuario;
+
+      // Unificar id_usuario para todos los roles
+      const usuarioData = {
+        id_usuario: perfil.id_usuario || perfil.id_estudiante || perfil.id_coordinador || perfil.id_asistente || perfil.id_entidad,
+        correo: perfil.correo,
+        rol: data.rol,  // tomarlo del campo rol que viene en la respuesta
+        perfil: perfil
+      };
+
+      sessionStorage.setItem("usuario", JSON.stringify(usuarioData));
 
       // Redirigir según rol
       switch (data.rol) {
@@ -53,7 +54,14 @@ form.addEventListener("submit", async (e) => {
         case "entidad":
           window.location.href = "../Entidad/dashboard.html";
           break;
+        case "asistente":
+          window.location.href = "../Asistente/assistant_dashboard.html";
+          break;
+        default:
+          showPopupError("Rol no reconocido");
       }
+    } else {
+      showPopupError(data.message || "Correo o contraseña incorrectos");
     }
   } catch (err) {
     console.error(err);

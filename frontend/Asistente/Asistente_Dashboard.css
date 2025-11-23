@@ -1,0 +1,176 @@
+/* ===============================
+   DASHBOARD ASISTENTE — ESTILO UNIFICADO
+================================= */
+
+body {
+    background-color: #f7fdf8;
+    color: #333;
+    font-family: "Poppins", sans-serif;
+    overflow-x: hidden;
+}
+
+/* ===============================
+            MAIN
+================================= */
+.main {
+    position: relative;
+    margin-top: 6.5rem;
+
+    /* SIN ESPACIO A LA DERECHA */
+    margin-left: 6rem;               /* sidebar cerrado */
+    width: calc(100% - 6rem);        /* ocupa todo el ancho restante */
+
+    padding: 2rem;
+    transition: all .35s ease;
+    overflow-x: hidden;
+}
+
+/* Cuando el sidebar está expandido */
+.sidebar.expand ~ .main {
+    margin-left: 19rem;
+    width: calc(100% - 19rem);       /* ajusta automáticamente */
+}
+
+
+/* ===============================
+       TITULO Y SUBTITULO
+================================= */
+.titulo {
+    font-size: 2.3rem;
+    font-weight: 700;
+    color: #01120a;
+}
+
+.subtitulo {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+/* ===============================
+            CARDS
+================================= */
+.card-dashboard {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 25px;
+    text-align: center;
+
+    box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+    border: 1px solid #e6e6e6;
+
+    transition: .3s ease;
+}
+
+.card-dashboard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+.card-dashboard .icon {
+    font-size: 50px;
+    color: #00b050;
+    margin-bottom: 12px;
+    transition: .3s;
+}
+
+.card-dashboard:hover .icon {
+    color: #1d7a32;
+}
+
+.card-dashboard h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.card-dashboard .numero {
+    font-size: 2.1rem;
+    font-weight: bold;
+    color: #0f5132;
+}
+
+/* ===============================
+            GRÁFICA
+================================= */
+.grafica-card {
+    background: white;
+    border-radius: 14px;
+    padding: 28px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+    border: 1px solid #e6e6e6;
+}
+
+.grafica-card h2 {
+    font-size: 1.3rem;
+    color: #0f5132;
+    margin-bottom: 15px;
+}
+
+/* ===============================
+        ACTIVIDAD RECIENTE
+================================= */
+.actividad-card {
+    background: white;
+    border-radius: 14px;
+    padding: 28px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+    border: 1px solid #e6e6e6;
+}
+
+.actividad-card h2 {
+    font-size: 1.3rem;
+    color: #0f5132;
+    margin-bottom: 15px;
+}
+
+.actividad-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.actividad-lista li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 1rem;
+    padding: 12px 0;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.actividad-lista li:last-child {
+    border-bottom: none;
+}
+
+.actividad-lista i {
+    color: #00b050;
+    font-size: 20px;
+}
+
+/* ===============================
+          RESPONSIVE
+================================= */
+@media (max-width: 992px) {
+    .main {
+        margin-left: 6rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .main {
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    .titulo {
+        font-size: 1.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .titulo {
+        font-size: 1.6rem;
+    }
+}

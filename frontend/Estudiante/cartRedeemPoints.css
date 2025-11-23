@@ -1,0 +1,197 @@
+/* =============================
+   ESTILO DEL CARRITO
+============================= */
+*{
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/* CONTENEDOR HEADER CARRITO */
+.carrito-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    background: #f5f5f5;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    position: relative;
+}
+
+/* PUNTOS ESTUDIANTE - ESQUINA IZQUIERDA */
+.puntos-estudiante {
+    background: #d9fcd1;
+    color: #157d1c;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 1rem;
+}
+
+/* TITULO CARRITO - CENTRADO */
+.carrito-header h1 {
+    margin: 0;
+    color: #1d7a32;
+    font-size: 1.8rem;
+    text-align: center;
+    flex: 1;
+}
+
+/* BOTÓN VOLVER - ESQUINA DERECHA */
+.btn-volver {
+    background: #e6e6e6;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-volver:hover {
+    background: #dcdcdc;
+}
+
+/* ITEMS CARRITO */
+#cart-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 25px 30px;
+}
+
+.item-carrito {
+    background: #e6f5ea; /* Verde claro */
+    border: 2px solid #00b050; /* Verde borde */
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.item-carrito:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.item-carrito img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+.item-carrito h3 {
+    color: #1d7a32;
+    margin-bottom: 5px;
+}
+
+.item-carrito p {
+    color: #555;
+    font-size: 0.95rem;
+    margin-bottom: 5px;
+}
+
+.cantidad {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.cantidad button {
+    padding: 6px 10px;
+    background: #d9fcd1;
+    border: 1px solid #1d7a32;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cantidad button:hover {
+    background: #c8f7be;
+}
+
+.btn-eliminar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #b00000;
+    cursor: pointer;
+}
+
+/* TOTAL + FINALIZAR CANJE */
+.acciones-carrito {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    padding: 0 30px 30px;
+}
+
+.total-puntos {
+    background: #d9fcd1;
+    color: #157d1c;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 1rem;
+}
+
+.btn-acopio {
+    background: #1d7a32;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-acopio:hover {
+    background: #166628;
+}
+
+/* RESPONSIVE */
+@media (max-width: 500px) {
+    .carrito-header {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    #cart-items {
+        grid-template-columns: 1fr;
+    }
+
+    .acciones-carrito {
+        align-items: stretch;
+    }
+
+    .btn-acopio {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .total-puntos {
+        justify-content: center;
+    }
+}   

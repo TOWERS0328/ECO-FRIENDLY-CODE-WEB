@@ -26,9 +26,12 @@ class EntidadRecicladora {
         ]);
     }
 
-    // Obtener perfil de entidad por id_usuario
     public function getPerfil($id_usuario) {
-        $sql = "SELECT * FROM {$this->table} WHERE id_usuarioR = :id_usuario LIMIT 1";
+        $sql = "SELECT r.id_entidad, r.nombre_entidad, r.nit, r.direccion, r.telefono, r.responsable, u.correo
+                FROM {$this->table} r
+                JOIN tb_usuarios u ON u.id_usuario = r.id_usuarioR
+                WHERE r.id_usuarioR = :id_usuario
+                LIMIT 1";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([':id_usuario' => $id_usuario]);
         return $stmt->fetch(PDO::FETCH_ASSOC);

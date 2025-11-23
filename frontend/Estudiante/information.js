@@ -2,10 +2,11 @@
 // CONFIG
 // ============================
 const usuario = JSON.parse(sessionStorage.getItem("usuario"));
-if (!usuario) window.location.href = "../Login/login.html";
+if (!usuario || !usuario.perfil?.id_estudiante || usuario.rol !== "estudiante") {
+    window.location.href = "../Login/login.html";
+}
 
 const API = "http://localhost/ECO-FRIENDLY-CODE-WEB/backend/index.php?route=";
-
 
 // ============================
 // ELEMENTOS DEL DOM
@@ -27,14 +28,12 @@ const passwordConfirm = document.getElementById("confirm-password");
 const form = document.querySelector("form");
 const pointsBox = document.querySelector(".points-box .points");
 
-
 // ============================
 // 1. CARGAR PERFIL REAL
 // ============================
 async function cargarPerfil() {
     try {
-        // --- AHORA SÍ USAMOS UNA RUTA CORRECTA ---
-        const res = await fetch(`${API}estudiante.obtener&id_estudiante=${usuario.id_estudiante}`);
+        const res = await fetch(`${API}estudiante.obtener&id_estudiante=${usuario.perfil.id_estudiante}`);
         const data = await res.json();
 
         if (!data || data.status !== "success") {
@@ -53,53 +52,57 @@ async function cargarPerfil() {
 
         pointsBox.textContent = u.puntos_acumulados || 0;
 
-        profilePreview.src = u.foto_perfil
-            ? `http://localhost/ECO-FRIENDLY-CODE-WEB/backend/${u.foto_perfil}`
-            : "../Img/9434619.jpg";
+        if (profilePreview) {
+            profilePreview.src = u.foto_perfil
+                ? `http://localhost/ECO-FRIENDLY-CODE-WEB/backend/${u.foto_perfil}`
+                : "../Img/9434619.jpg";
+        }
 
     } catch (e) {
         console.error("Error cargarPerfil:", e);
     }
 }
 
-
 // ============================
 // 2. PREVIEW FOTO
 // ============================
-profileBtn.addEventListener("click", () => profileFile.click());
+if (profileBtn && profileFile && profilePreview) {
+    profileBtn.addEventListener("click", () => profileFile.click());
 
-profileFile.addEventListener("change", () => {
-    const f = profileFile.files[0];
-    if (f) profilePreview.src = URL.createObjectURL(f);
-});
-
+    profileFile.addEventListener("change", () => {
+        const f = profileFile.files[0];
+        if (f) profilePreview.src = URL.createObjectURL(f);
+    });
+}
 
 // ============================
 // 3. SUBMIT DEL FORM
 // ============================
-form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+if (form) {
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-    const quiereCambiarContra =
-        passwordNueva.value.trim() !== "" ||
-        passwordConfirm.value.trim() !== "";
+        const quiereCambiarContra =
+            passwordNueva?.value.trim() !== "" ||
+            passwordConfirm?.value.trim() !== "";
 
-    if (quiereCambiarContra) {
-        const ok = await actualizarPassword();
-        if (!ok) return;
-    }
+        if (quiereCambiarContra) {
+            const ok = await actualizarPassword();
+            if (!ok) return;
+        }
 
-    await actualizarDatos();
-});
-
+        await actualizarDatos();
+    });
+}
 
 // ============================
 // 4. ACTUALIZAR DATOS GENERALES
 // ============================
 async function actualizarDatos() {
+    if (!usuario?.perfil?.id_estudiante) return;
 
     const fd = new FormData();
-    fd.append("id_estudiante", usuario.id_estudiante);
+    fd.append("id_estudiante", usuario.perfil.id_estudiante);
 
     fd.append("nombre", nameInput.value.trim());
     fd.append("apellido", lastnameInput.value.trim());
@@ -108,7 +111,7 @@ async function actualizarDatos() {
     fd.append("genero", genderInput.value.trim());
     fd.append("correo", emailInput.value.trim());
 
-    if (profileFile.files.length > 0) {
+    if (profileFile?.files.length > 0) {
         fd.append("foto", profileFile.files[0]);
     }
 
@@ -127,11 +130,11 @@ async function actualizarDatos() {
     }
 }
 
-
 // ============================
 // 5. ACTUALIZAR CONTRASEÑA
 // ============================
 async function actualizarPassword() {
+    if (!passwordNueva || !passwordConfirm) return false;
 
     if (passwordNueva.value.trim() === "" || passwordConfirm.value.trim() === "") {
         alert("Debes llenar los dos campos de contraseña");
@@ -144,7 +147,7 @@ async function actualizarPassword() {
     }
 
     const payload = {
-        id_estudiante: usuario.id_estudiante,
+        id_estudiante: usuario.perfil.id_estudiante,
         nueva: passwordNueva.value,
         confirmar: passwordConfirm.value
     };
@@ -168,8 +171,25 @@ async function actualizarPassword() {
     }
 }
 
+function actualizarImagenUsuarioHeader() {
+    const imgHeader = document.getElementById("header-avatar");
+    if (!imgHeader) return;
+
+    // Verifica que el usuario y su perfil existan
+    if (!usuario || !usuario.perfil) return;
+
+    // Si tiene foto guardada, usa la ruta completa; si no, la imagen por defecto
+    const fotoPerfil = usuario.perfil.foto_perfil
+        ? `http://localhost/ECO-FRIENDLY-CODE-WEB/backend/${usuario.perfil.foto_perfil}`
+        : "../Img/9434619.jpg";
+
+    imgHeader.src = fotoPerfil;
+}
 
 // ============================
 // INICIO
 // ============================
-document.addEventListener("DOMContentLoaded", cargarPerfil);
+document.addEventListener("DOMContentLoaded", () => {
+    cargarPerfil();
+    actualizarImagenUsuarioHeader();
+});

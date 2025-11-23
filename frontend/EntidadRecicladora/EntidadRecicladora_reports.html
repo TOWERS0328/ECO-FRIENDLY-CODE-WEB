@@ -5,95 +5,194 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Reportes | Entidad Recicladora</title>
 
-  <!-- Estilos -->
-  <link rel="stylesheet" href="EntidadRecicladora_Reports.css" />
-  <link rel="stylesheet" href="../GOBAL-CSS/logoEcoBtnInicio.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 
   <!-- Iconos -->
-  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="EntidadRecicladora_Reports.css" />
+  <link rel="stylesheet" href="Sidebar_EntidadRecicladora/SiderbarEntidad.css" />
 </head>
 
 <body>
-  <div class="dashboard-container">
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-      <a href="../home/index.html" class="logo">
-        <h1><span>ECO</span> FRIENDLY</h1>
-        <p>CODE</p>
-      </a>
+<!-- HEADER -->
+<header>
+    <div class="left">
+        <div class="menu-container">
+            <div class="menu" id="menu-btn"><div></div><div></div><div></div></div>
+        </div>
+        <div class="brand">
+            <a href="../home/index.html" class="logo">
+                <h1><span>ECO</span> FRIENDLY</h1>
+                <p>CODE</p>
+            </a>
+        </div>
+    </div>
+    <div class="right">
+        <a href="recicladora_mensajes.html" class="btn-mensajes"><i class="fi fi-rr-comment-alt"></i></a>
+        <a href="#" class="btn-cerrar-sesion"><i class="fi fi-rr-exit"></i></a>
+        <img src="../../Img/9434619.jpg" alt="img-user" class="user">
+    </div>
+</header>
 
-      <div class="user-info">
-        <img src="Img/recicladora.jpg" class="avatar" alt="Recicladora">
-        <h3 class="username">Entidad Recicladora</h3>
-        <p class="email">recicladora@eco.com</p>
-      </div>
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+    <nav>
+        <ul>
+            <li><a href="EntidadRecicladora_dashboard.html"><i class="fi fi-rr-home"></i><span class="text">Inicio</span></a></li>
+            <li><a class="active" href="EntidadRecicladoraReports.html"><i class="fi fi-rr-document"></i><span class="text">Reportes</span></a></li>
+            <li><a href="settings.html"><i class="fi fi-rr-settings"></i><span class="text">Configuración</span></a></li>
+        </ul>
+    </nav>
+</div>
 
-      <nav class="menu">
-        <a href="recicladora_dashboard.html"><i class="fi fi-rr-dashboard"></i> Panel</a>
-        <a class="active" href="EntidadRecicladoraReports.html"><i class="fi fi-rr-document"></i> Reportes</a>
-      </nav>
-    </aside>
+<!-- MAIN -->
+<main class="main p-4">
 
-    <!-- MAIN CONTENT -->
-    <main class="main-content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1><i class="fi fi-rr-document"></i> Reportes</h1>
+    </div>
 
-      <!-- Top Bar -->
-      <header class="top-bar">
-        <h2><i class="fi fi-rr-folder-download"></i> Generación de Reportes</h2>
-      </header>
+    <!-- FILTROS Y BUSCADOR -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <input type="text" id="searchInput" class="form-control" placeholder="Buscar estudiante o categoría...">
+        </div>
+        <div class="col-md-4">
+            <input type="date" id="startDate" class="form-control">
+        </div>
+        <div class="col-md-4">
+            <input type="date" id="endDate" class="form-control">
+        </div>
+    </div>
 
-      <!-- Content -->
-      <section class="reports-container">
-
-        <h3>Reportes Disponibles</h3>
-
+    <!-- REPORTES CARDS -->
+    <section class="reports-container mb-5">
+        <h5 class="mb-3">Reportes Disponibles</h5>
         <div class="reports-grid">
 
-          
-          </div>
-
-          <div class="report-card">
-            <i class="fi fi-rr-tag"></i>
-            <h4>Reporte por Tipo de Residuo</h4>
-            <p>Categorías más comunes entregadas por los estudiantes.</p>
-            <div class="btn-group">
-              <button class="btn pdf">PDF</button>
-              <button class="btn excel">Excel</button>
+            <div class="report-card" data-name="tipo de residuo">
+                <i class="fi fi-rr-tag"></i>
+                <h4>Reporte por Tipo de Residuo</h4>
+                <p>Categorías más comunes entregadas por los estudiantes.</p>
+                <div class="btn-group">
+                    <button class="btn pdf">PDF</button>
+                    <button class="btn excel">Excel</button>
+                </div>
             </div>
-          </div>
+
+            <div class="report-card" data-name="general de reciclaje">
+                <i class="fi fi-rr-recycle"></i>
+                <h4>Reporte General de Reciclaje</h4>
+                <p>Kilos reciclados, entregas y participación.</p>
+                <div class="btn-group">
+                    <button class="btn pdf">PDF</button>
+                    <button class="btn excel">Excel</button>
+                </div>
+            </div>
+
+            <div class="report-card" data-name="estudiante">
+                <i class="fi fi-rr-users"></i>
+                <h4>Reporte por Estudiante</h4>
+                <p>Historial individual de reciclaje.</p>
+                <div class="btn-group">
+                    <button class="btn pdf">PDF</button>
+                    <button class="btn excel">Excel</button>
+                </div>
+            </div>
 
         </div>
+    </section>
 
-      </section>
+    <!-- GRÁFICOS TIPO POWER BI -->
+    <section class="charts-section">
+        <h5 class="mb-3">Visualizaciones Interactivas</h5>
+        <div class="row g-4 charts-grid">
 
-      <!-- CHARTS SECTION -->
-      <section class="charts-section">
-        <h3>Visualizaciones Tipo Power BI</h3>
+            <div class="col-lg-6">
+                <div class="chart-card p-3 border rounded shadow-sm">
+                    <h5>Kilos Reciclados por Semana</h5>
+                    <canvas id="chartSemana"></canvas>
+                </div>
+            </div>
 
-        <div class="charts-grid">
+            <div class="col-lg-6">
+                <div class="chart-card p-3 border rounded shadow-sm">
+                    <h5>Tipos de Residuos</h5>
+                    <canvas id="chartResiduos"></canvas>
+                </div>
+            </div>
 
-          <div class="chart-card">
-            <h4>Kilos Reciclados por Semana</h4>
-            <canvas id="chartSemana"></canvas>
-          </div>
-
-          <div class="chart-card">
-            <h4>Tipos de Residuos Más Frecuentes</h4>
-            <canvas id="chartResiduos"></canvas>
-          </div>
-
-          <div class="chart-card">
-            <h4>Reciclaje Mensual</h4>
-            <canvas id="chartMensual"></canvas>
-          </div>
+            <div class="col-12">
+                <div class="chart-card p-3 border rounded shadow-sm">
+                    <h5>Reciclaje Mensual</h5>
+                    <canvas id="chartMensual"></canvas>
+                </div>
+            </div>
 
         </div>
-      </section>
+    </section>
 
-    </main>
-  </div>
+</main>
+
+<script src="Sidebar_EntidadRecicladora/SiderbarEntidad.js"></script>
+
+<script>
+const ecoPalette = ["#00b050","#1d7a32","#7bd389","#51a7f9","#f4c542","#ff8f6b","#b57edc","#ffa600","#40c4ff"];
+
+/* ----------------- CHARTS ----------------- */
+const chartSemana = new Chart(document.getElementById("chartSemana"), {
+    type: "bar",
+    data: { labels: ["Lun","Mar","Mié","Jue","Vie"], datasets:[{label:"Kg reciclados", data:[5,7,4,9,6], backgroundColor:ecoPalette[0]}]},
+    options: { responsive:true }
+});
+
+const chartResiduos = new Chart(document.getElementById("chartResiduos"), {
+    type:"doughnut",
+    data:{labels:["Plástico","Papel","Vidrio","Metal"], datasets:[{data:[35,25,20,20], backgroundColor:[ecoPalette[0],ecoPalette[3],ecoPalette[4],ecoPalette[6]]}]},
+    options:{ responsive:true }
+});
+
+const chartMensual = new Chart(document.getElementById("chartMensual"), {
+    type:"line",
+    data:{labels:["Ene","Feb","Mar","Abr","May","Jun"], datasets:[{label:"Kg mensuales", data:[40,50,35,60,55,70], borderColor:ecoPalette[1], fill:false, tension:0.3}]},
+    options:{ responsive:true }
+});
+
+/* ----------------- BUSCADOR / FILTRO ----------------- */
+const searchInput = document.getElementById("searchInput");
+const startDate = document.getElementById("startDate");
+const endDate = document.getElementById("endDate");
+const reportCards = document.querySelectorAll(".report-card");
+
+function filterReports() {
+    const searchValue = searchInput.value.toLowerCase();
+    const start = new Date(startDate.value);
+    const end = new Date(endDate.value);
+
+    reportCards.forEach(card => {
+        const name = card.getAttribute("data-name").toLowerCase();
+        let visible = name.includes(searchValue);
+
+        // Si hay rango de fecha, puedes agregar lógica real de filtrado por fechas aquí
+        // Ejemplo: mostrar todas para demo
+        if(startDate.value && endDate.value) visible = visible && true;
+
+        card.style.display = visible ? "block" : "none";
+    });
+}
+
+searchInput.addEventListener("input", filterReports);
+startDate.addEventListener("change", filterReports);
+endDate.addEventListener("change", filterReports);
+
+</script>
 
 </body>
 </html>
