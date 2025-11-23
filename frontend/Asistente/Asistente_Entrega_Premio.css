@@ -1,0 +1,248 @@
+/* ===============================
+   ENTREGA DE PREMIO
+================================= */
+
+body {
+    background-color: #f7fdf8;
+    font-family: "Poppins", sans-serif;
+    overflow-x: hidden;
+}
+
+.main {
+    margin-top: 6.5rem;
+    margin-left: 6rem;
+    width: calc(100% - 6rem);
+    padding: 2rem;
+    transition: .35s ease;
+}
+
+.sidebar.expand ~ .main {
+    margin-left: 19rem;
+    width: calc(100% - 19rem);
+}
+
+.titulo {
+    font-size: 2.3rem;
+    font-weight: 700;
+    color: #01180d;
+}
+
+.subtitulo {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+/* =========================
+   BUSCADOR
+========================= */
+
+.buscador-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.buscador-container input {
+    width: 260px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid #c8e6c9;
+    font-size: 15px;
+    outline: none;
+    transition: .3s;
+}
+
+.buscador-container input:focus {
+    border-color: #00b050;
+    box-shadow: 0 0 6px rgba(0,176,80,0.3);
+}
+
+.buscador-container i {
+    font-size: 20px;
+    color: #00b050;
+}
+
+/* ===============================
+   FILTRO ESTADO
+================================= */
+
+.filtro-estado {
+    position: relative;
+    width: 200px;
+    margin-bottom: 20px;
+}
+
+.filtro-estado select {
+    width: 100%;
+    padding: 12px 40px 12px 15px;
+    border-radius: 12px;
+    border: 1px solid #cfcfcf;
+    font-size: 15px;
+    background: white;
+}
+
+.filtro-estado i {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    font-size: 20px;
+    color: #777;
+}
+
+/* ===============================
+   TABLA
+================================= */
+
+.tabla-container {
+    overflow-x: auto;
+    background: white;
+    padding: 22px;
+    border-radius: 14px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #00b050;
+    color: white;
+}
+
+thead th {
+    padding: 12px;
+    text-align: left;
+    font-size: 15px;
+}
+
+tbody td {
+    padding: 12px;
+    border-bottom: 1px solid #ececec;
+    font-size: 14px;
+}
+
+.estado {
+    padding: 6px 12px;
+    border-radius: 10px;
+    color: white;
+    font-size: 13px;
+}
+
+.estado.entregar {
+    background: #ff9800;
+}
+
+.estado.entregado {
+    background: #1d7a32;
+}
+
+.acciones button {
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    color: white;
+    font-weight: 500;
+}
+
+.btn-entregar {
+    background: #1d7a32;
+}
+
+.btn-entregar:hover {
+    background: #145c27;
+}
+
+.btn-detalles {
+    background: #0096d2;
+}
+
+.btn-detalles:hover {
+    background: #0078a7;
+}
+
+/* ===============================
+   MODAL DETALLES
+================================= */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.5);
+    backdrop-filter: blur(3px);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 25px;
+    width: 420px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    text-align: center;
+}
+
+.modal-content h2 {
+    font-size: 1.5rem;
+    color: #0f5132;
+    margin-bottom: 15px;
+}
+
+.premio-img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.btn-cerrar {
+    background: #777;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 10px;
+}
+
+.btn-entregar-modal {
+    background: #00b050;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 10px;
+}
+
+.btn-entregar-modal:hover {
+    background: #1d7a32;
+}
+
+/* ===============================
+   RESPONSIVE
+================================= */
+
+@media (max-width: 768px) {
+    .main {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .modal-content {
+        width: 90%;
+    }
+}

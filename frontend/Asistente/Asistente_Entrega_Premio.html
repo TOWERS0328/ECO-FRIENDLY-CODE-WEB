@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrega de Premio | Eco Friendly Code</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Flaticon Icons -->
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+    <!-- Sidebar -->
+    <link rel="stylesheet" href="./Asistente_Sidebar/Sidebar_Asistente.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="Asistente_Entrega_Premio.css">
+</head>
+
+<body>
+
+<!-- NAV SUPERIOR -->
+<header>
+    <div class="left">
+        <div class="menu-container">
+            <div class="menu" id="menu">
+                <div></div><div></div><div></div>
+            </div>
+        </div>
+
+        <div class="brand">
+            <a href="../home/index.html" class="logo">
+                <h1><span>ECO</span> FRIENDLY</h1>
+                <p>CODE</p>
+            </a>
+        </div>
+    </div>
+
+    <div class="right">
+        <a href="#" class="btn-cerrar-sesion"><i class="fi fi-rr-exit"></i></a>
+        <img src="../../Img/9434619.jpg" class="user">
+    </div>
+</header>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+    <nav>
+        <ul>
+            <li><a href="Asistente_Dashboard.html"><i class="fi fi-rr-home"></i> <span>Inicio</span></a></li>
+            <li><a href="Asistente_Entrega_Premio.html" class="active"><i class="fi fi-rr-gift"></i> <span>Entrega de Premio</span></a></li>
+            <li><a href="Asistente_Verrificacion_Residuos.html"><i class="fi fi-rr-recycle"></i> <span>Verificar Residuos</span></a></li>
+            <li><a href="Asistente_Reportes.html"><i class="fi fi-rr-document"></i> <span>Reportes</span></a></li>
+            <li><a href="Asistente_Configuracion.html"><i class="fi fi-rr-settings"></i> <span>Configuración</span></a></li>
+            
+        </ul>
+    </nav>
+</div>
+
+<!-- CONTENIDO -->
+<main class="main">
+    <h1 class="titulo">Entrega de Premios</h1>
+    <p class="subtitulo">Premios pendientes por entregar a los estudiantes.</p>
+
+    <!-- BUSCADOR -->
+    <div class="buscador-container">
+        <input type="text" id="buscador" placeholder="Buscar estudiante o premio..." onkeyup="buscarPremios()">
+        <i class="fi fi-rr-search"></i>
+    </div>
+
+    <!-- FILTRO ESTADO -->
+    <div class="filtro-estado">
+        <select id="filtroEstado" onchange="filtrarTabla()">
+            <option value="todos">Todos</option>
+            <option value="entregar">Entregar</option> 
+            <option value="entregado">Entregado</option> 
+        </select>
+        <i class="fi fi-rr-angle-down"></i>
+    </div>
+
+    <!-- TABLA -->
+    <div class="tabla-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Estudiante</th>
+                    <th>Nombre</th>
+                    <th>Carrera</th>
+                    <th>Premio</th>
+                    <th>Fecha Ganado</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody id="tabla-premios">
+
+    <tr>
+        <td>00123</td>
+        <td>Juan Pérez</td>
+        <td>Ingeniería Ambiental</td>
+        <td>Botella Reutilizable</td>
+        <td>10/11/2024</td>
+        <td><span class="estado entregar">Entregar</span></td>
+        <td class="acciones">
+            <button class="btn-entregar">Entregar</button>
+            <button class="btn-detalles" onclick="abrirModal('Botella Reutilizable','Juan Pérez','200')">Detalles</button>
+        </td>
+    </tr>
+
+    <tr>
+        <td>00219</td>
+        <td>Luisa Torres</td>
+        <td>Enfermería</td>
+        <td>Kit Ecológico</td>
+        <td>08/11/2024</td>
+        <td><span class="estado entregar">Entregar</span></td>
+        <td class="acciones">
+            <button class="btn-entregar">Entregar</button>
+            <button class="btn-detalles" onclick="abrirModal('Kit Ecológico','Luisa Torres','350')">Detalles</button>
+        </td>
+    </tr>
+
+    <tr>
+        <td>00345</td>
+        <td>Andrés Morales</td>
+        <td>Administración</td>
+        <td>Cuaderno Reciclado</td>
+        <td>15/10/2024</td>
+        <td><span class="estado entregado">Entregado</span></td>
+        <td class="acciones">
+            <button class="btn-detalles" onclick="abrirModal('Cuaderno Reciclado','Andrés Morales','150')">Detalles</button>
+        </td>
+    </tr>
+
+    <tr>
+        <td>00401</td>
+        <td>Mariana Rivera</td>
+        <td>Psicología</td>
+        <td>Termo Ecológico</td>
+        <td>09/11/2024</td>
+        <td><span class="estado entregar">Entregar</span></td>
+        <td class="acciones">
+            <button class="btn-entregar">Entregar</button>
+            <button class="btn-detalles" onclick="abrirModal('Termo Ecológico','Mariana Rivera','300')">Detalles</button>
+        </td>
+    </tr>
+
+    <tr>
+        <td>00587</td>
+        <td>Kevin Soto</td>
+        <td>Ingeniería de Sistemas</td>
+        <td>Mousepad Reciclado</td>
+        <td>05/11/2024</td>
+        <td><span class="estado entregado">Entregado</span></td>
+        <td class="acciones">
+            <button class="btn-detalles" onclick="abrirModal('Mousepad Reciclado','Kevin Soto','180')">Detalles</button>
+        </td>
+    </tr>
+
+    <tr>
+        <td>00622</td>
+        <td>Gabriela Mejía</td>
+        <td>Contaduría</td>
+        <td>Bolso Ecológico</td>
+        <td>02/11/2024</td>
+        <td><span class="estado entregar">Entregar</span></td>
+        <td class="acciones">
+            <button class="btn-entregar">Entregar</button>
+            <button class="btn-detalles" onclick="abrirModal('Bolso Ecológico','Gabriela Mejía','500')">Detalles</button>
+        </td>
+    </tr>
+
+    <tr>
+        <td>00740</td>
+        <td>Daniel Fernández</td>
+        <td>Diseño Gráfico</td>
+        <td>Sticker Pack Eco</td>
+        <td>28/10/2024</td>
+        <td><span class="estado entregar">Entregar</span></td>
+        <td class="acciones">
+            <button class="btn-entregar">Entregar</button>
+            <button class="btn-detalles" onclick="abrirModal('Sticker Pack Eco','Daniel Fernández','120')">Detalles</button>
+        </td>
+    </tr>
+
+    <tr>
+        <td>00891</td>
+        <td>Laura Martínez</td>
+        <td>Medicina</td>
+        <td>Portalápices Reciclado</td>
+        <td>25/10/2024</td>
+        <td><span class="estado entregado">Entregado</span></td>
+        <td class="acciones">
+            <button class="btn-detalles" onclick="abrirModal('Portalápices Reciclado','Laura Martínez','90')">Detalles</button>
+        </td>
+    </tr>
+
+    <tr>
+        <td>00955</td>
+        <td>Carlos Gómez</td>
+        <td>Derecho</td>
+        <td>Agenda Eco</td>
+        <td>12/11/2024</td>
+        <td><span class="estado entregar">Entregar</span></td>
+        <td class="acciones">
+            <button class="btn-entregar">Entregar</button>
+            <button class="btn-detalles" onclick="abrirModal('Agenda Eco','Carlos Gómez','250')">Detalles</button>
+        </td>
+    </tr>
+
+    <tr>
+        <td>01030</td>
+        <td>Valeria Castaño</td>
+        <td>Arquitectura</td>
+        <td>Bolígrafo Ecológico</td>
+        <td>03/11/2024</td>
+        <td><span class="estado entregar">Entregar</span></td>
+        <td class="acciones">
+            <button class="btn-entregar">Entregar</button>
+            <button class="btn-detalles" onclick="abrirModal('Bolígrafo Ecológico','Valeria Castaño','70')">Detalles</button>
+        </td>
+    </tr>
+
+</tbody>
+
+        </table>
+    </div>
+
+
+    <!-- MODAL DETALLES -->
+    <div id="modalDetalles" class="modal">
+        <div class="modal-content">
+            <h2>Detalles del Premio</h2>
+            <img src="../../Img/eco-premio.png" class="premio-img">
+
+            <p><strong>Premio:</strong> <span id="modal-premio"></span></p>
+            <p><strong>Puntos requeridos:</strong> <span id="modal-puntos"></span> pts</p>
+            <p><strong>Estudiante:</strong> <span id="modal-estudiante"></span></p>
+
+            <div class="modal-buttons">
+                <button class="btn-cerrar" onclick="cerrarModal()">Cerrar</button>
+                <button class="btn-entregar-modal">Confirmar Entrega</button>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<script src="./Asistente_Sidebar/Sidebar_Asistente.js"></script>
+
+<script>
+// --------------------------------------------------
+//  BUSCADOR
+// --------------------------------------------------
+function buscarPremios() {
+    let filtro = document.getElementById("buscador").value.toLowerCase();
+    let filas = document.querySelectorAll("#tabla-premios tr");
+
+    filas.forEach(fila => {
+        fila.style.display = fila.innerText.toLowerCase().includes(filtro) ? "" : "none";
+    });
+}
+
+// --------------------------------------------------
+//  MODAL
+// --------------------------------------------------
+function abrirModal(premio, estudiante, puntos) {
+    document.getElementById("modalDetalles").style.display = "flex";
+    document.getElementById("modal-premio").innerText = premio;
+    document.getElementById("modal-estudiante").innerText = estudiante;
+    document.getElementById("modal-puntos").innerText = puntos;
+}
+
+function cerrarModal() {
+    document.getElementById("modalDetalles").style.display = "none";
+}
+
+// --------------------------------------------------
+//  FILTRAR ESTADO: Entregar / Entregado
+// --------------------------------------------------
+function filtrarTabla() {
+    let estadoSel = document.getElementById("filtroEstado").value;
+    let filas = document.querySelectorAll("#tabla-premios tr");
+
+    filas.forEach(fila => {
+        let estado = fila.querySelector(".estado");
+        if (!estado) return;
+
+        let esEntregar = estado.classList.contains("entregar");
+        let esEntregado = estado.classList.contains("entregado");
+
+        let mostrar =
+            estadoSel === "todos" ||
+            (estadoSel === "entregar" && esEntregar) ||
+            (estadoSel === "entregado" && esEntregado);
+
+        fila.style.display = mostrar ? "" : "none";
+    });
+}
+</script>
+
+</body>
+</html>

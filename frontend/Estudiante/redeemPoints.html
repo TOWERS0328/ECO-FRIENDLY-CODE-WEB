@@ -127,26 +127,5 @@
   <!-- SIDEBAR SCRIPT -->
   <script src="../Estudiante/Sidebar_Estudiantes/GLOBAL-SIDEBAR.js"></script>
 
-  <script>
-    const avatar = document.getElementById('user-avatar');
-    window.addEventListener('load', () => {
-      const savedImage = localStorage.getItem('userAvatar');
-      if (savedImage) avatar.src = savedImage;
-    });
-
-    const cartCount = document.getElementById("cart-count");
-    const buttons = document.querySelectorAll(".add-cart");
-    let count = 0;
-
-    buttons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        count++;
-        cartCount.textContent = count;
-        btn.innerHTML = '<i class="fi fi-rr-check"></i> Agregado';
-        btn.disabled = true;
-      });
-    });
-  </script>
-
 </body>
 </html>
