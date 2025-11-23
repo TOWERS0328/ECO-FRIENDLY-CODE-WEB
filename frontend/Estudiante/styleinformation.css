@@ -90,9 +90,23 @@ body {
   order: 5;
 }
 
-.form-group:has(#password) {
+.form-group:has(#gender) {
   order: 6;
 }
+
+.form-group:has(#password) {
+  order: 7;
+}
+
+.form-group:has(#confirm-password) {
+  order: 7;
+}
+
+.btn.green[type="submit"] {
+  order: 8;
+  flex: 1 1 100%;
+}
+
 
 /* Botón modificar al final */
 .btn.green[type="submit"] {
@@ -213,4 +227,26 @@ footer {
 
 .logout-btn:hover {
   background-color: #00913d;
+}
+
+.password-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.password-wrapper input {
+  flex: 1;
+  padding-right: 35px;
+}
+
+.password-wrapper i {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  color: #555;
+}
+
+.password-wrapper i:hover {
+  color: #00b050;
 }

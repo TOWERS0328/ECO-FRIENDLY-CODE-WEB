@@ -127,5 +127,25 @@ class Canje {
 
         return ["status" => "success", "message" => "Canje realizado correctamente", "id_canje" => $id_canje, "puntos_usados" => $puntosTotales];
     }
+
+    public function listarTodosLosCanjes($id_estudiante) {
+        $sql = "
+            SELECT 
+                c.fecha,
+                p.nombre AS nombre_premio,
+                d.cantidad,
+                d.puntos AS puntos_gastados,
+                c.estado
+            FROM tb_canje c
+            INNER JOIN tb_detalle_canje d ON c.id_canje = d.id_canjeD
+            INNER JOIN premios p ON p.id_premio = d.id_premioD
+            WHERE c.id_estudianteC = ?
+            ORDER BY c.fecha DESC
+        ";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$id_estudiante]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

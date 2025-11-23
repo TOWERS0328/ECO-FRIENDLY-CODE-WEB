@@ -188,4 +188,29 @@ public function eliminarItem() {
     ]);
 }
 
+// ================================
+// 6. LISTAR HISTORIAL DE ACOPIO
+// ================================
+public function listarHistorial() {
+
+    $id_estudiante = $_GET["id_estudiante"] ?? null;
+
+    if (!$id_estudiante) {
+        echo json_encode([
+            "status" => "error",
+            "message" => "ID estudiante requerido"
+        ]);
+        return;
+    }
+
+    $model = new Acopio();
+    $historial = $model->listarAcopios($id_estudiante);
+
+    echo json_encode([
+        "status" => "success",
+        "historial" => $historial
+    ]);
+}
+
+
 }

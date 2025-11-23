@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -40,11 +41,9 @@
         <i class="fi fi-rr-recycle"></i> Registrar Reciclaje
       </a>
 
-      <!-- Avatar -->
       <img src="../Img/9434619.jpg" alt="img-user" class="user" id="header-avatar" style="cursor:pointer;">
       <input type="file" id="header-file" accept="image/*" style="display:none;">
 
-      <!-- Cerrar sesión -->
       <button id="logout-btn" class="logout-btn">
         <i class="fi fi-rr-exit"></i>
       </button>
@@ -76,21 +75,17 @@
       <div class="info-box">
         <form>
 
-          <!-- CAMBIO DE FOTO -->
+          <!-- FOTO -->
           <div class="form-group" style="text-align:center; width:100%;">
             <label><i class="fi fi-rr-camera"></i> Foto de Perfil</label>
 
-            <img id="profile-preview" 
-                 src="../Img/9434619.jpg" 
-                 alt="Foto de perfil"
-                 style="width:130px; height:130px; border-radius:50%; border:3px solid #00b050; object-fit:cover; margin-bottom:10px; cursor:pointer;">
+            <img id="profile-preview" src="../Img/9434619.jpg" alt="Foto de perfil"
+              style="width:130px; height:130px; border-radius:50%; border:3px solid #00b050; object-fit:cover; margin-bottom:10px; cursor:pointer;">
 
             <br>
-
             <button type="button" class="btn green" id="profile-btn">
               <i class="fi fi-rr-picture"></i> Cambiar Foto
             </button>
-
             <input type="file" id="profile-file" accept="image/*" style="display:none;">
           </div>
 
@@ -98,8 +93,6 @@
             <label for="cedula"><i class="fi fi-rr-credit-card"></i> Cédula</label>
             <input type="text" id="cedula" placeholder="Ingresa tu cédula">
           </div>
-
-          
 
           <div class="form-group">
             <label for="name"><i class="fi fi-rr-user"></i> Nombre</label>
@@ -115,14 +108,27 @@
             <label for="career"><i class="fi fi-rr-graduation-cap"></i> Carrera</label>
             <select id="career" required>
               <option value="">Selecciona tu carrera</option>
-              <option value="bilingual_english">Licenciatura en Bilingüismo con énfasis en Inglés</option>
-              <option value="administration">Administración de Empresas</option>
-              <option value="tourism_management">Administración de Empresas Turísticas y Hoteleras</option>
-              <option value="public_accounting">Contaduría Pública</option>
-              <option value="law">Derecho</option>
-              <option value="systems_engineering">Ingeniería de Sistemas</option>
-              <option value="industrial_engineering">Ingeniería Industrial</option>
-              <option value="tech_tourism_services">Tecnología en Gestión de Servicios Turísticos y Hoteleros</option>
+              <option value="Licenciatura en Bilingüismo con énfasis en Inglés">Licenciatura en Bilingüismo con énfasis
+                en Inglés</option>
+              <option value="Administración de Empresas">Administración de Empresas</option>
+              <option value="Administración de Empresas Turísticas y Hoteleras">Administración de Empresas Turísticas y
+                Hoteleras</option>
+              <option value="Contaduría Pública">Contaduría Pública</option>
+              <option value="Derecho">Derecho</option>
+              <option value="Ingeniería de Sistemas">Ingeniería de Sistemas</option>
+              <option value="Ingeniería Industrial">Ingeniería Industrial</option>
+              <option value="Tecnología en Gestión de Servicios Turísticos y Hoteleros">Tecnología en Gestión de
+                Servicios Turísticos y Hoteleros</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="gender"><i class="fi fi-rr-user"></i> Género</label>
+            <select id="gender" required>
+              <option value="">Selecciona tu género</option>
+              <option value="masculino">Masculino</option>
+              <option value="femenino">Femenino</option>
+              <option value="otro">Otro</option>
             </select>
           </div>
 
@@ -132,8 +138,17 @@
           </div>
 
           <div class="form-group">
-            <label for="password"><i class="fi fi-rr-lock"></i> Contraseña</label>
-            <input type="password" id="password" placeholder="Ingresa tu contraseña">
+            <label for="password">
+              <i class="fi fi-rr-lock"></i> Nueva contraseña
+            </label>
+            <input type="password" id="password" placeholder="Ingrese su nueva contraseña" autocomplete="off">
+          </div>
+
+          <div class="form-group">
+            <label for="confirm-password">
+              <i class="fi fi-rr-lock"></i> Confirmar contraseña
+            </label>
+            <input type="password" id="confirm-password" placeholder="Repita la contraseña" autocomplete="off">
           </div>
 
           <button type="submit" class="btn green"><i class="fi fi-rr-edit"></i> Modificar</button>
@@ -154,54 +169,7 @@
   </footer>
 
   <script src="../Estudiante/Sidebar_Estudiantes/GLOBAL-SIDEBAR.js"></script>
-
-  <script>
-    // ELEMENTOS
-    const headerAvatar = document.getElementById("header-avatar");
-    const headerInput = document.getElementById("header-file");
-
-    const preview = document.getElementById("profile-preview");
-    const profileBtn = document.getElementById("profile-btn");
-    const profileInput = document.getElementById("profile-file");
-
-    // --- ABRIR INPUT DESDE AMBOS ---
-    headerAvatar.addEventListener("click", () => headerInput.click());
-    preview.addEventListener("click", () => profileInput.click());
-    profileBtn.addEventListener("click", () => profileInput.click());
-
-    // --- GUARDAR IMAGEN ---
-    function saveImage(file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const img = reader.result;
-
-        headerAvatar.src = img;
-        preview.src = img;
-
-        localStorage.setItem("userAvatar", img);
-      };
-      reader.readAsDataURL(file);
-    }
-
-    headerInput.addEventListener("change", e => saveImage(e.target.files[0]));
-    profileInput.addEventListener("change", e => saveImage(e.target.files[0]));
-
-    // --- CARGAR IMAGEN AL ENTRAR ---
-    window.addEventListener("load", () => {
-      const saved = localStorage.getItem("userAvatar");
-      if (saved) {
-        headerAvatar.src = saved;
-        preview.src = saved;
-      }
-    });
-
-    // --- CERRAR SESIÓN ---
-    document.getElementById("logout-btn").addEventListener("click", () => {
-      localStorage.clear();
-      window.location.href = "/ECO-FRIENDLY-CODE-WEB/frontend/login/login.html";
-    });
-  </script>
-
+  <script src="information.js"></script>
 </body>
-</html>
 
+</html>

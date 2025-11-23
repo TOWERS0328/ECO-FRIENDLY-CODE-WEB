@@ -97,5 +97,27 @@ class CanjeController {
 
         echo json_encode($res);
     }
+
+public function listarHistorial() {
+    $id_estudiante = $_GET["id_estudiante"] ?? null;
+
+    if (!$id_estudiante) {
+        echo json_encode([
+            "status" => "error",
+            "message" => "ID estudiante requerido"
+        ]);
+        return;
+    }
+
+    $model = new Canje();
+    $historial = $model->listarTodosLosCanjes($id_estudiante);
+
+    echo json_encode([
+        "status" => "success",
+        "historial" => $historial
+    ]);
+}
+
+    
 }
 ?>

@@ -161,5 +161,26 @@ public function actualizarEstado($id_acopio, $nuevo_estado) {
     return true;
 }
 
+public function listarAcopios($id_estudiante) {
+        $sql = "
+            SELECT 
+                a.fecha,
+                r.tipo,
+                r.nombre AS nombre_residuo,
+                d.cantidad,
+                d.puntos AS puntos_ganados,
+                a.estado
+            FROM tb_acopio a
+            INNER JOIN tb_detalle_acopio d ON a.id_acopio = d.id_acopioD
+            INNER JOIN residuo r ON r.id_residuo = d.id_residuoD
+            WHERE a.id_estudianteA = ?
+            ORDER BY a.fecha DESC
+        ";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$id_estudiante]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
 }
