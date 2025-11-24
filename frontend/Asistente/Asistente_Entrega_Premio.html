@@ -4,25 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Entrega de Premios | Eco Friendly Code</title>
-
-    <!-- Google Fonts -->
+   <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Flaticon Icons -->
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
 
-    <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 
-    <!-- Sidebar -->
     <link rel="stylesheet" href="./Asistente_Sidebar/Sidebar_Asistente.css">
 
-    <!-- CSS -->
     <link rel="stylesheet" href="Asistente_Entrega_Premio.css">
 </head>
 <body>
 
-<!-- NAV SUPERIOR -->
 <header>
     <div class="left">
         <div class="menu-container">
@@ -37,18 +31,16 @@
     </div>
     <div class="right">
         <a href="#" class="btn-cerrar-sesion"><i class="fi fi-rr-exit"></i></a>
-        <img src="../../Img/9434619.jpg" class="user">
+        <img src="" class="user" id="header-avatar">
     </div>
 </header>
 
-<!-- SIDEBAR -->
 <div class="sidebar" id="sidebar">
     <nav>
         <ul>
             <li><a href="Asistente_Dashboard.html"><i class="fi fi-rr-home"></i> <span>Inicio</span></a></li>
             <li><a href="Asistente_Entrega_Premio.html" class="active"><i class="fi fi-rr-gift"></i> <span>Entrega de Premio</span></a></li>
-            <li><a href="Asistente_Verrificacion_Residuos.html"><i class="fi fi-rr-recycle"></i> <span>Verificar Residuos</span></a></li>
-            <li><a href="Asistente_Reportes.html"><i class="fi fi-rr-document"></i> <span>Reportes</span></a></li>
+            <li><a href="Asistente_Verificacion_Residuos.html"><i class="fi fi-rr-recycle"></i> <span>Verificar Residuos</span></a></li>
             <li><a href="Asistente_Configuracion.html"><i class="fi fi-rr-settings"></i> <span>Configuración</span></a></li>
         </ul>
     </nav>
@@ -58,13 +50,11 @@
     <h1 class="titulo">Entrega de Premios</h1>
     <p class="subtitulo">Premios pendientes por entregar a los estudiantes.</p>
 
-    <!-- BUSCADOR -->
     <div class="buscador-container">
         <input type="text" id="buscador" placeholder="Buscar estudiante o premio..." onkeyup="buscarPremios()">
         <i class="fi fi-rr-search"></i>
     </div>
 
-    <!-- FILTRO ESTADO -->
     <div class="filtro-estado">
         <select id="filtroEstado" onchange="filtrarTabla()">
             <option value="todos">Todos</option>
@@ -74,7 +64,6 @@
         <i class="fi fi-rr-angle-down"></i>
     </div>
 
-    <!-- TABLA -->
     <div class="tabla-container">
         <table id="tabla-canjes">
             <thead>
@@ -88,7 +77,6 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Se llenará dinámicamente desde JS -->
             </tbody>
         </table>
     </div>
@@ -114,7 +102,6 @@
 
 </main>
 
-<!-- Scripts -->
 <script src="Asistente_Entrega_Premio.js"></script>
 <script src="./Asistente_Sidebar/Sidebar_Asistente.js"></script>
 </body>

@@ -130,21 +130,25 @@ class Premio
 
     public function getCatalogoEstudiante()
     {
-        $sql = "SELECT 
-                id_premio,
-                codigo,
-                nombre,
-                puntos_requeridos,
-                stock,
-                imagen
-            FROM {$this->table}
-            WHERE estado = 'activo'
-              AND stock > 0";
+    $sql = "SELECT 
+                p.id_premio,
+                p.codigo,
+                p.nombre AS nombre_premio,
+                p.puntos_requeridos,
+                p.stock,
+                p.imagen,
+                e.nombre AS empresa
+            FROM {$this->table} p
+            LEFT JOIN tb_empresas_patrocinadoras e 
+                ON p.id_empresaP = e.id_empresa
+            WHERE p.estado = 'activo'
+              AND p.stock > 0";
 
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 
     public function actualizarStock($id_premio, $nuevoStock)
     {

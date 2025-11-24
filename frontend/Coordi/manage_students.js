@@ -28,8 +28,9 @@ function renderTablaEstudiantes(lista) {
     tabla.innerHTML = `<tr><td colspan="8" class="empty">No hay resultados.</td></tr>`;
     return;
   }
+
   tabla.innerHTML = lista.map(e => `
-    <tr>
+    <tr data-id="${e.id_estudiante}">
       <td>${e.id_estudiante}</td>
       <td>${e.cedula}</td>
       <td>${e.nombre} ${e.apellido}</td>
@@ -38,13 +39,23 @@ function renderTablaEstudiantes(lista) {
       <td>${e.correo}</td>
       <td>${e.puntos_acumulados ?? 0}</td>
       <td style="display:flex; gap:6px;">
-        <button class="btn small" onclick='abrirModalEditar(${e.id_estudiante})'>
+        <button class="btn small btn-edit">
           <i class="fi fi-rr-pencil"></i> Editar
         </button>
       </td>
     </tr>
   `).join('');
+
+  // Asignar evento a todos los botones de editar
+  tabla.querySelectorAll('.btn-edit').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const tr = e.target.closest('tr');
+      const id_estudiante = Number(tr.dataset.id);
+      abrirModalEditar(id_estudiante);
+    });
+  });
 }
+
 
 // ---------- BUSCAR ESTUDIANTES ----------
 qs('btnBuscar')?.addEventListener('click', () => {
@@ -110,11 +121,12 @@ qs('formRegistrar')?.addEventListener('submit', async (e) => {
 });
 
 function abrirModalEditar(id_estudiante) {
-  const est = estudiantes.find(x => Number(x.id_estudiante) === Number(id_estudiante));
+  console.log("Abrir modal con ID:", id_estudiante); // 🔹 debug
+  const est = estudiantes.find(x => Number(x.id_estudiante) === id_estudiante);
   if (!est) return alert("Estudiante no encontrado");
 
-  qs('modalEditar').style.display = 'flex';
-  qs('formEditar').dataset.editId = id_estudiante;
+  const form = qs('formEditar');
+  form.dataset.editId = id_estudiante;
 
   qs('editId').value = est.id_estudiante;
   qs('editCedula').value = est.cedula || '';
@@ -123,6 +135,10 @@ function abrirModalEditar(id_estudiante) {
   qs('editGender').value = est.genero || '';
   qs('editCareer').value = est.carrera || '';
   qs('editEmail').value = est.correo || '';
+
+  qs('modalEditar').style.display = 'flex';
+
+  console.log("Dataset formEditar:", form.dataset.editId); // 🔹 debug
 }
 
 function cerrarModalEditar() {
@@ -135,21 +151,19 @@ qs('formEditar')?.addEventListener('submit', async (e) => {
   const id_estudiante = Number(qs('formEditar').dataset.editId);
   if (!id_estudiante) return alert("ID inválido");
 
-  const payload = {
-    id_estudiante,
-    nombre: qs('editName').value.trim(),
-    apellido: qs('editLastname').value.trim(),
-    genero: qs('editGender').value,
-    cedula: qs('editCedula').value.trim(),
-    carrera: qs('editCareer').value,
-    correo: qs('editEmail').value.trim()
-  };
+  const formData = new FormData();
+  formData.append('id_estudiante', id_estudiante);
+  formData.append('nombre', qs('editName').value.trim());
+  formData.append('apellido', qs('editLastname').value.trim());
+  formData.append('genero', qs('editGender').value);
+  formData.append('cedula', qs('editCedula').value.trim());
+  formData.append('carrera', qs('editCareer').value);
+  formData.append('correo', qs('editEmail').value.trim());
 
   try {
     const res = await fetch(API_BASE + "estudiante.actualizar", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
+      body: formData
     });
     const json = await res.json();
     if (json.status === "success") {
@@ -164,6 +178,7 @@ qs('formEditar')?.addEventListener('submit', async (e) => {
     alert("Error comunicándose con el servidor.");
   }
 });
+
 
 qs('btnRestablecer')?.addEventListener('click', async () => {
   const id_estudiante = Number(qs('formEditar').dataset.editId);

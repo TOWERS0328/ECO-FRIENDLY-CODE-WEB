@@ -3,9 +3,6 @@ require_once __DIR__ . '/../models/Canje.php';
 
 class CanjeController {
 
-    // ================================
-    // 1. LISTAR CARRITO
-    // ================================
     public function listarCarrito() {
         $input = json_decode(file_get_contents("php://input"), true);
         $id_estudiante = $input["id_estudiante"] ?? $_GET["id_estudiante"] ?? null;
@@ -21,9 +18,6 @@ class CanjeController {
         echo json_encode(["status"=>"success","carrito"=>$carrito]);
     }
 
-    // ================================
-    // 2. AGREGAR AL CARRITO
-    // ================================
     public function agregarCarrito() {
         $data = json_decode(file_get_contents("php://input"), true);
         $id_estudiante = $data["id_estudiante"] ?? null;
@@ -41,9 +35,6 @@ class CanjeController {
         echo json_encode(["status"=>$res ? "success" : "error","message"=>$res ? "Agregado al carrito" : "Error al agregar"]);
     }
 
-    // ================================
-    // 3. ACTUALIZAR CANTIDAD
-    // ================================
     public function actualizarCantidad() {
         $data = json_decode(file_get_contents("php://input"), true);
         $id_estudiante = $data["id_estudiante"] ?? null;
@@ -61,9 +52,6 @@ class CanjeController {
         echo json_encode(["status"=>$res ? "success" : "error","message"=>$res ? "Cantidad actualizada" : "Error al actualizar"]);
     }
 
-    // ================================
-    // 4. ELIMINAR ITEM
-    // ================================
     public function eliminarItem() {
         $data = json_decode(file_get_contents("php://input"), true);
         $id_estudiante = $data["id_estudiante"] ?? null;
@@ -80,9 +68,6 @@ class CanjeController {
         echo json_encode(["status"=>$res ? "success" : "error","message"=>$res ? "Item eliminado" : "Error al eliminar"]);
     }
 
-    // ================================
-    // 5. FINALIZAR CANJE
-    // ================================
     public function finalizarCanje() {
         $data = json_decode(file_get_contents("php://input"), true);
         $id_estudiante = $data["id_estudiante"] ?? null;
@@ -98,9 +83,6 @@ class CanjeController {
         echo json_encode($res);
     }
 
-    // ================================
-    // 6. LISTAR HISTORIAL DE UN ESTUDIANTE
-    // ================================
     public function listarHistorial() {
         $id_estudiante = $_GET["id_estudiante"] ?? null;
 
@@ -121,9 +103,6 @@ class CanjeController {
         ]);
     }
 
-    // ================================
-    // 7. LISTAR CANJES PARA ASISTENTE
-    // ================================
     public function listarCanjesAsistente() {
         $model = new Canje();
         $canjes = $model->listarCanjesParaAsistente();
@@ -134,9 +113,6 @@ class CanjeController {
         ]);
     }
 
-    // ================================
-    // 8. OBTENER DETALLES DE UN CANJE
-    // ================================
     public function obtenerCanje() {
         $id_canje = $_GET['id_canje'] ?? null;
 
@@ -156,9 +132,6 @@ class CanjeController {
         ]);
     }
 
-    // ================================
-    // 9. ENTREGAR CANJE DESDE ASISTENTE
-    // ================================
     public function entregarCanjeAsistente() {
         $data = json_decode(file_get_contents("php://input"), true);
         $id_canje = $data['id_canje'] ?? null;
@@ -191,6 +164,35 @@ class CanjeController {
         echo json_encode(["status" => "error", "message" => "Canje no encontrado"]);
     } else {
         echo json_encode(["status" => "success", "detalles" => $detalles]);
+    }
+}
+
+public function listarCanjesEstudiante() {
+    $id_estudiante = $_GET["id_estudiante"] ?? null;
+
+    if (!$id_estudiante) {
+        echo json_encode([
+            "status" => "error",
+            "message" => "ID estudiante requerido",
+            "historial" => [] // siempre incluir
+        ]);
+        return;
+    }
+
+    try {
+        $model = new Canje();
+        $historial = $model->listarTodosLosCanjes($id_estudiante);
+
+        echo json_encode([
+            "status" => "success",
+            "historial" => $historial ?? [] // nunca undefined
+        ]);
+    } catch (Exception $e) {
+        echo json_encode([
+            "status" => "error",
+            "message" => "Error al listar canjes: " . $e->getMessage(),
+            "historial" => []
+        ]);
     }
 }
 

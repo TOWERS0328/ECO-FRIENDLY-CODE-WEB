@@ -3,81 +3,93 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Eco Friendly Code - Panel de Usuario</title>
+  <title>Historial de Reciclaje | Eco Friendly</title>
 
-  <!-- Estilos globales -->
-  <link rel="stylesheet" href="../GOBAL-CSS/logoEcoBtnInicio.css">
-  <link rel="stylesheet" href="../GOBAL-CSS/style-dashboard.css">
-  <link rel="stylesheet" href="../Estudiante/Sidebar_Estudiantes/GLOBAL-SIDEBAR.css">
-
-  <!-- Estilos específicos -->
-  <link rel="stylesheet" href="styleviewinicial.css">
-
-  <!-- Iconos Flaticon -->
   <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
-  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css">
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="../Estudiante/Sidebar_Estudiantes/GLOBAL-SIDEBAR.css">
+  <link rel="stylesheet" href="styleviewinicial.css">
 </head>
-
 <body>
-  <!-- HEADER -->
-  <header>
-    <div class="left">
-      <div class="menu-container" id="menu">
-        <div class="menu">
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </div>
 
-      <div class="brand">
-        <a href="/ECO-FRIENDLY-CODE-WEB/frontend/home/index.html" class="logo">
-          <h1><span>ECO</span> FRIENDLY</h1>
-          <p>CODE</p>
-        </a>
+<header>
+  <div class="left">
+    <div class="menu-container">
+      <div class="menu" id="menu">
+        <div></div>
+        <div></div>
+        <div></div>
       </div>
     </div>
 
-    <div class="right">
-      <a href="recycle.html" class="btn-reciclar">
-        <i class="fi fi-rr-recycle"></i> Registrar Reciclaje
+    <div class="brand">
+      <a href="../home/index.html" class="logo">
+        <h1><span>ECO</span> FRIENDLY</h1>
+        <p>CODE</p>
       </a>
-      <img src="../Img/9434619.jpg" alt="img-user" class="user">
     </div>
-  </header>
-
-  <!-- SIDEBAR -->
-  <div class="sidebar" id="sidebar">
-    <nav>
-      <ul>
-        <li><a href="viewinicial.html"><i class="fi fi-rr-home"></i><span class="text">Inicio</span></a></li>
-        <li><a href="redeemPoints.html"><i class="fi fi-rr-gift"></i><span class="text">Canjear Premios</span></a></li>
-        <li><a href="recycle.html"><i class="fi fi-rr-recycle"></i><span class="text">Reciclar</span></a></li>
-        <li><a href="historial.html"><i class="fi fi-rr-time-past"></i><span class="text">Historial</span></a></li>
-        <li><a href="information.html"><i class="fi fi-rr-user"></i><span class="text">Perfil</span></a></li>
-      </ul>
-    </nav>
   </div>
 
-  <!-- CONTENIDO PRINCIPAL -->
-  <main class="main-content">
-    <!-- Tu contenido aquí (estadísticas, charts, historial, etc.) -->
-  </main>
+  <div class="right">
+    <a href="recycle.html" class="btn-reciclar">
+      <i class="fi fi-rr-recycle"></i> Registrar Reciclaje
+    </a>
+    <img src="../Img/9434619.jpg" alt="img-user" class="user" id="navFoto">
+  </div>
+</header>
 
-  <!-- MODAL PREVIEW AVATAR -->
-  <div id="preview-modal" class="preview-modal">
-    <span class="close-modal">&times;</span>
-    <img class="preview-content" id="preview-img">
+<div class="sidebar" id="sidebar">
+  <nav>
+    <ul>
+      <li><a href="viewinicial.html"><i class="fi fi-rr-home"></i><span class="text">Inicio</span></a></li>
+      <li><a href="redeemPoints.html"><i class="fi fi-rr-gift"></i><span class="text">Canjear Premios</span></a></li>
+      <li><a href="recycle.html"><i class="fi fi-rr-recycle"></i><span class="text">Reciclar</span></a></li>
+      <li><a href="information.html"><i class="fi fi-rr-user"></i><span class="text">Perfil</span></a></li>
+    </ul>
+  </nav>
+</div>
+
+<main class="main-content">
+  <div class="page-title">
+    <h2><i class="fi fi-rr-time-past"></i> Historial de Reciclaje</h2>
   </div>
 
-  <footer>© 2025 Eco Friendly Code. Todos los derechos reservados.</footer>
+  <h3>Acopios Registrados</h3>
+  <table id="tabla-acopios">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Residuo</th>
+        <th>Tipo</th>
+        <th>Cantidad</th>
+        <th>Puntos Ganados</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
 
-  <!-- JS Sidebar -->
-  <script src="../Estudiante/Sidebar_Estudiantes/GLOBAL-SIDEBAR.js"></script>
-  <script>
-    // Chart + Avatar code
-  </script>
+  <h3>Historial de Canjes</h3>
+  <table id="tabla-canjear">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Premio</th>
+        <th>Cantidad</th>
+        <th>Puntos Gastados</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</main>
+
+<div id="preview-modal" class="preview-modal">
+  <span class="close-modal">&times;</span>
+  <img class="preview-content" id="preview-img">
+</div>
+
+<script src="../Estudiante/Sidebar_Estudiantes/GLOBAL-SIDEBAR.js"></script>
+<script src="viewinicial.js"></script>
+
 </body>
 </html>

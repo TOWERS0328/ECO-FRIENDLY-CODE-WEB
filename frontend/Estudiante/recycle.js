@@ -1,34 +1,20 @@
-// recycle.js (CORREGIDO)
-// ===============================================
-// CONFIG
-// ===============================================
 const API_BASE = "http://localhost/ECO-FRIENDLY-CODE-WEB/backend/index.php?route=";
 
-// Datos del usuario (de la sesión)
 const usuario = JSON.parse(sessionStorage.getItem("usuario"));
 if (!usuario || !usuario.perfil?.id_estudiante || usuario.rol !== "estudiante") {
-    // si no hay sesión o no es estudiante, redirigir al login
-    window.location.href = "../Login/login.html";
+ window.location.href = "../formularios/login.html";
 }
 
-// Variables globales
-let residuos = [];    // catálogo
-let carritoLocal = []; // datos de la canasta obtenidos del backend
+let residuos = []; 
+let carritoLocal = [];
 
-// ======================
-// UTIL - selector rápido
-// ======================
 function qs(id) { return document.getElementById(id); }
 
-// ===============================================
-// CARGAR CATÁLOGO (desde backend) y render inicial
-// ===============================================
 async function cargarCatalogo() {
     try {
         const res = await fetch(`${API_BASE}residuo.catalogo`);
         const data = await res.json();
 
-        // Soportar distintos formatos de respuesta
         if (Array.isArray(data)) {
             residuos = data;
         } else if (data && data.status === "success" && Array.isArray(data.residuos)) {
@@ -49,9 +35,6 @@ async function cargarCatalogo() {
     }
 }
 
-// ===============================================
-// RENDERIZAR TARJETAS DEL CATÁLOGO
-// ===============================================
 function renderResiduos(lista) {
     const contenedor = qs("contenedorResiduos");
     if (!contenedor) return;
@@ -90,12 +73,9 @@ function onClickAdd(e) {
     agregarAlCarrito(Number(id));
 }
 
-// ===============================================
-// AGREGAR AL CARRITO (backend)
-// ===============================================
 async function agregarAlCarrito(idResiduo, cantidad = 1) {
     if (!usuario || !usuario.perfil?.id_estudiante) {
-        alert("Sesión no válida");
+        console.warn("Sesión no válida");
         return;
     }
 
@@ -117,20 +97,14 @@ async function agregarAlCarrito(idResiduo, cantidad = 1) {
 
         if (data.status === "success") {
             await actualizarContadorCanasta();
-            alert("Residuo agregado a la canasta ✅");
         } else {
-            alert(data.message || "No se pudo agregar el residuo");
-            console.warn("agregarAlCarrito:", data);
+            console.warn("No se pudo agregar el residuo:", data);
         }
     } catch (err) {
         console.error("agregarAlCarrito error:", err);
-        alert("Error al agregar residuo");
     }
 }
 
-// ===============================================
-// ACTUALIZAR CONTADOR DE LA CANASTA
-// ===============================================
 async function actualizarContadorCanasta() {
     if (!usuario || !usuario.perfil?.id_estudiante) return;
 
@@ -155,16 +129,11 @@ async function actualizarContadorCanasta() {
     }
 }
 
-// ===============================================
-// ABRIR VISTA CANASTA
-// ===============================================
+
 function abrirCanastaView() {
     window.location.href = "cartRecycle.html";
 }
 
-// ===============================================
-// BUSCADOR
-// ===============================================
 function activarBuscador() {
     const input = qs("searchResiduo");
     if (!input) return;
@@ -184,9 +153,6 @@ function activarBuscador() {
     if (btn) btn.addEventListener("click", filtrar);
 }
 
-// ===============================================
-// Mostrar puntos del usuario
-// ===============================================
 function actualizarUserPointsDisplay() {
     const el = qs("userPoints");
     if (!el) return;
@@ -194,9 +160,6 @@ function actualizarUserPointsDisplay() {
     el.textContent = pts;
 }
 
-// ===============================================
-// ESCAPE HTML helper
-// ===============================================
 function escapeHtml(str) {
     if (!str && str !== 0) return "";
     return String(str)
@@ -210,11 +173,8 @@ function escapeHtml(str) {
 function actualizarImagenUsuario() {
     const imgHeader = document.querySelector("header .user");
     if (!imgHeader) return;
-
-    // Verifica que el usuario y su perfil existan
     if (!usuario || !usuario.perfil) return;
 
-    // Si tiene foto guardada, usa la ruta completa; si no, la imagen por defecto
     const fotoPerfil = usuario.perfil.foto_perfil
         ? `http://localhost/ECO-FRIENDLY-CODE-WEB/backend/${usuario.perfil.foto_perfil}`
         : "../Img/9434619.jpg";
@@ -222,9 +182,6 @@ function actualizarImagenUsuario() {
     imgHeader.src = fotoPerfil;
 }
 
-// ===============================================
-// INICIALIZACIÓN
-// ===============================================
 document.addEventListener("DOMContentLoaded", () => {
     cargarCatalogo();
     activarBuscador();

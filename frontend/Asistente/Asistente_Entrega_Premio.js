@@ -1,52 +1,94 @@
+// ===============================================
+// CONFIGURACIÓN
+// ===============================================
 const API_BASE = "http://localhost/ECO-FRIENDLY-CODE-WEB/backend/index.php?route=";
 
-// ================================
-// VARIABLES DEL MODAL (renombradas)
-// ================================
-const modalCanje = document.getElementById("modalCanje");
-const btnCerrarModal = document.getElementById("btnCerrarModal");
-const btnEntregarModal = document.getElementById("btnEntregarModal");
+// Obtener datos del asistente desde sessionStorage
+const usuario = JSON.parse(sessionStorage.getItem("usuario"));
+if (!usuario || !usuario.perfil?.id_asistente || usuario.rol !== "asistente") {
+    window.location.href = "../Login/login.html"; // redirige si no hay sesión válida
+}
+
+// ===============================================
+// UTIL - selector rápido
+// ===============================================
+function qs(id) { return document.getElementById(id); }
+
+// ===============================================
+// ACTUALIZAR IMAGEN DEL HEADER
+// ===============================================
+function actualizarImagenUsuario() {
+    const imgHeader = document.getElementById("header-avatar");
+    if (!imgHeader) return;
+
+    // Verifica que el usuario y su perfil existan
+    if (!usuario || !usuario.perfil) return;
+
+    const fotoPerfil = usuario.perfil.foto_perfil
+        ? `http://localhost/ECO-FRIENDLY-CODE-WEB/backend/${usuario.perfil.foto_perfil}`
+        : "../../Img/9434619.jpg";
+
+    imgHeader.src = fotoPerfil;
+}
+
+
+// ===============================================
+// CERRAR SESIÓN
+// ===============================================
+function cerrarSesion() {
+    sessionStorage.removeItem("usuario");
+    window.location.href = "../Login/login.html";
+}
+
+// ===============================================
+// VARIABLES DEL MODAL
+// ===============================================
+const modalCanje = qs("modalCanje");
+const btnCerrarModal = qs("btnCerrarModal");
+const btnEntregarModal = qs("btnEntregarModal");
 let canjeActualId = null;
 
-// ================================
-// CARGAR TODOS LOS CANJES PARA EL ASISTENTE
-// ================================
+// ===============================================
+// CARGAR TODOS LOS CANJES
+// ===============================================
 async function cargarCanjes() {
-    const tabla = document.getElementById("tabla-canjes").querySelector("tbody");
-    if (!tabla) return;
+    const tbody = document.querySelector("#tabla-canjes tbody");
+    if (!tbody) return;
 
     try {
         const res = await fetch(`${API_BASE}canje.listarCanjesAsistente`);
-        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const data = await res.json();
 
         if (data.status !== "success") throw new Error(data.message);
 
-        renderTablaCanjes(data.canjes);
+        renderTablaCanjes(data.canjes || []);
     } catch (error) {
         console.error("Error al cargar canjes:", error);
-        tabla.innerHTML = `<tr><td colspan="7">Error al cargar los canjes</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="7">Error al cargar los canjes</td></tr>`;
     }
 }
 
-// ================================
+// ===============================================
 // RENDERIZAR TABLA DE CANJES
-// ================================
+// ===============================================
 function renderTablaCanjes(canjes) {
-    const tbody = document.getElementById("tabla-canjes").querySelector("tbody");
+    const tbody = document.querySelector("#tabla-canjes tbody");
     tbody.innerHTML = "";
 
-    // Agrupar por id_canje
     const canjesAgrupados = {};
     canjes.forEach(item => {
         if (!canjesAgrupados[item.id_canje]) {
-            canjesAgrupados[item.id_canje] = { ...item };
+            canjesAgrupados[item.id_canje] = { ...item, premios: [] };
         }
+        canjesAgrupados[item.id_canje].premios.push({
+            nombre_premio: item.nombre_premio,
+            cantidad: item.cantidad,
+            puntos: item.puntos_gastados
+        });
     });
 
     Object.values(canjesAgrupados).forEach(canje => {
         const tr = document.createElement("tr");
-
         tr.innerHTML = `
             <td>${canje.id_canje}</td>
             <td>${canje.nombre_estudiante} ${canje.apellido_estudiante}</td>
@@ -61,9 +103,9 @@ function renderTablaCanjes(canjes) {
     });
 }
 
-// ================================
+// ===============================================
 // ABRIR MODAL Y CARGAR DETALLES
-// ================================
+// ===============================================
 async function abrirModal(id_canje) {
     canjeActualId = id_canje;
 
@@ -78,48 +120,45 @@ async function abrirModal(id_canje) {
 
         const canje = data.detalles;
 
-        // Datos generales
-        document.getElementById("modal-estudiante").textContent = canje.nombre_estudiante + " " + canje.apellido_estudiante;
-        document.getElementById("modal-cedula").textContent = canje.cedula;
-        document.getElementById("modal-fecha").textContent = canje.fecha;
-        document.getElementById("modal-estado").textContent = canje.estado;
-        document.getElementById("modal-puntos").textContent = canje.puntos_usados;
-        document.getElementById("modal-cantidad").textContent = canje.cantidad_total;
+        qs("modal-estudiante").textContent = canje.nombre_estudiante + " " + canje.apellido_estudiante;
+        qs("modal-cedula").textContent = canje.cedula;
+        qs("modal-fecha").textContent = canje.fecha;
+        qs("modal-estado").textContent = canje.estado;
+        qs("modal-puntos").textContent = canje.puntos_usados;
+        qs("modal-cantidad").textContent = canje.premios.reduce((acc, p) => acc + p.cantidad, 0);
 
-        // Lista de premios
-        const listaPremios = canje.premios.map(p => `${p.nombre_premio} x${p.cantidad} (${p.puntos} pts)`).join("<br>");
-        document.getElementById("modal-premio").innerHTML = listaPremios;
+        qs("modal-premio").innerHTML = canje.premios
+            .map(p => `${p.nombre_premio} x${p.cantidad} (${p.puntos} pts)`)
+            .join("<br>");
 
-        modalCanje.style.display = "block";
+        modalCanje.style.display = "flex";
     } catch (error) {
         console.error(error);
         alert("Error al cargar detalles del canje");
     }
 }
 
-// ================================
+// ===============================================
 // CERRAR MODAL
-// ================================
+// ===============================================
 btnCerrarModal.addEventListener("click", () => {
     modalCanje.style.display = "none";
 });
 
-// ================================
+// ===============================================
 // ENTREGAR CANJE
-// ================================
+// ===============================================
 btnEntregarModal.addEventListener("click", async () => {
     if (!canjeActualId) return;
 
     try {
-        const formData = new FormData();
-        formData.append("id_canje", canjeActualId);
-
         const res = await fetch(`${API_BASE}canje.entregarPremio`, {
             method: "POST",
-            body: formData
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id_canje: canjeActualId })
         });
-
         const data = await res.json();
+
         if (data.status === "success") {
             alert("Canje entregado correctamente");
             modalCanje.style.display = "none";
@@ -133,34 +172,33 @@ btnEntregarModal.addEventListener("click", async () => {
     }
 });
 
-// ================================
+// ===============================================
 // BUSCADOR Y FILTRO
-// ================================
+// ===============================================
 function buscarPremios() {
-    const input = document.getElementById("buscador").value.toLowerCase();
+    const input = qs("buscador").value.toLowerCase();
     const rows = document.querySelectorAll("#tabla-canjes tbody tr");
-
     rows.forEach(row => {
-        const text = row.textContent.toLowerCase();
-        row.style.display = text.includes(input) ? "" : "none";
+        row.style.display = row.textContent.toLowerCase().includes(input) ? "" : "none";
     });
 }
 
 function filtrarTabla() {
-    const filtro = document.getElementById("filtroEstado").value;
+    const filtro = qs("filtroEstado").value;
     const rows = document.querySelectorAll("#tabla-canjes tbody tr");
-
     rows.forEach(row => {
         const estado = row.cells[4].textContent.toLowerCase();
-        if (filtro === "todos") {
-            row.style.display = "";
-        } else {
-            row.style.display = (estado === filtro) ? "" : "none";
-        }
+        row.style.display = (filtro === "todos" || estado === filtro) ? "" : "none";
     });
 }
 
-// ================================
+// ===============================================
 // INICIALIZACIÓN
-// ================================
-document.addEventListener("DOMContentLoaded", cargarCanjes);
+// ===============================================
+document.addEventListener("DOMContentLoaded", () => {
+    actualizarImagenUsuario();
+    cargarCanjes();
+
+    const btnCerrar = document.querySelector(".btn-cerrar-sesion");
+    if (btnCerrar) btnCerrar.addEventListener("click", cerrarSesion);
+});

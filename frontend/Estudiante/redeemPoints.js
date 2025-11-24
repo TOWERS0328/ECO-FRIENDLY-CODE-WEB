@@ -1,32 +1,25 @@
-// redeemPoints.js (actualizado)
-// --------------------------------
+
 const API_BASE = "http://localhost/ECO-FRIENDLY-CODE-WEB/backend/index.php?route=";
 
-// Obtener usuario de sessionStorage
 const usuario = JSON.parse(sessionStorage.getItem("usuario"));
 if (!usuario || !usuario.perfil?.id_estudiante) {
-    window.location.href = "../Login/login.html";
+ window.location.href = "../formularios/login.html";
 }
 
-// Variables internas
 let premios = [];
 
 function qs(id) { return document.getElementById(id); }
 
-// ============================
-// 1. CARGAR CATÁLOGO Y ESTADO INICIAL
-// ============================
 async function init() {
     await cargarCatalogo();
     await actualizarContadorCarrito();
-    await actualizarPuntosUsuario(); // obtiene puntos desde el modelo Estudiante
+    await actualizarPuntosUsuario();
 }
 
 async function cargarCatalogo() {
     try {
         const res = await fetch(`${API_BASE}premio.catalogo`);
         const json = await res.json();
-        // Manejar distintas formas de respuesta
         premios = Array.isArray(json) ? json : (json.data || []);
         renderPremios(premios);
     } catch (err) {
@@ -36,9 +29,6 @@ async function cargarCatalogo() {
     }
 }
 
-// ============================
-// 2. RENDER DE PREMIOS
-// ============================
 function renderPremios(lista) {
     const contenedor = qs("contenedorPremios");
     if (!contenedor) return;
@@ -49,11 +39,19 @@ function renderPremios(lista) {
     }
 
     contenedor.innerHTML = lista.map(p => {
-        const imgURL = p.imagen ? `http://localhost/ECO-FRIENDLY-CODE-WEB/backend/${p.imagen}` : "https://via.placeholder.com/200x150?text=Sin+Imagen";
-        const puntosText = (p.puntos_requeridos !== undefined) ? `<i class="fi fi-rr-badge-check" style="color:#00b050;"></i> ${p.puntos_requeridos} pts` : "— pts";
+        const imgURL = p.imagen 
+            ? `http://localhost/ECO-FRIENDLY-CODE-WEB/backend/${p.imagen}` 
+            : "https://via.placeholder.com/200x150?text=Sin+Imagen";
+
+        const puntosText = (p.puntos_requeridos !== undefined) 
+            ? `<i class="fi fi-rr-badge-check" style="color:#00b050;"></i> ${p.puntos_requeridos} pts` 
+            : "— pts";
+
         const stockHTML = (p.stock !== undefined) 
-            ? `<span class="stock"><i class="fi fi-rr-box-alt"></i> <span>${p.stock}</span></span>` 
+            ? `<span class="stock"><i class="fi fi-rr-box-alt"></i> Stock: <span>${p.stock}</span></span>` 
             : "";
+
+        const empresaHTML = p.empresa ? `<span class="empresa"><i class="fi fi-rr-briefcase"></i> ${escapeHtml(p.empresa)}</span>` : "";
 
         return `
             <div class="card">
@@ -61,6 +59,7 @@ function renderPremios(lista) {
                 <h3>${escapeHtml(p.nombre || '')}</h3>
                 <span class="puntos">${puntosText}</span>
                 ${stockHTML}
+                ${empresaHTML}
                 <button class="add-cart" data-id="${p.id_premio}">
                     <i class="fi fi-rr-shopping-cart-add"></i> Agregar
                 </button>
@@ -68,15 +67,11 @@ function renderPremios(lista) {
         `;
     }).join('');
 
-    // Delegar eventos
     contenedor.querySelectorAll(".add-cart").forEach(btn => {
         btn.addEventListener("click", () => agregarAlCarrito(Number(btn.dataset.id)));
     });
 }
 
-// ============================
-// pequeña función para evitar XSS
-// ============================
 function escapeHtml(s) {
     if (s === null || s === undefined) return "";
     return String(s)
@@ -87,9 +82,6 @@ function escapeHtml(s) {
         .replace(/'/g, "&#039;");
 }
 
-// ============================
-// 3. AGREGAR PREMIO AL CARRITO
-// ============================
 async function agregarAlCarrito(idPremio) {
     const idEstudiante = usuario.perfil?.id_estudiante;
     if (!idEstudiante) return;
@@ -107,7 +99,6 @@ async function agregarAlCarrito(idPremio) {
         console.log("Agregar al carrito:", data);
 
         if (data.status === "success") {
-            // ✅ Solo actualizar el contador, no mostrar alert
             await actualizarContadorCarrito();
         } else {
             console.warn(data.message || "No se pudo agregar al carrito");
@@ -118,9 +109,6 @@ async function agregarAlCarrito(idPremio) {
 }
 
 
-// ============================
-// 4. ACTUALIZAR CONTADOR DE CARRITO
-// ============================
 async function actualizarContadorCarrito() {
     const idEstudiante = usuario.perfil?.id_estudiante;
     if (!idEstudiante) return;
@@ -150,9 +138,6 @@ async function actualizarContadorCarrito() {
     }
 }
 
-// ============================
-// 5. OBTENER Y MOSTRAR PUNTOS DEL ESTUDIANTE
-// ============================
 async function actualizarPuntosUsuario() {
     const idEstudiante = usuario.perfil?.id_estudiante;
     if (!idEstudiante) return;
@@ -180,18 +165,12 @@ async function actualizarPuntosUsuario() {
     }
 }
 
-// ============================
-// 6. BUSCADOR DE PREMIOS
-// ============================
 function buscarPremios() {
     const filtro = (qs("searchPremio")?.value || "").trim().toLowerCase();
     const filtrados = premios.filter(p => (p.nombre || "").toLowerCase().includes(filtro));
     renderPremios(filtrados);
 }
 
-// ============================
-// 7. ABRIR CARRITO (vista)
-// ============================
 function abrirCarritoView() {
     window.location.href = "cartRedeempoints.html";
 }
@@ -211,9 +190,6 @@ function actualizarImagenUsuario() {
     imgHeader.src = fotoPerfil;
 }
 
-// ============================
-// 8. EVENTOS INICIALES
-// ============================
 document.addEventListener("DOMContentLoaded", () => {
     init();
     actualizarImagenUsuario();

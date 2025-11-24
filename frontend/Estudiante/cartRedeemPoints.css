@@ -171,7 +171,6 @@
     background: #166628;
 }
 
-/* RESPONSIVE */
 @media (max-width: 500px) {
     .carrito-header {
         flex-direction: column;

@@ -12,7 +12,7 @@ class Empresa {
 
     // 1️⃣ Listar todas las empresas
     public function getEmpresasActivas() {
-        $sql = "SELECT id_empresa, nit, nombre, logo, contacto, estado 
+        $sql = "SELECT id_empresa, nit, nombre, contacto, estado 
                 FROM {$this->table} 
                 WHERE estado = 'activo'";
         $stmt = $this->conn->prepare($sql);
@@ -21,13 +21,13 @@ class Empresa {
     }
 
     // 2️⃣ Registrar nueva empresa
-    public function registrar($nit, $nombre, $logo, $contacto) {
-        $sql = "INSERT INTO {$this->table} (nit, nombre, logo, contacto, estado) 
-                VALUES (:nit, :nombre, :logo, :contacto, 'activo')";
+    public function registrar($nit, $nombre,$contacto) {
+        $sql = "INSERT INTO {$this->table} (nit, nombre, contacto, estado) 
+                VALUES (:nit, :nombre, :contacto, 'activo')";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':nit', $nit);
         $stmt->bindParam(':nombre', $nombre);
-        $stmt->bindParam(':logo', $logo);
+
         $stmt->bindParam(':contacto', $contacto);
         if($stmt->execute()){
             return ["status"=>"success", "message"=>"Empresa registrada correctamente"];
@@ -37,15 +37,14 @@ class Empresa {
     }
 
     // 3️⃣ Editar empresa existente
-    public function actualizar($id_empresa, $nit, $nombre, $logo, $contacto, $estado) {
+    public function actualizar($id_empresa, $nit, $nombre, $contacto, $estado) {
         $sql = "UPDATE {$this->table} 
-                SET nit = :nit, nombre = :nombre, logo = :logo, contacto = :contacto, estado = :estado
+                SET nit = :nit, nombre = :nombre, contacto = :contacto, estado = :estado
                 WHERE id_empresa = :id_empresa";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':id_empresa', $id_empresa);
         $stmt->bindParam(':nit', $nit);
         $stmt->bindParam(':nombre', $nombre);
-        $stmt->bindParam(':logo', $logo);
         $stmt->bindParam(':contacto', $contacto);
         $stmt->bindParam(':estado', $estado);
         if($stmt->execute()){
@@ -65,7 +64,7 @@ class Empresa {
     }
 
     public function getEmpresas() {
-    $sql = "SELECT id_empresa, nit, nombre, logo, contacto, estado 
+    $sql = "SELECT id_empresa, nit, nombre, contacto, estado 
             FROM {$this->table}";
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();

@@ -68,7 +68,7 @@ class Estudiante
             ':genero' => $genero,
             ':cedula' => $cedula,
             ':carrera' => $carrera,
-            ':foto_perfil' => "uploads/estudiantes/default.png"
+            ':foto_perfil' => "uploads/estudiantes/default.jpg"
         ]);
     }
 
@@ -81,7 +81,7 @@ class Estudiante
         $perfil = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($perfil && empty($perfil['foto_perfil'])) {
-            $perfil['foto_perfil'] = "uploads/estudiantes/default.png";
+            $perfil['foto_perfil'] = "uploads/estudiantes/default.jpg";
         }
 
         return $perfil;
@@ -138,7 +138,7 @@ public function getAllEstudiantesConPassword()
         $perfil = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($perfil && empty($perfil['foto_perfil'])) {
-            $perfil['foto_perfil'] = "uploads/estudiantes/default.png";
+            $perfil['foto_perfil'] = "uploads/estudiantes/default.jpg";
         }
 
         return $perfil;

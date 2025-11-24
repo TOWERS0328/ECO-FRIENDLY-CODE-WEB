@@ -55,7 +55,7 @@ form.addEventListener("submit", async (e) => {
           window.location.href = "../Entidad/dashboard.html";
           break;
         case "asistente":
-          window.location.href = "../Asistente/assistant_dashboard.html";
+          window.location.href = "../Asistente/Asistente_Dashboard.html";
           break;
         default:
           showPopupError("Rol no reconocido");

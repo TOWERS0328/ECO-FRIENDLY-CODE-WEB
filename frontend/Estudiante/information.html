@@ -5,19 +5,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Eco Friendly Code - Información del Usuario</title>
-
-  <!-- Estilos -->
   <link rel="stylesheet" href="styleinformation.css" />
   <link rel="stylesheet" href="../Estudiante/Sidebar_Estudiantes/GLOBAL-SIDEBAR.css">
-
-  <!-- ICONOS -->
   <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
   <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css">
 </head>
 
 <body>
-
-  <!-- NAV + SIDEBAR -->
   <header>
     <div class="left">
       <div class="menu-container">
@@ -29,7 +23,7 @@
       </div>
 
       <div class="brand">
-        <a href="/ECO-FRIENDLY-CODE-WEB/frontend/home/index.html" class="logo">
+        <a href="../home/index.html" class="logo">
           <h1><span>ECO</span> FRIENDLY</h1>
           <p>CODE</p>
         </a>
@@ -50,20 +44,17 @@
     </div>
   </header>
 
-  <!-- SIDEBAR -->
   <div class="sidebar" id="sidebar">
     <nav>
       <ul>
         <li><a href="viewinicial.html"><i class="fi fi-rr-home"></i><span class="text">Inicio</span></a></li>
         <li><a href="redeemPoints.html"><i class="fi fi-rr-gift"></i><span class="text">Canjear Premios</span></a></li>
         <li><a href="recycle.html"><i class="fi fi-rr-recycle"></i><span class="text">Reciclar</span></a></li>
-        <li><a href="historial.html"><i class="fi fi-rr-time-past"></i><span class="text">Historial</span></a></li>
         <li><a href="information.html"><i class="fi fi-rr-user"></i><span class="text">Perfil</span></a></li>
       </ul>
     </nav>
   </div>
 
-  <!-- MAIN CONTENT -->
   <main class="main-content">
 
     <div class="page-title">
@@ -75,7 +66,6 @@
       <div class="info-box">
         <form>
 
-          <!-- FOTO -->
           <div class="form-group" style="text-align:center; width:100%;">
             <label><i class="fi fi-rr-camera"></i> Foto de Perfil</label>
 
@@ -135,20 +125,6 @@
           <div class="form-group">
             <label for="email"><i class="fi fi-rr-envelope"></i> Correo Electrónico</label>
             <input type="email" id="email" placeholder="Ingresa tu correo electrónico">
-          </div>
-
-          <div class="form-group">
-            <label for="password">
-              <i class="fi fi-rr-lock"></i> Nueva contraseña
-            </label>
-            <input type="password" id="password" placeholder="Ingrese su nueva contraseña" autocomplete="off">
-          </div>
-
-          <div class="form-group">
-            <label for="confirm-password">
-              <i class="fi fi-rr-lock"></i> Confirmar contraseña
-            </label>
-            <input type="password" id="confirm-password" placeholder="Repita la contraseña" autocomplete="off">
           </div>
 
           <button type="submit" class="btn green"><i class="fi fi-rr-edit"></i> Modificar</button>

@@ -1,22 +1,15 @@
-// ============================
-// CONFIGURACIÓN
-// ============================
 const API = "http://localhost/ECO-FRIENDLY-CODE-WEB/backend/index.php?route=";
 const usuario = JSON.parse(sessionStorage.getItem("usuario"));
 
-// Validación de sesión y rol estudiante
 if (!usuario || !usuario.perfil?.id_estudiante || usuario.rol !== "estudiante") {
-    window.location.href = "../Login/login.html";
+    window.location.href = "../Formularios/login.html";
 }
 
 function qs(id) { return document.getElementById(id); }
 
 let itemsCarrito = [];
-let puntosEstudiante = 0; // puntos reales del estudiante
+let puntosEstudiante = 0;
 
-// ============================
-// CARGAR PUNTOS DEL ESTUDIANTE
-// ============================
 async function cargarPuntosEstudiante() {
     const idEstudiante = usuario.perfil.id_estudiante;
     try {
@@ -26,7 +19,6 @@ async function cargarPuntosEstudiante() {
         if (data.status === "success") {
             puntosEstudiante = Number(data.data.puntos_acumulados || 0);
             qs("puntosEstudiante").textContent = `${puntosEstudiante} pts`;
-            // actualizar sessionStorage
             usuario.perfil.puntos_acumulados = puntosEstudiante;
             sessionStorage.setItem("usuario", JSON.stringify(usuario));
         } else {
@@ -37,9 +29,6 @@ async function cargarPuntosEstudiante() {
     }
 }
 
-// ============================
-// CARGAR CARRITO DE PREMIOS
-// ============================
 async function cargarCarrito() {
     const idEstudiante = usuario.perfil.id_estudiante;
     try {
@@ -58,9 +47,6 @@ async function cargarCarrito() {
     }
 }
 
-// ============================
-// RENDERIZAR CARRITO
-// ============================
 function renderCarrito() {
     const cont = qs("cart-items");
     if (!itemsCarrito.length) {
@@ -109,9 +95,6 @@ function renderCarrito() {
     activarBotones();
 }
 
-// ============================
-// ACTIVAR BOTONES DEL CARRITO
-// ============================
 function activarBotones() {
     // Aumentar cantidad
     document.querySelectorAll(".btn-mas").forEach(btn => {
@@ -121,7 +104,6 @@ function activarBotones() {
         });
     });
 
-    // Disminuir cantidad
     document.querySelectorAll(".btn-menos").forEach(btn => {
         btn.addEventListener("click", () => {
             const id = btn.dataset.id;
@@ -129,7 +111,6 @@ function activarBotones() {
         });
     });
 
-    // Eliminar item
     document.querySelectorAll(".btn-eliminar").forEach(btn => {
         btn.addEventListener("click", () => {
             eliminarItem(btn.dataset.id);
@@ -137,9 +118,6 @@ function activarBotones() {
     });
 }
 
-// ============================
-// ACTUALIZAR CANTIDAD
-// ============================
 async function actualizarCantidad(id_premio, cambio) {
     const item = itemsCarrito.find(i => i.id_premio == id_premio);
     if (!item) return;
@@ -176,9 +154,6 @@ async function actualizarCantidad(id_premio, cambio) {
     }
 }
 
-// ============================
-// ELIMINAR ITEM
-// ============================
 async function eliminarItem(id_premio) {
     const payload = { id_estudiante: usuario.perfil.id_estudiante, id_premio };
 
@@ -199,9 +174,6 @@ async function eliminarItem(id_premio) {
     }
 }
 
-// ============================
-// FINALIZAR CANJE
-// ============================
 async function finalizarCanje() {
     if (!itemsCarrito.length) {
         alert("Tu carrito está vacío");

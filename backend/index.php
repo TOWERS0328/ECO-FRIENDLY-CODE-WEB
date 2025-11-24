@@ -1,9 +1,10 @@
 <?php
 ini_set('display_errors', 0);
 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
-ini_set('display_errors', 0);
-ini_set('display_startup_errors', 0);
-error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type");
@@ -13,6 +14,7 @@ header("Content-Type: application/json");
 $routes = []; // array global que contendrá todas las rutas
 
 // Cargar rutas por módulo
+require_once __DIR__ . "/routes/dashboard.php";
 require_once __DIR__ . "/routes/estudiante.php";
 require_once __DIR__ . "/routes/premio.php";
 require_once __DIR__ . "/routes/empresa.php";

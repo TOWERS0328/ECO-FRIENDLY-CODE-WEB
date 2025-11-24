@@ -14,10 +14,6 @@ class Canje {
         $database = new Database();
         $this->conn = $database->getConnection();
     }
-
-    // ================================
-    // 1. LISTAR CARRITO TEMPORAL
-    // ================================
     public function listarCarrito($id_estudiante)
 {
     $sql = "SELECT c.id_detalle_temp, c.id_premioC AS id_premio, c.cantidad,
@@ -30,10 +26,6 @@ class Canje {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-
-    // ================================
-    // 2. AGREGAR AL CARRITO TEMPORAL
-    // ================================
     public function agregarCarrito($id_estudiante, $id_premio, $cantidad)
     {
         $sql = "SELECT * FROM $this->tableCarrito 
@@ -55,9 +47,6 @@ class Canje {
         }
     }
 
-    // ================================
-    // 3. ACTUALIZAR CANTIDAD EN CARRITO
-    // ================================
     public function actualizarCantidad($id_estudiante, $id_premio, $cantidad)
     {
         if ($cantidad <= 0) return $this->eliminarItem($id_estudiante, $id_premio);
@@ -67,9 +56,6 @@ class Canje {
         return $stmt->execute([$cantidad, $id_estudiante, $id_premio]);
     }
 
-    // ================================
-    // 4. ELIMINAR ITEM DEL CARRITO
-    // ================================
     public function eliminarItem($id_estudiante, $id_premio)
     {
         $sql = "DELETE FROM $this->tableCarrito WHERE id_estudianteC = ? AND id_premioC = ?";
@@ -77,9 +63,6 @@ class Canje {
         return $stmt->execute([$id_estudiante, $id_premio]);
     }
 
-    // ================================
-    // 5. LIMPIAR CARRITO
-    // ================================
     public function limpiarCarrito($id_estudiante)
     {
         $sql = "DELETE FROM $this->tableCarrito WHERE id_estudianteC = ?";
@@ -177,7 +160,7 @@ class Canje {
                 c.estado
             FROM tb_canje c
             INNER JOIN tb_detalle_canje d ON c.id_canje = d.id_canjeD
-            INNER JOIN premios p ON p.id_premio = d.id_premioD
+            INNER JOIN tb_premios p ON p.id_premio = d.id_premioD
             WHERE c.id_estudianteC = ?
             ORDER BY c.fecha DESC
         ";
@@ -300,6 +283,13 @@ public function obtenerDetallesCanje($id_canje) {
     return $canje;
 }
 
+public function contarPorEstado($estado) {
+        $sql = "SELECT COUNT(*) as total FROM {$this->tableCanje} WHERE estado = :estado";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':estado' => $estado]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['total'] ?? 0;
+    }
 
 }
 ?>

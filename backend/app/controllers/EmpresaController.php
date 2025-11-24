@@ -25,7 +25,6 @@ class EmpresaController {
 
         $nit = $data['nit'] ?? null;
         $nombre = $data['nombre'] ?? null;
-        $logo = $data['logo'] ?? null;
         $contacto = $data['contacto'] ?? null;
 
         if (!$nit || !$nombre) {
@@ -36,7 +35,7 @@ class EmpresaController {
             return;
         }
 
-        $resultado = $this->empresa->registrar($nit, $nombre, $logo, $contacto);
+        $resultado = $this->empresa->registrar($nit, $nombre,$contacto);
         echo json_encode($resultado);
     }
 
@@ -47,7 +46,6 @@ class EmpresaController {
         $id_empresa = $data['id_empresa'] ?? null;
         $nit = $data['nit'] ?? null;
         $nombre = $data['nombre'] ?? null;
-        $logo = $data['logo'] ?? null;
         $contacto = $data['contacto'] ?? null;
         $estado = $data['estado'] ?? 'activo';
 
@@ -59,7 +57,7 @@ class EmpresaController {
             return;
         }
 
-        $resultado = $this->empresa->actualizar($id_empresa, $nit, $nombre, $logo, $contacto, $estado);
+        $resultado = $this->empresa->actualizar($id_empresa, $nit, $nombre, $contacto, $estado);
         echo json_encode($resultado);
     }
 

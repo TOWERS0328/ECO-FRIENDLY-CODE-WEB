@@ -23,7 +23,7 @@ async function cargarEmpresas() {
   } catch (err) {
     console.error("Error al cargar empresas:", err);
     const tbody = qs("tablaEmpresas").querySelector("tbody");
-    tbody.innerHTML = `<tr><td colspan="6" class="empty">Error cargando empresas.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="5" class="empty">Error cargando empresas.</td></tr>`;
   }
 }
 
@@ -31,17 +31,16 @@ function renderTablaEmpresas() {
   const tbody = qs("tablaEmpresas").querySelector("tbody");
 
   if (!empresas.length) {
-    tbody.innerHTML = `<tr><td colspan="6" class="empty">No hay empresas.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="5" class="empty">No hay empresas.</td></tr>`;
     return;
   }
 
   tbody.innerHTML = empresas.map(e => {
-    // normalizar campos para evitar desbordes si vienen null/undefined
     const id = e.id_empresa ?? "";
     const nit = e.nit ?? "";
     const nombre = e.nombre ?? "";
     const contacto = e.contacto ?? "";
-    const estado = (e.estado ?? "activo");
+    const estado = e.estado ?? "activo";
 
     return `
       <tr>
@@ -62,7 +61,6 @@ function renderSelectEmpresas() {
   const selReg = qs("regEmpresa");
   const selEdit = qs("editEmpresa");
 
-  // si faltan selects (por seguridad), salir
   if (!selReg || !selEdit) return;
 
   [selReg, selEdit].forEach(sel => {
@@ -74,8 +72,8 @@ function renderSelectEmpresas() {
 }
 
 // ==========================================================
-//  EMPRESAS ACTIVAS PARA PREMIOS (devuelve data)
- // ==========================================================
+//  EMPRESAS ACTIVAS PARA PREMIOS
+// ==========================================================
 async function cargarEmpresasActivasParaPremio() {
   try {
     const res = await fetch(API_BASE + "empresa.listarActivas");
@@ -117,7 +115,7 @@ async function cargarPremios() {
     renderTablaPremios(premios);
   } catch (err) {
     console.error("Error al cargar premios:", err);
-    qs("resultadoTabla").innerHTML = `<tr><td colspan="8" class="empty">Error cargando premios.</td></tr>`;
+    qs("resultadoTabla").innerHTML = `<tr><td colspan="9" class="empty">Error cargando premios.</td></tr>`;
   }
 }
 
@@ -125,12 +123,11 @@ function renderTablaPremios(lista) {
   const tabla = qs("resultadoTabla");
 
   if (!lista || !lista.length) {
-    tabla.innerHTML = `<tr><td colspan="8" class="empty">No hay resultados.</td></tr>`;
+    tabla.innerHTML = `<tr><td colspan="9" class="empty">No hay resultados.</td></tr>`;
     return;
   }
 
   tabla.innerHTML = lista.map(p => {
-    // Construir URL absoluta de la imagen
     const imagenUrl = p.imagen 
       ? `http://localhost/ECO-FRIENDLY-CODE-WEB/backend/${p.imagen}`
       : null;
@@ -148,15 +145,14 @@ function renderTablaPremios(lista) {
           ${imagenUrl
             ? `<img src="${imagenUrl}" alt="${p.nombre}" style="width:50px; height:auto; border-radius:4px; margin-right:6px;">`
             : `<span style="font-size:12px; color:#888;">No imagen</span>`}
-            </td>
-            <td>
+        </td>
+        <td>
           <button class="btn small green" onclick="abrirModalEditarPremio(${p.id_premio})">Editar</button>
         </td>
       </tr>
     `;
   }).join('');
 }
-
 
 // ==========================================================
 //  BUSQUEDA DE PREMIOS
@@ -177,12 +173,11 @@ qs("searchId")?.addEventListener("keyup", ev => {
 });
 
 // ==========================================================
-//  MODALES DE PREMIOS
+//  MODALES PREMIOS
 // ==========================================================
 qs("btnNuevo")?.addEventListener("click", async () => {
   qs("modalRegistrar").style.display = "flex";
   qs("formRegistrar").reset();
-  // cargar sólo empresas activas para crear premio
   await cargarEmpresasActivasParaPremio();
 });
 
@@ -190,7 +185,6 @@ function cerrarModalRegistrarPremio() {
   qs("modalRegistrar").style.display = "none";
 }
 
-// abrir modal editar premio: carga empresas activas y selecciona la que tenga el premio (si está activa)
 async function abrirModalEditarPremio(id) {
   const premio = premios.find(p => Number(p.id_premio) === Number(id));
   if (!premio) return alert("Premio no encontrado");
@@ -205,12 +199,10 @@ async function abrirModalEditarPremio(id) {
   qs("editStock").value = premio.stock ?? "";
   qs("editImagen").value = "";
 
-  // cargar empresas activas
-  const activos = await cargarEmpresasActivasParaPremio();
+  await cargarEmpresasActivasParaPremio();
   const select = qs("editEmpresa");
   if (select) select.value = premio.id_empresaP ?? "";
 
-  // mostrar preview de la imagen
   const container = qs("editImagen").parentElement.querySelector(".preview-container");
   container.innerHTML = "";
   if (premio.imagen) {
@@ -225,7 +217,6 @@ async function abrirModalEditarPremio(id) {
   qs("modalEditar").style.display = "flex";
 }
 
-
 function cerrarModalEditarPremio() {
   qs("modalEditar").style.display = "none";
   delete qs("formEditar").dataset.editId;
@@ -234,7 +225,7 @@ function cerrarModalEditarPremio() {
 }
 
 // ==========================================================
-//  MODALES DE EMPRESAS
+//  MODALES EMPRESAS
 // ==========================================================
 qs("btnNuevaEmpresa")?.addEventListener("click", () => {
   qs("modalEmpresa").style.display = "flex";
@@ -252,7 +243,6 @@ function abrirModalEditarEmpresa(id) {
   qs("editEmpId").value = emp.id_empresa ?? "";
   qs("editEmpNIT").value = emp.nit ?? "";
   qs("editEmpNombre").value = emp.nombre ?? "";
-  qs("editEmpLogo").value = emp.logo ?? "";
   qs("editEmpContacto").value = emp.contacto ?? "";
   qs("editEmpEstado").value = emp.estado ?? "activo";
 
@@ -264,7 +254,74 @@ function cerrarModalEditarEmpresa() {
 }
 
 // ==========================================================
-//  FORMULARIOS - REGISTRAR PREMIO
+//  FORMULARIOS EMPRESAS
+// ==========================================================
+qs("formEmpresa").addEventListener("submit", async e => {
+  e.preventDefault();
+
+  const payload = {
+    nit: qs("empNIT").value.trim(),
+    nombre: qs("empNombre").value.trim(),
+    contacto: qs("empContacto").value.trim()
+  };
+
+  try {
+    const res = await fetch(API_BASE + "empresa.registrar", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    const json = await res.json();
+    alert(json.message || "Registrado");
+
+    if (json.status === "success") {
+      cerrarModalEmpresa();
+      await cargarEmpresas();
+      await cargarEmpresasActivasParaPremio();
+    }
+
+  } catch (err) {
+    console.error(err);
+    alert("Error con el servidor");
+  }
+});
+
+qs("formEditarEmpresa").addEventListener("submit", async e => {
+  e.preventDefault();
+
+  const payload = {
+    id_empresa: qs("editEmpId").value,
+    nit: qs("editEmpNIT").value.trim(),
+    nombre: qs("editEmpNombre").value.trim(),
+    contacto: qs("editEmpContacto").value.trim(),
+    estado: qs("editEmpEstado").value
+  };
+
+  try {
+    const res = await fetch(API_BASE + "empresa.actualizar", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    const json = await res.json();
+    alert(json.message || "Actualizado");
+
+    if (json.status === "success") {
+      cerrarModalEditarEmpresa();
+      await cargarEmpresas();
+      await cargarEmpresasActivasParaPremio();
+    }
+
+  } catch (err) {
+    console.error(err);
+    alert("Error con el servidor");
+  }
+});
+
+// ==========================================================
+//  FORMULARIOS PREMIOS
 // ==========================================================
 qs("formRegistrar").addEventListener("submit", async e => {
   e.preventDefault();
@@ -281,12 +338,10 @@ qs("formRegistrar").addEventListener("submit", async e => {
   try {
     const res = await fetch(API_BASE + "premio.crear", {
       method: "POST",
-      body: formData // NO JSON, usamos FormData
+      body: formData
     });
     const json = await res.json();
-
     alert(json.message || "Registrado");
-
     if (json.status === "success") {
       cerrarModalRegistrarPremio();
       await cargarPremios();
@@ -297,10 +352,6 @@ qs("formRegistrar").addEventListener("submit", async e => {
   }
 });
 
-
-// ==========================================================
-//  FORMULARIOS - EDITAR PREMIO
-// ==========================================================
 qs("formEditar").addEventListener("submit", async e => {
   e.preventDefault();
 
@@ -321,87 +372,11 @@ qs("formEditar").addEventListener("submit", async e => {
       body: formData
     });
     const json = await res.json();
-
     alert(json.message || "Actualizado");
-
     if (json.status === "success") {
       cerrarModalEditarPremio();
       await cargarPremios();
     }
-  } catch (err) {
-    console.error(err);
-    alert("Error con el servidor");
-  }
-});
-
-
-// ==========================================================
-//  FORMULARIOS - REGISTRAR EMPRESA
-// ==========================================================
-qs("formEmpresa").addEventListener("submit", async e => {
-  e.preventDefault();
-
-  const payload = {
-    nit: qs("empNIT").value.trim(),
-    nombre: qs("empNombre").value.trim(),
-    logo: qs("empLogo").value.trim(),
-    contacto: qs("empContacto").value.trim()
-  };
-
-  try {
-    const res = await fetch(API_BASE + "empresa.registrar", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-
-    const json = await res.json();
-    alert(json.message || "Registrado");
-
-    if (json.status === "success") {
-      cerrarModalEmpresa();
-      // refrescar lista completa y también el select de empresas activas
-      await cargarEmpresas();
-      await cargarEmpresasActivasParaPremio();
-    }
-
-  } catch (err) {
-    console.error(err);
-    alert("Error con el servidor");
-  }
-});
-
-// ==========================================================
-//  FORMULARIOS - EDITAR EMPRESA
-// ==========================================================
-qs("formEditarEmpresa").addEventListener("submit", async e => {
-  e.preventDefault();
-
-  const payload = {
-    id_empresa: qs("editEmpId").value,
-    nit: qs("editEmpNIT").value.trim(),
-    nombre: qs("editEmpNombre").value.trim(),
-    logo: qs("editEmpLogo").value.trim(),
-    contacto: qs("editEmpContacto").value.trim(),
-    estado: qs("editEmpEstado").value
-  };
-
-  try {
-    const res = await fetch(API_BASE + "empresa.actualizar", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-
-    const json = await res.json();
-    alert(json.message || "Actualizado");
-
-    if (json.status === "success") {
-      cerrarModalEditarEmpresa();
-      await cargarEmpresas();
-      await cargarEmpresasActivasParaPremio(); // actualizar selects de premios
-    }
-
   } catch (err) {
     console.error(err);
     alert("Error con el servidor");
@@ -414,9 +389,5 @@ qs("formEditarEmpresa").addEventListener("submit", async e => {
 document.addEventListener("DOMContentLoaded", () => {
   cargarEmpresas();
   cargarPremios();
-  // cargar también las activas para que los selects empiecen bien
   cargarEmpresasActivasParaPremio();
 });
-
-
-

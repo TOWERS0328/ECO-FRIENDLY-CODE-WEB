@@ -4,9 +4,7 @@ require_once __DIR__ . '/../models/Estudiante.php';
 
 class EstudianteController
 {
-    /* -------------------------------------------------
-     *  REGISTRAR ESTUDIANTE
-     * -------------------------------------------------*/
+
     public function registrar()
     {
         $data = json_decode(file_get_contents("php://input"), true);
@@ -81,10 +79,6 @@ class EstudianteController
         }
     }
 
-
-    /* -------------------------------------------------
-     *  LISTAR ESTUDIANTES
-     * -------------------------------------------------*/
     public function listar()
     {
         header("Content-Type: application/json");
@@ -92,10 +86,6 @@ class EstudianteController
         echo json_encode($estModel->getAllEstudiantes());
     }
 
-
-    /* -------------------------------------------------
-     *  ACTUALIZAR PERFIL (FOTO / DATOS PERSONALES)
-     * -------------------------------------------------*/
     public function actualizar()
     {
         header("Content-Type: application/json");
@@ -145,7 +135,6 @@ class EstudianteController
             }
         }
 
-        /* ------------ FOTO ------------ */
         $fotoPath = null;
 
         if (!empty($_FILES["foto"]["name"])) {

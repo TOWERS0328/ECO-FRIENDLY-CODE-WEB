@@ -14,97 +14,48 @@
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Animate CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-
     <!-- Sidebar CSS -->
     <link rel="stylesheet" href="./Asistente_Sidebar/Sidebar_Asistente.css">
 
     <!-- Dashboard CSS -->
     <link rel="stylesheet" href="Asistente_Dashboard.css">
 </head>
-
 <body>
 
-<header class="animate__animated animate__fadeInDown">
+<header>
     <div class="left">
-
-        <!-- Botón Hamburguesa -->
         <div class="menu-container">
             <div class="menu" id="menu">
-                <div></div>
-                <div></div>
-                <div></div>
+                <div></div><div></div><div></div>
             </div>
         </div>
-
-        <!-- LOGO -->
         <div class="brand">
             <a href="../home/index.html" class="logo">
                 <h1><span>ECO</span> FRIENDLY</h1>
                 <p>CODE</p>
             </a>
         </div>
-
     </div>
 
     <div class="right">
-
-        <!-- Cerrar sesión -->
         <a href="#" class="btn-cerrar-sesion">
             <i class="fi fi-rr-exit"></i>
         </a>
-
-        <!-- Imagen usuario -->
-        <img src="../../Img/9434619.jpg" alt="img-user" class="user">
+        <img src="" alt="img-user" class="user">
     </div>
-
 </header>
-
 
 <!-- SIDEBAR -->
 <div class="sidebar" id="sidebar">
     <nav>
         <ul>
-            <li>
-                <a href="Asistente_Dashboard.html" class="active">
-                    <i class="fi fi-rr-home"></i>
-                    <span class="text">Inicio</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="Asistente_Entrega_Premio.html">
-                    <i class="fi fi-rr-gift"></i>
-                    <span class="text">Entrega de Premio</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="Asistente_Verrificacion_Residuos.html">
-                    <i class="fi fi-rr-recycle"></i>
-                    <span class="text">Verificación de Residuos</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="Asistente_Reportes.html">
-                    <i class="fi fi-rr-document"></i>
-                    <span class="text">Reportes</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="Asistente_Configuracion.html">
-                    <i class="fi fi-rr-settings"></i>
-                    <span class="text">Configuración</span>
-                </a>
-            </li>
-
+            <li><a href="Asistente_Dashboard.html" class="active"><i class="fi fi-rr-home"></i><span class="text">Inicio</span></a></li>
+            <li><a href="Asistente_Entrega_Premio.html"><i class="fi fi-rr-gift"></i><span class="text">Entrega de Premio</span></a></li>
+            <li><a href="Asistente_Verificacion_Residuos.html"><i class="fi fi-rr-recycle"></i><span class="text">Verificación de Residuos</span></a></li>
+            <li><a href="Asistente_Configuracion.html"><i class="fi fi-rr-settings"></i><span class="text">Configuración</span></a></li>
         </ul>
     </nav>
 </div>
-
 
 <!-- CONTENIDO DEL DASHBOARD -->
 <main class="main">
@@ -115,76 +66,51 @@
     <!-- CARDS PRINCIPALES -->
     <div class="row g-4 mt-2">
 
-        <div class="col-md-4">
-            <div class="card-dashboard shadow-sm animate__animated animate__fadeInUp">
+        <!-- Residuos pendientes -->
+        <div class="col-md-6">
+            <div class="card-dashboard shadow-sm">
                 <i class="fi fi-rr-recycle icon"></i>
                 <h3>Residuos Pendientes</h3>
-                <p class="numero">12</p>
+                <p class="numero" id="residuosPendientes">0</p>
             </div>
         </div>
 
-        <div class="col-md-4">
-            <div class="card-dashboard shadow-sm animate__animated animate__fadeInUp">
-                <i class="fi fi-rr-shopping-cart-check icon"></i>
-                <h3>Carritos por Validar</h3>
-                <p class="numero">5</p>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card-dashboard shadow-sm animate__animated animate__fadeInUp">
+        <!-- Premios por entregar -->
+        <div class="col-md-6">
+            <div class="card-dashboard shadow-sm">
                 <i class="fi fi-rr-gift icon"></i>
                 <h3>Premios por Entregar</h3>
-                <p class="numero">3</p>
+                <p class="numero" id="premiosPendientes">0</p>
             </div>
         </div>
 
     </div>
 
-    <!-- GRÁFICA -->
-    <div class="grafica-card shadow-sm mt-5 p-4 animate__animated animate__fadeIn">
-        <h2>Actividad Reciente</h2>
-        <canvas id="grafica-dashboard"></canvas>
-    </div>
-
-    <!-- ACTIVIDAD -->
-    <div class="actividad-card shadow-sm mt-5 p-4 animate__animated animate__fadeIn">
-        <h2>Últimas Actividades</h2>
-
-        <ul class="actividad-lista mt-3">
-            <li><i class="fi fi-rr-check-circle"></i> 3 carritos validados hoy</li>
-            <li><i class="fi fi-rr-recycle"></i> Nuevos residuos añadidos por usuarios</li>
-            <li><i class="fi fi-rr-gift"></i> 2 premios entregados</li>
-            
-        </ul>
+    <!-- TABLA RESUMEN -->
+    <div class="actividad-card shadow-sm mt-5 p-4">
+        <h2>Resumen</h2>
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th>Residuos Validados</th>
+                    <th>Premios Entregados</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="residuosValidados">0</td>
+                    <td id="premiosEntregados">0</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
 </main>
 
-
-
-<!-- SCRIPTS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="./Asistente_Sidebar/Sidebar_Asistente.js"></script>
+<script src="Asistente_Dashboard.js"></script>
 
-<script>
-    // === GRÁFICA DEMO ===
-    const ctx = document.getElementById('grafica-dashboard');
-
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
-            datasets: [{
-                label: 'Actividad',
-                data: [3, 4, 6, 3, 5, 7],
-                borderWidth: 3
-            }]
-        }
-    });
-</script>
 
 </body>
 </html>

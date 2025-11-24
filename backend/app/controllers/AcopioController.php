@@ -34,8 +34,6 @@ class AcopioController {
     }
 
     // ================================
-    // 2. AGREGAR A CANASTA
-    // ================================
     public function agregarCanasta() {
 
         $data = json_decode(file_get_contents("php://input"), true);
@@ -66,9 +64,6 @@ class AcopioController {
         ]);
     }
 
-    // ================================
-    // 3. FINALIZAR ACOPIO
-    // ================================
     public function finalizarAcopio() {
 
         // Aceptar JSON también aquí
@@ -149,6 +144,7 @@ class AcopioController {
 
 public function actualizarEstado() {
     $data = json_decode(file_get_contents("php://input"), true);
+
     $id_acopio = $data['id_acopio'] ?? null;
     $nuevo_estado = $data['estado'] ?? null;
 
@@ -160,11 +156,9 @@ public function actualizarEstado() {
     $model = new Acopio();
     $res = $model->actualizarEstado($id_acopio, $nuevo_estado);
 
-    echo json_encode([
-        "status" => $res ? "success" : "error",
-        "message" => $res ? "Estado actualizado correctamente" : "No se pudo actualizar el estado"
-    ]);
+    echo json_encode($res);
 }
+
 
 
 public function eliminarItem() {
@@ -188,9 +182,6 @@ public function eliminarItem() {
     ]);
 }
 
-// ================================
-// 6. LISTAR HISTORIAL DE ACOPIO
-// ================================
 public function listarHistorial() {
 
     $id_estudiante = $_GET["id_estudiante"] ?? null;
@@ -211,6 +202,48 @@ public function listarHistorial() {
         "historial" => $historial
     ]);
 }
+
+public function listarAcopiosAsistente() {
+    $model = new Acopio();
+    $acopios = $model->listarAcopiosParaAsistente();
+
+    echo json_encode([
+        "status" => "success",
+        "acopios" => $acopios
+    ]);
+}
+
+public function listarAcopiosEstudiante() {
+    $id_estudiante = $_GET['id_estudiante'] ?? null;
+
+    if (!$id_estudiante) {
+        echo json_encode([
+            "status" => "error",
+            "message" => "ID estudiante requerido",
+            "acopios" => [] // siempre incluir
+        ]);
+        return;
+    }
+
+    try {
+        $model = new Acopio();
+        $acopios = $model->listarAcopios($id_estudiante);
+
+        echo json_encode([
+            "status" => "success",
+            "acopios" => $acopios ?? [] // nunca undefined
+        ]);
+    } catch (Exception $e) {
+        // captura cualquier error
+        echo json_encode([
+            "status" => "error",
+            "message" => "Error al listar acopios: " . $e->getMessage(),
+            "acopios" => []
+        ]);
+    }
+}
+
+
 
 
 }

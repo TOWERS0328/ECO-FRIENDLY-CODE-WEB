@@ -1,108 +1,158 @@
-/* ===============================  
-   CONFIGURACIÓN ASISTENTE  
-================================= */
-
+/* ====== ESTILOS GENERALES ====== */
 body {
-    background-color: #f7fdf8;
-    font-family: "Poppins", sans-serif;
+    background: #f7fdf8;
+    font-family: 'Poppins', sans-serif;
 }
 
 /* MAIN */
 .main {
-    margin-top: 6.5rem;
-    margin-left: 6rem;
-    padding: 2rem;
-    transition: margin-left .35s ease;
+    padding: 30px;
+    margin-left: 260px; 
 }
 
-.sidebar.expand ~ .main {
-    margin-left: 19rem;
-}
-
+/* ====== TÍTULOS ====== */
 .titulo {
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: #000704;
+    color: #000 !important;
+    font-size: 26px;
+    font-weight: 600;
 }
 
 .subtitulo {
     color: #555;
-    margin-top: 5px;
+    margin-top: 4px;
+    margin-bottom: 20px;
 }
 
-
-/* ===== TARJETAS DE SECCIÓN ===== */
-.config-card {
-    background: white;
-    border-radius: 16px;
-    padding: 25px;
-    border: 1px solid #e6e6e6;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+.titulo-seccion {
+    font-size: 20px;
+    font-weight: 600;
+    color: #00b050;
+    margin-bottom: 18px;
 }
 
-.config-card h2 {
-    font-size: 1.3rem;
-    color: #0f5132;
+.subtitulo-seccion {
+    margin: 12px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #444;
+}
+
+/* ====== TARJETA PRINCIPAL ====== */
+.configuracion-card {
+    background: #fff;
+    padding: 35px;
+    border-radius: 14px;
+    max-width: 800px;
+    margin: auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* ====== FOTO DE PERFIL ====== */
+.foto-contenedor {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;      
+    margin-bottom: 25px;
+}
+
+.foto-perfil {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+
+    /* igual que estudiante */
+    border: 4px solid #00b050;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+
+    transition: transform .2s ease;
+}
+
+.foto-perfil:hover {
+    transform: scale(1.03);
+}
+
+/* Botón cambiar foto */
+.btn-cambiar-foto {
+    margin-top: 12px;
+    background-color: #00b050;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-cambiar-foto:hover {
+    background-color: #00913d;
+}
+
+/* ====== FORMULARIO ====== */
+.formulario {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+}
+
+.campo label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.campo input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.campo input:focus {
+    border-color: #00b050;
+    box-shadow: 0 0 5px #00b05040;
+}
+
+.titulo-configuracion {
+    font-size: 2.3rem;
+    font-weight: 700;
+    color: #01180d; /* negro verdoso como en todas las páginas */
     margin-bottom: 10px;
+}
+
+
+/* ====== BOTÓN GUARDAR ====== */
+.btn-guardar {
+    grid-column: span 2;
+    padding: 12px;
+    background: #00b050;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
     font-weight: 600;
 }
 
-
-/* ===== PERFIL ===== */
-.profile-box {
-    text-align: center;
-    margin-top: 10px;
-    align-items: center;
+.btn-guardar:hover {
+    background: #00863a;
 }
 
-.profile-img {
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #00b050;
-    display: block;
-    overflow: hidden;
+/* ====== RESPONSIVE ====== */
+@media (max-width: 800px) {
+    .formulario {
+        grid-template-columns: 1fr;
+    }
 
-    /* 🔥 Esto centra la imagen */
-    margin: 0 auto 10px auto;
-}
-
-.profile-btn {
-    background: #00b050;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 10px;
-    cursor: pointer;
-    display: inline-block;
-    transition: .3s;
-}
-
-.profile-btn:hover {
-    background: #1d7a32;
-}
-
-
-
-
-
-/* ===== FORMULARIOS ===== */
-.form-config label {
-    margin-top: 15px;
-    font-weight: 500;
-}
-
-.form-config input {
-    border-radius: 10px;
-}
-
-
-/* RESPONSIVE */
-@media(max-width: 768px) {
     .main {
         margin-left: 0;
+        padding: 20px;
     }
 }
-
-
-
