@@ -33,13 +33,17 @@
 
 
     <label for="id">ID Estudiantil (Cédula)</label>
-    <input type="text" id="id" name="cedula" placeholder="Ej: 1002345678" required>
+    <input type="text" id="id" name="cedula" placeholder="Ej: 1002345678" oninput="this.value = this.value.replace(/[^0-9]/g, '')" pattern="[0-9]{8}" required>
 
     <label for="name">Nombre</label>
-    <input type="text" id="name" name="nombre" placeholder="Ingresa tu nombre" required>
+    <input type="text" id="name" name="nombre" placeholder="Ingresa tu nombre" required 
+    pattern="[A-Za-z ]+" 
+    oninput="this.value = this.value.replace(/[^A-Za-z ]/g, '');">
 
     <label for="lastname">Apellido</label>
-    <input type="text" id="lastname" name="apellido" placeholder="Ingresa tu apellido" required>
+    <input type="text" id="lastname" name="apellido" placeholder="Ingresa tu apellido" required 
+    pattern="[A-Za-z ]+" 
+    oninput="this.value = this.value.replace(/[^A-Za-z ]/g, '');">
 
     <label for="gender">Género</label>
     <select id="gender" name="genero" required>
