@@ -5,9 +5,6 @@ let residuos = [];
 // Utilidad corta
 function qs(id) { return document.getElementById(id); }
 
-// ==========================================================
-// CARGAR RESIDUOS
-// ==========================================================
 async function cargarResiduos() {
   try {
     const res = await fetch(API_BASE + "residuo.listar");
@@ -47,9 +44,6 @@ function renderTablaResiduos(lista) {
   }).join('');
 }
 
-// ==========================================================
-// MODALES
-// ==========================================================
 function abrirModalRegistrarResiduo() {
   qs("modalRegistrarResiduo").style.display = "flex";
   qs("formRegistrarResiduo").reset();
@@ -72,7 +66,6 @@ function abrirModalEditar(residuo) {
 
   modalEdit.style.display = "flex";
 
-  // NUEVO: mostrar código
   qs("editCodigo").value = residuo.codigo;
 
   qs("editId").value = residuo.id_residuo;
@@ -97,9 +90,7 @@ function cerrarModalEditarResiduo() {
   modalEdit.querySelector(".preview-container").innerHTML = "";
 }
 
-// ==========================================================
-// FORMULARIO REGISTRAR
-// ==========================================================
+
 qs("formRegistrarResiduo").addEventListener("submit", async e => {
   e.preventDefault();
   const formData = new FormData();
@@ -124,9 +115,6 @@ qs("formRegistrarResiduo").addEventListener("submit", async e => {
   }
 });
 
-// ==========================================================
-// FORMULARIO EDITAR
-// ==========================================================
 qs("formEditarResiduo").addEventListener("submit", async e => {
   e.preventDefault();
   const formData = new FormData();

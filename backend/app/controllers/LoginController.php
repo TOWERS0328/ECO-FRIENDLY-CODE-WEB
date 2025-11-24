@@ -28,19 +28,16 @@ class LoginController {
             return;
         }
 
-        // Verificar estado del usuario
         if ($user['estado'] != 1) {
             echo json_encode(["status" => "error", "message" => "Usuario inactivo"]);
             return;
         }
 
-        // Verificar contraseña
         if (!password_verify($contrasena, $user['password'])) {
             echo json_encode(["status" => "error", "message" => "Correo o contraseña incorrectos"]);
             return;
         }
 
-        // Obtener perfil según rol
         $perfil = null;
         switch ($user['rol']) {
             case 'estudiante':

@@ -3,9 +3,6 @@ require_once __DIR__ . '/../models/Acopio.php';
 
 class AcopioController {
 
-    // ================================
-    // 1. LISTAR CANASTA
-    // ================================
     public function listarCanasta() {
 
         // Aceptar JSON o GET

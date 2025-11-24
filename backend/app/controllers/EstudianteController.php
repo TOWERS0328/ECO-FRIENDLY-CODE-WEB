@@ -116,13 +116,11 @@ class EstudianteController
 
         $id_usuario = $est["id_usuarioE"];
 
-        /* ---------- VALIDAR CÉDULA ---------- */
         if ($estModel->cedulaExisteEnOtro($data["cedula"], $data["id_estudiante"])) {
             echo json_encode(["status" => "error", "field" => "cedula", "message" => "La cédula ya pertenece a otro estudiante"]);
             return;
         }
 
-        /* ---------- VALIDAR CORREO ---------- */
         if (isset($data["correo"]) && $data["correo"] !== "") {
             if (!filter_var($data["correo"], FILTER_VALIDATE_EMAIL)) {
                 echo json_encode(["status" => "error", "field" => "correo", "message" => "Correo no válido"]);

@@ -3,12 +3,8 @@ const API_BASE = "http://localhost/ECO-FRIENDLY-CODE-WEB/backend/index.php?route
 let estudiantes = [];
 let asistentes = [];
 
-// ---------- UTIL ----------
 function qs(id) { return document.getElementById(id); }
 
-// ===================== ESTUDIANTES =====================
-
-// ---------- CARGAR ESTUDIANTES ----------
 async function cargarEstudiantes() {
   try {
     const res = await fetch(API_BASE + "estudiante.listar");
@@ -57,7 +53,6 @@ function renderTablaEstudiantes(lista) {
 }
 
 
-// ---------- BUSCAR ESTUDIANTES ----------
 qs('btnBuscar')?.addEventListener('click', () => {
   const q = qs('searchId').value.trim().toLowerCase();
   if (!q) return renderTablaEstudiantes(estudiantes);
