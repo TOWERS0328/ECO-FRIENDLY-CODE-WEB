@@ -33,8 +33,8 @@ body {
   text-decoration: none;
 }
 
-.btn-reciclar:hover { 
-  background-color: #00913d; 
+.btn-reciclar:hover {
+  background-color: #00913d;
 }
 
 /* Cards estadísticas */
@@ -50,36 +50,53 @@ body {
   min-width: 150px;
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
   padding: 15px;
   text-align: center;
 }
 
-.card h4 { 
-  color: #666; 
-  font-weight: 500; 
-  font-size: 14px; 
+.card h4 {
+  color: #666;
+  font-weight: 500;
+  font-size: 14px;
 }
 
-.value { 
-  font-size: 22px; 
-  font-weight: bold; 
-  margin-top: 8px; 
+.value {
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 8px;
 }
 
-.green { color: #00b050; }
+.green {
+  color: #00b050;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Contenedor para impacto e historial lado a lado */
+.impacto-historial-container {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
 
 /* Impacto */
 .impacto {
+  flex: 2;
+  min-width: 300px;
   background-color: white;
   border-radius: 10px;
   padding: 15px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-  margin-bottom: 25px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
 }
 
-.impacto h3 { 
-  margin-bottom: 10px; 
+.impacto h3 {
+  margin-bottom: 10px;
 }
 
 /* Acciones */
@@ -100,24 +117,38 @@ body {
   text-decoration: none;
 }
 
-.blue { background-color: #007bff; }
-.orange { background-color: #ff7b00; }
-
-.blue:hover { 
-  background-color: #0065d4; 
+.blue {
+  background-color: #007bff;
 }
 
-.orange:hover { 
-  background-color: #e86d00; 
+.orange {
+  background-color: #ff7b00;
+}
+
+.blue:hover {
+  background-color: #0065d4;
+}
+
+.orange:hover {
+  background-color: #e86d00;
 }
 
 /* Tablas */
-.historial, .insignias {
+.historial {
+  flex: 1;
+  min-width: 280px;
   background-color: white;
   border-radius: 10px;
   padding: 15px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-  margin-bottom: 25px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+
+.insignias {
+  background-color: white;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
 }
 
 table {
@@ -127,11 +158,12 @@ table {
   font-size: 14px;
 }
 
-thead { 
-  background-color: #e6f5ea; 
+thead {
+  background-color: #e6f5ea;
 }
 
-th, td {
+th,
+td {
   padding: 10px;
   border-bottom: 1px solid #eee;
 }
@@ -169,7 +201,8 @@ footer {
     padding: 15px;
   }
 
-  .stats, .acciones-card {
+  .stats,
+  .acciones-card {
     flex-direction: column;
   }
 }

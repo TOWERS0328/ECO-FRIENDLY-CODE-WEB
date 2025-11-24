@@ -62,16 +62,7 @@
   max-width: 900px;
 
   /* Fondo efecto cristal + gradiente para legibilidad */
-  background: rgba(141, 136, 136, 0.45);
-  padding: 55px 75px;
-  border-radius: 28px;
-  backdrop-filter: blur(12px);
-
-  /* Borde suave elegante */
-  border: 2px solid rgba(255, 255, 255, 0.25);
-
-  /* Sombra nivel cinematográfico */
-  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.65);
+  padding: 0 auto;
 
   color: #ffffff;
   opacity: 0;

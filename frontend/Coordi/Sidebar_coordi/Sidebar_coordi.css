@@ -307,7 +307,7 @@ header {
 ============================================ */
 main {
   margin-top: 6.5rem;
-  margin-left: 6rem;
+  margin-left: 1rem;
   padding: 2rem;
   transition: margin-left 0.35s ease;
 }

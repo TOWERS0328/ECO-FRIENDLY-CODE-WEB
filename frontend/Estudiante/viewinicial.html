@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,65 +18,66 @@
 
 <body>
 
-    <!-- NAV + SIDEBAR NUEVO -->
-    <header>
-        <div class="left">
-            <div class="menu-container">
-                <div class="menu" id="menu">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-            </div>
-
-            <div class="brand">
-                <a href="/ECO-FRIENDLY-CODE-WEB/frontend/home/index.html" class="logo">
-                    <h1><span>ECO</span> FRIENDLY</h1>
-                    <p>CODE</p>
-                </a>
-            </div>
+  <!-- NAV + SIDEBAR NUEVO -->
+  <header>
+    <div class="left">
+      <div class="menu-container">
+        <div class="menu" id="menu">
+          <div></div>
+          <div></div>
+          <div></div>
         </div>
+      </div>
 
-        <div class="right">
-            <a href="recycle.html" class="btn-reciclar">
-                <i class="fi fi-rr-recycle"></i> Registrar Reciclaje
-            </a>
-
-            <img src="../Img/9434619.jpg" alt="img-user" class="user">
-        </div>
-    </header>
-
-    <!-- SIDEBAR -->
-    <div class="sidebar" id="sidebar">
-        <nav>
-            <ul>
-                <li><a href="viewinicial.html"><i class="fi fi-rr-home"></i><span class="text">Inicio</span></a></li>
-                <li><a href="redeemPoints.html"><i class="fi fi-rr-gift"></i><span class="text">Canjear Premios</span></a></li>
-                <li><a href="historial.html"><i class="fi fi-rr-time-past"></i><span class="text">Historial</span></a></li>
-                <li><a href="information.html"><i class="fi fi-rr-user"></i><span class="text">Perfil</span></a></li>
-            </ul>
-        </nav>
+      <div class="brand">
+        <a href="/ECO-FRIENDLY-CODE-WEB/frontend/home/index.html" class="logo">
+          <h1><span>ECO</span> FRIENDLY</h1>
+          <p>CODE</p>
+        </a>
+      </div>
     </div>
 
-    <!-- CONTENIDO PRINCIPAL -->
-    <main class="main-content">
+    <div class="right">
+      <a href="recycle.html" class="btn-reciclar">
+        <i class="fi fi-rr-recycle"></i> Registrar Reciclaje
+      </a>
 
-      <!-- Métricas -->
-      <section class="stats">
-        <div class="card">
-          <h4><i class="fi fi-rr-coins"></i> Tus Puntos</h4>
-          <p class="value green">0</p>
-        </div>
-        <div class="card">
-          <h4><i class="fi fi-rr-weight"></i> Total Reciclado (Kg)</h4>
-          <p class="value">0</p>
-        </div>
-        <div class="card">
-          <h4><i class="fi fi-rr-badge"></i> Nivel de Reciclador</h4>
-          <p class="value green">Principiante</p>
-        </div>
-      </section>
+      <img src="../Img/9434619.jpg" alt="img-user" class="user">
+    </div>
+  </header>
 
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <nav>
+      <ul>
+        <li><a href="viewinicial.html"><i class="fi fi-rr-home"></i><span class="text">Inicio</span></a></li>
+        <li><a href="redeemPoints.html"><i class="fi fi-rr-gift"></i><span class="text">Canjear Premios</span></a></li>
+        <li><a href="historial.html"><i class="fi fi-rr-time-past"></i><span class="text">Historial</span></a></li>
+        <li><a href="information.html"><i class="fi fi-rr-user"></i><span class="text">Perfil</span></a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main-content">
+
+    <!-- Métricas -->
+    <section class="stats">
+      <div class="card">
+        <h4><i class="fi fi-rr-coins"></i> Tus Puntos</h4>
+        <p class="value green">0</p>
+      </div>
+      <div class="card">
+        <h4><i class="fi fi-rr-weight"></i> Total Reciclado (Kg)</h4>
+        <p class="value">0</p>
+      </div>
+      <div class="card">
+        <h4><i class="fi fi-rr-badge"></i> Nivel de Reciclador</h4>
+        <p class="value green">Principiante</p>
+      </div>
+    </section>
+    <!-- Contenedor para Impacto e Historial lado a lado -->
+    <div class="impacto-historial-container">
       <!-- Impacto -->
       <section class="impacto">
         <h3><i class="fi fi-rr-chart-histogram"></i> Tu Impacto (Últimos 6 meses)</h3>
@@ -94,26 +96,31 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td colspan="3" style="text-align:center;">Sin registros</td></tr>
+            <tr>
+              <td colspan="3" style="text-align:center;">Sin registros</td>
+            </tr>
           </tbody>
         </table>
       </section>
+    </div>
 
-      <!-- Insignias -->
-      <section class="insignias">
-        <h3><i class="fi fi-rr-star"></i> Insignias Obtenidas</h3>
-        <div class="badges">
-          <div class="badge"><i class="fi fi-rr-seedling"></i> <p>Nuevo Recolector</p></div>
+    <!-- Insignias -->
+    <section class="insignias">
+      <h3><i class="fi fi-rr-star"></i> Insignias Obtenidas</h3>
+      <div class="badges">
+        <div class="badge"><i class="fi fi-rr-seedling"></i>
+          <p>Nuevo Recolector</p>
         </div>
-      </section>
+      </div>
+    </section>
 
-    </main>
+  </main>
 
-    <!-- MODAL DE PREVISIÓN DE IMAGEN -->
-<div id="preview-modal" class="preview-modal">
+  <!-- MODAL DE PREVISIÓN DE IMAGEN -->
+  <div id="preview-modal" class="preview-modal">
     <span class="close-modal">&times;</span>
     <img class="preview-content" id="preview-img">
-</div>
+  </div>
 
   <footer>
     © 2025 Eco Friendly Code. Todos los derechos reservados.
@@ -155,4 +162,5 @@
   </script>
 
 </body>
+
 </html>
